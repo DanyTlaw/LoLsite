@@ -20,6 +20,40 @@
 	background-color: #101b27;
 	margin-right: 10%;
 	margin-left: 10%;
-	height: 1000px; /* noch anpassen */
+	height: auto;
 }
 
+.navstyle {
+
+	background-color: #101b27;
+	
+}
+
+.navbar-default .navbar-nav li a {
+			color: #FFFFFF;
+			font-size: 15px;
+			font-weight: 400;
+			font-family: bariol, sans-serif;
+		
+
+			
+}
+
+.navbar-default .navbar-nav li a:hover {
+			color: #5A95E5;
+
+
+}
+
+.navbar-btn{
+
+		margin-right: 5px;
+}
+
+.navbar {
+	
+
+	.navbar-nav{
+		display: inline;
+	}
+}
