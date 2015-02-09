@@ -12,6 +12,10 @@ class ChampionsController < ApplicationController
   def show
   end
 
+  def ahri
+    @champion = Champion.find_by(name: "ahri")
+  end
+
   # GET /champions/new
   def new
     @champion = Champion.new

@@ -14,3 +14,33 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+//Function for chaning image borders
+$(function () {
+
+	var guide = $('input[id=guide]');
+	var matchup = $('input[id=matchup]');
+
+  $(".port").click(function() {
+  	
+  	//Code for color the border guides
+  	if (guide.filter(':checked').val()){
+  		if($(this).hasClass('border-orange')){
+  			$(this).removeClass("border-orange");
+  			//here comes a link
+  		}else{
+  			$(this).addClass("border-orange");
+  		}
+  		
+  	}
+  	//Code for color the border matchups
+  	if (matchup.filter(':checked').val()){
+		if($(this).hasClass('border-red')){
+  			$(this).removeClass("border-red");
+  		}else{
+  			$(this).addClass("border-red");
+  		}	
+  	}     
+  });
+});
