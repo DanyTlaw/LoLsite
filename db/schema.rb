@@ -11,136 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217082916) do
+ActiveRecord::Schema.define(version: 20150222200658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "aatrox_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "ahri_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "akali_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "alistar_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "ammumu_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "anivia_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "annie_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "ashe_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "azir_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "blitzcrank_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "brand_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "braum_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "caitlyn_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
-
-  create_table "cassiopeia_counters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "champ_name"
-    t.integer  "champ_id"
-    t.integer  "strong"
-    t.integer  "weak"
-  end
 
   create_table "champions", force: :cascade do |t|
     t.string   "name"
@@ -148,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150217082916) do
     t.text     "quickinfo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "portrait"
   end
 
   create_table "counters", force: :cascade do |t|
@@ -156,8 +31,8 @@ ActiveRecord::Schema.define(version: 20150217082916) do
     t.string   "champ_name"
     t.integer  "champ_id"
     t.string   "champ_gegner"
-    t.string   "strong"
-    t.string   "weak"
+    t.integer  "strong"
+    t.integer  "weak"
   end
 
   create_table "users", force: :cascade do |t|

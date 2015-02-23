@@ -1,5 +1,5 @@
 class ChampionsController < ApplicationController
-  before_action :set_champion, only: [:show, :edit, :update, :destroy]
+  before_action  only: [:show, :edit, :update, :destroy]
 
   # GET /champions
   # GET /champions.json
@@ -9,11 +9,8 @@ class ChampionsController < ApplicationController
 
   # GET /champions/1
   # GET /champions/1.json
-  def show
-  end
-
-  def ahri
-    @champion = Champion.find_by(name: "ahri")
+  def show 
+    @champion = Champion.find(params[:id])
   end
 
   # GET /champions/new
@@ -66,13 +63,8 @@ class ChampionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_champion
-      @champion = Champion.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def champion_params
-      params.require(:champion).permit(:name, :lane, :quickinfo)
+      params.require(:champion).permit(:name, :lane, :quickinfo, :portrait)
     end
 end

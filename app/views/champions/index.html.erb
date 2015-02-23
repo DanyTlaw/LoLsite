@@ -1,31 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Champions</h1>
+<div class="col-md-8" style="margin-bottom:100px">
+  
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Lane</th>
-      <th>Quickinfo</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
     <% @champions.each do |champion| %>
-      <tr>
-        <td><%= champion.name %></td>
-        <td><%= champion.lane %></td>
-        <td><%= champion.quickinfo %></td>
-        <td><%= link_to 'Show', champion %></td>
-        <td><%= link_to 'Edit', edit_champion_path(champion) %></td>
-        <td><%= link_to 'Destroy', champion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <div class="portrait">
+          <%= link_to image_tag(champion.portrait, :size => '100x100'), champion%>        
+        </div>
     <% end %>
-  </tbody>
-</table>
+</div>
+
+<div class="col-md-4">
+  
+
+  
+</div>
 
 <br>
 
-<%= link_to 'New Champion', new_champion_path %>
