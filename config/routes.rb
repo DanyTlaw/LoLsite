@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
  
+  resources :counters
   resources :champions
 
   root 'statics#home'
