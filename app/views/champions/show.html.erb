@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-8">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @champion.name %>
-</p>
+	<p>
+	  <strong>Name:</strong>
+	  <%= @champion.name %>
+	</p>
 
-<p>
-  <strong>Lane:</strong>
-  <%= @champion.lane %>
-</p>
+	<p>
+	  <strong>Lane:</strong>
+	  <%= @champion.lane %>
+	</p>
 
-<p>
-  <strong>Quickinfo:</strong>
-  <%= @champion.quickinfo %>
-</p>
-
-<%= link_to 'Edit', edit_champion_path(@champion) %> |
-<%= link_to 'Back', champions_path %>
+	<p>
+	  <strong>Quickinfo:</strong>
+	  <%= @champion.quickinfo %>
+	</p>
+</div>
+<div class="col-md-4">
+	<%= render 'counters/addCounter' %>
+</div>

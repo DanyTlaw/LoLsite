@@ -11,6 +11,7 @@ class ChampionsController < ApplicationController
   # GET /champions/1.json
   def show 
     @champion = Champion.find(params[:id])
+    @counter = Counter.new
   end
 
   # GET /champions/new

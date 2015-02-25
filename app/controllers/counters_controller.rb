@@ -7,6 +7,10 @@ class CountersController < ApplicationController
     @counters = Counter.all
   end
 
+  def _addCounter
+    @counter = Counter.new
+  end
+
   # GET /counters/1
   # GET /counters/1.json
   def show
@@ -26,6 +30,7 @@ class CountersController < ApplicationController
   # POST /counters.json
   def create
     @counter = Counter.new(counter_params)
+    # @counter.champ_name =
     @counter.strong = (@counter.strong ? 1 : 0)
     @counter.weak = (@counter.weak ? 0 : 1)
 
