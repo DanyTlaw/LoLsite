@@ -1,17 +1,17 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: lol_dev
+  database: lolSite_development
   pool: 5
-  username: postgres
-  password: postgres
+  username: dany
+  password: pp34wf
   host: localhost
   
 test:
   adapter: postgresql
   encoding: unicode
-  database: lol_test
+  database: lolSite_test
   pool: 5
-  username: postgres
-  password: postgres
+  username: dany  
+  password: pp34wf
   host: localhost
