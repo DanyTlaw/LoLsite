@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
- 
-  resources :counters
-  resources :champions
+  resources :champions do
+    resources :counters
+  end
 
   root 'champions#index'
 

@@ -1,41 +1,37 @@
 class CountersController < ApplicationController
   before_action :set_counter, only: [:show, :edit, :update, :destroy]
-
+  before_filter :load_parent
   # GET /counters
   # GET /counters.json
   def index
-    @counters = Counter.all
-  end
-
-  def _addCounter
-    @counter = Counter.new
+    @counters = @champion.counters.all
   end
 
   # GET /counters/1
   # GET /counters/1.json
   def show
+    @counter = @champion.counters.find(params[:champion_id])
   end
 
   # GET /counters/new
   def new
-    @counter = Counter.new
+    @counter = @champion.counters.build
   end
 
   # GET /counters/1/edit
   def edit
-    @counter = Counter.find(6)
+    @counter = @champion.counters.find(params[:champion_id])
   end
 
   # POST /counters
   # POST /counters.json
   def create
-    @counter = Counter.new(counter_params)
-    # @counter.champ_name =
+    @counter = @champion.counters.new(counter_params)
     @counter.strong = (@counter.strong ? 1 : 0)
     @counter.weak = (@counter.weak ? 0 : 1)
-
+    @counter.champ_name = @champion.name
       if @counter.save
-        redirect_to(:action => 'index')
+        redirect_to(:back)
       else
         render ('new')
       end
@@ -45,6 +41,9 @@ class CountersController < ApplicationController
   # PATCH/PUT /counters/1
   # PATCH/PUT /counters/1.json
   def update
+
+    @counter = @champion.counters.find(params[:id])
+
     respond_to do |format|
       if @counter.update(counter_params)
         format.html { redirect_to @counter, notice: 'Counter was successfully updated.' }
@@ -59,6 +58,7 @@ class CountersController < ApplicationController
   # DELETE /counters/1
   # DELETE /counters/1.json
   def destroy
+    @counter = @champion.counters.find(params[:id])
     @counter.destroy
     respond_to do |format|
       format.html { redirect_to counters_url, notice: 'Counter was successfully destroyed.' }
@@ -76,4 +76,9 @@ class CountersController < ApplicationController
     def counter_params
       params.require(:counter).permit(:champ_name, :champ_gegner, :strong, :weak)
     end
+
+    def load_parent
+      @champion = Champion.find(params[:champion_id])
+    end
+
 end

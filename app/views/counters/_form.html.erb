@@ -1,4 +1,4 @@
-<%= form_for(@counter) do |f| %>
+<%= form_for([@champion, @counter]) do |f| %>
   <% if @counter.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@counter.errors.count, "error") %> prohibited this counter from being saved:</h2>
