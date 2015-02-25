@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   resources :counters
   resources :champions
 
-  root 'statics#home'
-
-  get '/ahri', to: 'champions#ahri'
+  root 'champions#index'
 
   devise_for :users
   
