@@ -27,15 +27,23 @@ class CountersController < ApplicationController
   # POST /counters.json
   def create
     @counter = @champion.counters.new(counter_params)
-    @counter.strong = (@counter.strong ? 1 : 0)
-    @counter.weak = (@counter.weak ? 0 : 1)
-    @counter.champ_name = @champion.name
-      if @counter.save
-        redirect_to(:back)
-      else
-        render ('new')
-      end
-    
+  #  all_champs = Counter.where(champ_name: @champion.name)
+  #  if Counter.exists?(champ_name: @champion.name, champ_gegner: @counter.champ_gegner)
+  #      @counter = Counter.find_by(champ_gegner: @counter.champ_gegner)
+  #      @counter.increment!(:weak)
+  #    
+  #  else
+      @counter.strong = (@counter.strong ? 1 : 0)
+      @counter.weak = (@counter.weak ? 0 : 1)
+      @counter.champ_name = @champion.name
+
+  #  end
+
+    if @counter.save
+      redirect_to(:back)
+    else
+      render ('new')
+    end
   end
 
   # PATCH/PUT /counters/1

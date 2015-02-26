@@ -9,8 +9,8 @@
 #Champions
 
 Champion.create(name: 'Aatrox', lane: 'top, jungle', quickinfo: 'Has a passiv to revive himself and strongly depends on autohits', portrait: 'Aatrox_Square_0.png')
-Champion.create(name: 'ahri',lane: 'mid', quickinfo: 'A strong midlaner with: Poke, escape, cc and roam potential', portrait: 'Ahri_Square_0.png')
-Champion.create(name: 'akali',lane: 'mid/top', quickinfo: 'Assasin', portrait: 'Akali_Square_0.png')
+Champion.create(name: 'Ahri',lane: 'mid', quickinfo: 'A strong midlaner with: Poke, escape, cc and roam potential', portrait: 'Ahri_Square_0.png')
+Champion.create(name: 'Akali',lane: 'mid/top', quickinfo: 'Assasin', portrait: 'Akali_Square_0.png')
 Champion.create(name: 'Alistar',lane: 'sup/jungle', quickinfo: 'Tank and CC heavy', portrait: 'Alistar_Square_0.png')
 Champion.create(name: 'Amumu',lane: 'jungle', quickinfo: 'Great AOE CC and Tanky', portrait: 'Amumu_Square_0.png')
 Champion.create(name: 'Anivia',lane: 'mid', quickinfo: 'Nice Burst and survive passiv', portrait: 'Anivia_Square_0.png')
