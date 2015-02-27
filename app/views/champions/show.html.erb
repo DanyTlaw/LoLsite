@@ -18,20 +18,5 @@
 </div>
 <div class="col-md-4">
 	<%= render 'counters/addCounter' %><br>
-	<% @topweak = topweak(@champion.name) %>
-	<% @topweak.each do |weak| %>
-		<% @theone = oneChamp(weak.champ_gegner) %>
-			<div class="counter">
-				
-				<p style="float:left; margin-right: 5px;"><%= image_tag(@theone.portrait,:size => "50x50") %></p>
-				<h5><%= weak.champ_gegner %></h5>
-				<button class="btn btn-success btn-xs" type="button">
-					Strong <span class="badge"><%= weak.strong %></span>
-				</button>
-				<button class="btn btn-danger btn-xs" type="button">
-					Weak <span class="badge"><%= weak.weak %></span>
-				</button>	
-			</div>
-
-	<% end %>
+	<%= render 'counters/weakStrong' %><br>
 </div>
