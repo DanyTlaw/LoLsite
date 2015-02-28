@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: lolSite_development
+  database: LoLSite_development
   pool: 5
   username: dany
   password: pp34wf
@@ -10,7 +10,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: lolSite_test
+  database: LoLSite_test
   pool: 5
   username: dany  
   password: pp34wf

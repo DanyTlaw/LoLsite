@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   root 'champions#index'
 
   devise_for :users
-  
+                                                                                                                                
 end
