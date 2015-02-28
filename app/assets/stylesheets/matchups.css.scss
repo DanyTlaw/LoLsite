@@ -1,0 +1,75 @@
+// Place all the styles related to the matchups controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.versusField{
+
+	width: 48%;
+	height: 250px;
+
+	border-color: black;
+	border: solid;
+	margin-right: 1%;
+	margin-left: 1%;
+	float: left;
+
+}
+
+.vsTextField{
+	clear: left;
+	width:98%;
+	margin-left: 1%;
+	margin-right: 1%;
+	height: 70px;
+
+}
+
+.vsBtnField{
+	
+	width: 98%;
+	margin-left: 1%;
+	margin-right: 1%;
+	height: 100px;
+	padding-top: 25px;
+	margin-bottom: 50px;
+	button
+		{
+		    left:50%;
+		    display:block;
+			margin: 0 auto;
+		}
+
+}
+
+#you{
+	font-size: 20px;
+	color: black;
+	width: 40%;
+	padding-top: 25px;
+	float: left;
+	text-align: center;
+}
+
+#vs{
+	font-size: 20px;
+	font-weight: bold;
+	color: orange;
+	width: 20%;
+	padding-top: 25px;
+	float: left;
+	text-align: center;
+}
+
+#opponent{
+	font-size: 20px;
+	color: black;
+	width: 40%;
+	padding-top: 25px;
+	float: left;
+	text-align: center;
+
+
+}
+.splash{
+	display:none;
+}

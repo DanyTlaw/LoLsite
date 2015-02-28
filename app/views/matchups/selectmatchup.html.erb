@@ -1,0 +1,48 @@
+<div class="col-md-4" id="row">
+	<% @champions.each do |champion|%>
+		<%= image_tag(champion.portrait, :id => champion.id,:size => '40x40', :style => 'margin-bottom:3px', :class => 'left')%>
+	<% end %>
+</div>
+<div class="col-md-4">
+	<div class="versusField" id="vsFieldLeft">
+		<% @champions.each do |champion|%>
+			<div id="left" class="<%= champion.id %>", style="display:none;">
+				<%= image_tag(champion.portrait, :size => '130x100', :id => champion.id)%>
+			</div>
+		<% end %>
+
+	</div>
+	<div class="versusField" id="vsFiedRight" >
+
+		<% @champions.each do |champion|%>
+		<div id="right" class="<%= champion.id %>"style="display:none;">
+				<%= image_tag(champion.portrait, :size => '130x100',:id => champion.id)%>
+		</div>
+		<% end %>
+		
+	</div>
+	<div class="vsTextField">
+		<div id="you">
+			<% @champions.each do |champion| %>
+				<div id="<%= champion.id %>" style="display:none;"><%= champion.name %></div>
+			<% end %>
+			<div id="default">YOU</div>
+		</div>
+		
+		<div id="vs">VS</div>
+		<div id="opponent">
+			<% @champions.each do |champion| %>
+				<div id="<%= champion.id %>" style="display:none;"><%= champion.name %> </div>
+			<% end %>
+			<div id="default">OPPONENT</div>
+		</div>
+	</div>
+	<div class="vsBtnField">
+		<button class="btn-warning btn-lg" style="display:block;">GO MATCHUP</button>
+	</div>
+</div>
+<div class="col-md-4" id="row">
+	<% @champions.each do |champion|%>
+		<%= image_tag(champion.portrait, :id => champion.id, :size => '40x40', :style => 'margin-bottom:3px', :class => 'right')%>
+	<% end %>
+</div>

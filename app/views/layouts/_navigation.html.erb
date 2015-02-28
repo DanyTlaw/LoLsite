@@ -4,8 +4,7 @@
       <ul class="nav navbar-nav navbar-left" style="margin-left:10%">
         <li><%= image_tag('logo.png') %></li>
         <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Guides", root_path %></li>
-        <li><%= link_to "Matchups", root_path %></li>
+        <li><%= link_to "Matchups", selectmatchup_path %></li>
         <li>
         <div class="navbar-right">
         <% if user_signed_in? %>
