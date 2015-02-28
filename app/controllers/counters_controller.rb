@@ -1,5 +1,6 @@
 class CountersController < ApplicationController
-  before_action :set_counter, only: [:show, :edit, :update, :destroy]
+  before_action :autheticate_user!
+  before_action :set_counter, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_filter :load_parent
   # GET /counters
   # GET /counters.json
@@ -33,8 +34,8 @@ class CountersController < ApplicationController
   #      @counter.increment!(:weak)
   #    
   #  else
-      @counter.strong = (@counter.strong ? 1 : 0)
-      @counter.weak = (@counter.weak ? 0 : 1)
+  #    @counter.strong = (@counter.strong ? 1 : 0)
+  # @counter.weak = (@counter.weak ? 0 : 1)
       @counter.champ_name = @champion.name
 
   #  end
@@ -72,6 +73,18 @@ class CountersController < ApplicationController
       format.html { redirect_to counters_url, notice: 'Counter was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  #upvote_from user
+  #downvote_from user
+  def upvote
+    @counter.upvote_from current_user
+    redirect_to(:back)
+  end
+
+  def downvote
+    @counter.downvote_from current_user
+    redirect_to(:back)
   end
 
   private
