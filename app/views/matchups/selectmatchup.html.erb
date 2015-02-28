@@ -7,7 +7,7 @@
 	<div class="versusField" id="vsFieldLeft">
 		<% @champions.each do |champion|%>
 			<div id="left" class="<%= champion.id %>", style="display:none;">
-				<%= image_tag(champion.portrait, :size => '130x100', :id => champion.id)%>
+				<%= image_tag(champion.splashart, :size => '145x245', :id => champion.id)%>
 			</div>
 		<% end %>
 
@@ -16,7 +16,7 @@
 
 		<% @champions.each do |champion|%>
 		<div id="right" class="<%= champion.id %>"style="display:none;">
-				<%= image_tag(champion.portrait, :size => '130x100',:id => champion.id)%>
+				<%= image_tag(champion.splashart, :size => '145x245',:id => champion.id)%>
 		</div>
 		<% end %>
 		
