@@ -8,7 +8,6 @@
 
 #Champions
 
-<<<<<<< HEAD
 Champion.create(name: 'Aatrox', lane: 'top, jungle', quickinfo: 'Has a passiv to revive himself and strongly depends on autohits', portrait: 'Portrait/Aatrox_Square_0.png', splashart:'Splashart/Aatrox_0.jpg', splashartBig:'Splashart/Aatrox_Splash_0.jpg')
 Champion.create(name: 'Ahri',lane: 'mid', quickinfo: 'A strong midlaner with: Poke, escape, cc and roam potential', portrait: 'Portrait/Ahri_Square_0.png', splashart:'Splashart/Ahri_0.jpg', splashartBig:'Splashart/Ahri_Splash_0.jpg')
 Champion.create(name: 'Akali',lane: 'mid/top', quickinfo: 'Assasin', portrait: 'Portrait/Akali_Square_0.png', splashart:'Splashart/Akali_0.jpg', splashartBig:'Splashart/Akali_Splash_0.jpg')
@@ -131,16 +130,3 @@ Champion.create(name: 'Zed', lane:'mid', quickinfo:'AD assassin with high mobili
 Champion.create(name: 'Ziggs', lane:'mid', quickinfo:'Long range ap mage with strong zone control and poke. Global AOE ultimate to blow up entire teams anywhere on the map', portrait:'Portrait/Ziggs_Square_0.png', splashart:'Splashart/Ziggs_0.jpg', splashartBig:'Splashart/Ziggs_Splash_0.jpg')
 Champion.create(name: 'Zilean', lane:'support', quickinfo:'Support with strong utility, can seepd up allies, slow/stun enemies and revive his allies with his ultimate', portrait:'Portrait/Zilean_Square_0.png', splashart:'Splashart/Zilean_0.jpg', splashartBig:'Splashart/Zilean_Splash_0.jpg')
 Champion.create(name: 'Zyra', lane:'support/mid', quickinfo:'Ap mage that summons plants to fight for her. Can root enemies in place and has an ulimate to knock up multiple enemies in an area which makes for a strong support', portrait:'Portrait/Zyra_Square_0.png', splashart:'Splashart/Zyra_0.jpg', splashartBig:'Splashart/Zyra_Splash_0.jpg' )
-=======
-Champion.create(name: 'Aatrox', lane: 'top, jungle', quickinfo: 'Has a passiv to revive himself and strongly depends on autohits', portrait: 'Aatrox_Square_0.png')
-Champion.create(name: 'Ahri',lane: 'mid', quickinfo: 'A strong midlaner with: Poke, escape, cc and roam potential', portrait: 'Ahri_Square_0.png')
-Champion.create(name: 'Akali',lane: 'mid/top', quickinfo: 'Assasin', portrait: 'Akali_Square_0.png')
-Champion.create(name: 'Alistar',lane: 'sup/jungle', quickinfo: 'Tank and CC heavy', portrait: 'Alistar_Square_0.png')
-Champion.create(name: 'Amumu',lane: 'jungle', quickinfo: 'Great AOE CC and Tanky', portrait: 'Amumu_Square_0.png')
-Champion.create(name: 'Anivia',lane: 'mid', quickinfo: 'Nice Burst and survive passiv', portrait: 'Anivia_Square_0.png')
-Champion.create(name: 'Annie',lane: 'mid/sup', quickinfo: 'Insane Burst and nice cc mechanics. Strong initator', portrait: 'Annie_Square_0.png')
-Champion.create(name: 'Ashe',lane: 'adc', quickinfo: 'Global ult, great kite potential', portrait: 'Ashe_Square_0.png')
-Champion.create(name: 'Azir',lane: 'mid', quickinfo: 'Unique Mage with high dmg during all game phases', portrait: 'Azir_Square_0.png')
-Champion.create(name: 'Blitzcrank',lane: 'sup', quickinfo: 'CC heavy support with a grap', portrait: 'Blitzcrank_Square_0.png')
-
->>>>>>> master
