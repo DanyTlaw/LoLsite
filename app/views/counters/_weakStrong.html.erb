@@ -1,0 +1,20 @@
+<% @topweak = topweak(@champion.name) %>
+<% @topweak.each do |weak| %>
+	<% @theone = oneChamp(weak.champ_gegner) %>
+		<div class="counter">
+			
+			<p style="float:left; margin-right: 5px;"><%= image_tag(@theone.portrait,:size => "50x50") %></p>
+			<h5><%= weak.champ_gegner %></h5>
+			<%= link_to like_champion_counter_path(weak.champion_id, weak.id), method: :put do %>
+				<button class="btn btn-success btn-xs" type="button">
+					Strong <span class="badge"><%= weak.get_upvotes.size %></span>
+				</button>
+			<% end %>
+			<%= link_to unlike_champion_counter_path(weak.champion_id, weak.id), method: :put do %>
+				<button class="btn btn-danger btn-xs" type="button">
+					Weak <span class="badge"><%= weak.get_downvotes.size %></span>
+				</button>
+			<% end %>
+		</div>
+
+<% end %>
