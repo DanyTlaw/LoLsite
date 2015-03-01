@@ -1,15 +1,17 @@
 $(document).ready(function(){
+
 	var id;
 	var tmpid;
 	var side;
 	var clickedLeft = false;
 	var clickedRight = false;
+
 	//Funktion Hover welche zwei Funktionen enthält (mouseenter, mouseleave)
 	$('#row > img').hover(
 		//Mousenter function
 		function(){
 		//Speichert die klasse vom mouse enter event in die variabe Seite (left or right)
-		side = $(this).attr("class");
+		side = $(this).attr("class").split(' ')[0];
 		//Speichert die id vom mouse entered in diese variable
 		id = $(this).attr("id");
 			//Wenn links noch nicht geklickt wurde und man auf der linken seite ist
@@ -31,7 +33,7 @@ $(document).ready(function(){
 		//Mouseleave Funktion
 		function(){
 		//Speichert die klasse vom mouse leave event in die variabe Seite (left or right)	
-		side = $(this).attr("class");
+		side = $(this).attr("class").split(' ')[0];
 			//Wenn links noch nicht geklickt wurde und man auf der linken seite ist
 			if(!clickedLeft && side =="left"){
 					//Entferne Das Bild auf der linken seite mit der richtigen ID an
@@ -113,6 +115,52 @@ $(document).ready(function(){
 					$('div#'+"right"+'.'+id).css("display","block");					
 				}
 			}
+		});
+		//Funktion welche die Bilder je nach ausgewähltem button sortiert.
+		//Button click funktion zeigt alle mid laner an
+		$('#mid').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die midlaner
+			$('.left').not(".mid").hide();
+			$('.right').not(".mid").hide();
+		});
+		//Button click funktion zeigt alle top laner an
+		$('#top').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die toplaner
+			$('.left').not(".top").hide();
+			$('.right').not(".top").hide();
+		});
+		//Button click funktion zeigt alle adc laner an
+		$('#adc').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die adc
+			$('.left').not(".adc").hide();
+			$('.right').not(".adc").hide();
+		});
+		//Button click funktion zeigt alle support laner an
+		$('#sup').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die supports
+			$('.left').not(".sup").hide();
+			$('.right').not(".sup").hide();
+		});
+		//Button click funktion zeigt alle jungler an
+		$('#jungle').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die jungler
+			$('.left').not(".jungle").hide();
+			$('.right').not(".jungle").hide();
 		});
 
 });

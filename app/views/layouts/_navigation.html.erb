@@ -9,12 +9,12 @@
         <div class="navbar-right">
         <% if user_signed_in? %>
         	<%= link_to destroy_user_session_path, method: :delete do %>
-        		<button type="button" style="margin-top:10px" class="btn btn-primary ">Log Out</button>
+        		<button type="button" style="margin-top:10px" class="btn btn-warning ">Log Out</button>
         	<% end %>
         	<div class="navbar-right navbar-brand" >Signed in as: <%= current_user.email %></div>
         <% else %>
         	<%= link_to new_user_session_path do %>
-       			<button type="button" style="margin-top:10px" class="btn btn-primary ">Log In</button>
+       			<button type="button" style="margin-top:10px" class="btn btn-warning ">Log In</button>
   			<% end %>
   		<% end %>
   		</div>
