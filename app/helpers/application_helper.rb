@@ -7,9 +7,7 @@ module ApplicationHelper
 	end
 
 	def oneChamp(champname)
-		puts champname
 		@champs = Champion.find_by_name(champname)
-		puts @champs.name
 		return @champs
 	end
 

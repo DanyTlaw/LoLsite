@@ -5,8 +5,6 @@ class ChampionsController < ApplicationController
   # GET /champions.json
   def index
     @champions = Champion.all
-    @string = "hallo"
-
   end
 
   # GET /champions/1
