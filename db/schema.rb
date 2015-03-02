@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227193651) do
+ActiveRecord::Schema.define(version: 20150302182559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,13 +36,26 @@ ActiveRecord::Schema.define(version: 20150227193651) do
   end
 
   create_table "matchups", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "champ_eins"
     t.string   "champ_zwei"
     t.integer  "champ_eins_id"
     t.integer  "champ_zwei_id"
     t.integer  "user_id"
+    t.text     "runes"
+    t.text     "masteries"
+    t.text     "summoners"
+    t.text     "early_laning"
+    t.text     "mid_laning"
+    t.text     "late_laning"
+    t.text     "general_role"
+    t.text     "start_items"
+    t.text     "final_build"
+    t.text     "early_core_items"
+    t.text     "mid_core_items"
+    t.text     "situational_items"
+    t.text     "trinkets"
   end
 
   create_table "users", force: :cascade do |t|
