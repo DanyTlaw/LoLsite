@@ -29,8 +29,6 @@ class CountersController < ApplicationController
   
     @counter = @champion.counters.new(counter_params)
     @counter.champ_name = @champion.name
-    puts "***************************************************************************************************"
-    puts current_user
     @counter.current_user = current_user.id
     if @counter.save
       redirect_to(:back)
