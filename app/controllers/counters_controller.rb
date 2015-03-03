@@ -29,20 +29,13 @@ class CountersController < ApplicationController
   
     @counter = @champion.counters.new(counter_params)
     @counter.champ_name = @champion.name
-    #Abfrage ob es diesen Eintrag schon gibt
-    if Counter.exists?(champ_name: @counter.champ_name, champ_gegner: @counter.champ_gegner)
-      puts "---------------------------------------------existiert---------------------------------------"
-      #hier vom controller downvoten!!!!
-      
-    #Überprüft ob der champion sich selber added
-    elsif @counter.champ_name == @counter.champ_gegner
-
+    puts "***************************************************************************************************"
+    puts current_user
+    @counter.current_user = current_user.id
+    if @counter.save
+      redirect_to(:back)
     else
-      if @counter.save
-        redirect_to(:back)
-      else
-        render ('new')
-      end
+      redirect_to(:back)
     end
   end
 
@@ -94,7 +87,7 @@ class CountersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def counter_params
-      params.require(:counter).permit(:champ_name, :champ_gegner)
+      params.require(:counter).permit(:champ_name, :champ_gegner, :current_user)
     end
 
     def load_parent
