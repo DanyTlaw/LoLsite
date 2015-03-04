@@ -19,7 +19,6 @@ class MatchupsController < ApplicationController
 
   def selectmatchup
     @champions = Champion.all
-    
   end
   
   # GET /matchups/1/edit
