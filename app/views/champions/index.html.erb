@@ -9,6 +9,10 @@
           <%= link_to image_tag(champion.portrait, :size => '80x80'), champion%>        
         </div>
     <% end %>
+
+    <% jinx = $client.static_data.champion_by_id RiotGamesApi::LOL::CHAMPIONS[:jinx]%>
+    <%= image_tag(@jinx_image_url)%>
+
 </div>
 
 <div class="col-md-4">
