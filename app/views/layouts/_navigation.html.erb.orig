@@ -2,7 +2,10 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left" style="margin-left:10%">
-        <li><%= image_tag('Portrait/logo.png') %></li>
+<<<<<<< HEAD
+=======
+        <!--<li><%= image_tag('logo.png') %></li> -->
+>>>>>>> master
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Matchups", selectmatchup_path %></li>
         <li>

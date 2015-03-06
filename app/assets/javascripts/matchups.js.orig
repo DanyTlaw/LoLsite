@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var ready; 
 ready = function(){
 	var itemid;
@@ -10,6 +11,9 @@ ready = function(){
 		$(".imgAdd#"+itemid).html("<img src='" +itemimg +"'>");
 	});	
 
+=======
+$(document).ready(function(){
+>>>>>>> master
 
 	var id;
 	var tmpidL;

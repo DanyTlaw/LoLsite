@@ -1,17 +1,25 @@
-<%= form_for(@matchup) do |f| %>
-  <% if @matchup.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@matchup.errors.count, "error") %> prohibited this matchup from being saved:</h2>
+<div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_css" ></div>
+<div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_css" ></div>
 
-      <ul>
-      <% @matchup.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+
+<div class="modal fade" id="modal_css" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Choose your item</h4>
+      </div>
+      <div class="modal-body">
+        <% counter = 0 %>
+        <% $item_image_url.each do |url| %>
+          <img class="imgItem" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= @item_desc[counter]%>' >
+          <% counter+=1%>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
   </div>
-<% end %>
+</div>

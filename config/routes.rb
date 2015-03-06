@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
   get '/selectmatchup' => 'matchups#selectmatchup'
 
+
   devise_for :users
-                              
+                                
 
 end
