@@ -1,26 +1,40 @@
+<!--Hier werden alle Champions links dargestellt wo man dann auswählen kann -->
 <div class="col-md-4" id="row">
 	<% @champions.each do |champion|%>
-		<%= image_tag(champion.portrait, :id => champion.id,:size => '40x40', :style => 'margin-bottom:3px', :class => 'left')%>
+		<% lanearray = champion.lane.split('/') %>
+		<% lanes = "" %>
+		<% lanearray.each do |lane| %>
+			<% lanes = lanes + " " + lane %>
+		<% end %>
+		<%= image_tag(champion.portrait, :id => champion.id,:size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'left ' + lanes)%>
 	<% end %>
 </div>
 <div class="col-md-4">
+	<!--Hier sind 5 verschiedene Buttons -->
+	<div class="versusBtnField">
+		<button class="btn-success btn-sm" id="mid">Mid</button>
+		<button class="btn-success btn-sm" id="top">Top</button>
+		<button class="btn-success btn-sm" id="adc">Adc</button>
+		<button class="btn-success btn-sm" id="sup">Support</button>
+		<button class="btn-success btn-sm" id="jungle">Jungle</button>
+	</div>
+	<!--Hier ist das Linke Feld der Versus anzeige, welche alle Bilder der Champions als "display:none" beinhaltet -->
 	<div class="versusField" id="vsFieldLeft">
 		<% @champions.each do |champion|%>
 			<div id="left" class="<%= champion.id %>", style="display:none;">
 				<%= image_tag(champion.splashart, :size => '145x245', :id => champion.id)%>
 			</div>
 		<% end %>
-
 	</div>
+	<!--Hier ist das Rechte Feld der Versus anzeige, welche alle Bilder der Champions als "display:none" beinhaltet -->
 	<div class="versusField" id="vsFiedRight" >
-
 		<% @champions.each do |champion|%>
-		<div id="right" class="<%= champion.id %>"style="display:none;">
-				<%= image_tag(champion.splashart, :size => '145x245',:id => champion.id)%>
-		</div>
-		<% end %>
-		
+			<div id="right" class="<%= champion.id %>"style="display:none;">
+					<%= image_tag(champion.splashart, :size => '145x245',:id => champion.id)%>
+			</div>
+		<% end %>	
 	</div>
+	<!--Das linke Textfeld welches entweder YOU oder den ausgewählten champion beinhaltet -->
 	<div class="vsTextField">
 		<div id="you">
 			<% @champions.each do |champion| %>
@@ -28,8 +42,8 @@
 			<% end %>
 			<div id="default">YOU</div>
 		</div>
-		
 		<div id="vs">VS</div>
+		<!--Das rechte Textfeld welches entweder OPPONENT oder den ausgewählten champion beinhaltet -->
 		<div id="opponent">
 			<% @champions.each do |champion| %>
 				<div id="<%= champion.id %>" style="display:none;"><%= champion.name %> </div>
@@ -37,12 +51,19 @@
 			<div id="default">OPPONENT</div>
 		</div>
 	</div>
+	<!-- -->
 	<div class="vsBtnField">
 		<button class="btn-warning btn-lg" style="display:block;" >GO MATCHUP</button>
 	</div>
 </div>
+<!--Hier werden alle Champions rechts dargestellt wo man dann auswählen kann -->
 <div class="col-md-4" id="row">
 	<% @champions.each do |champion|%>
-		<%= image_tag(champion.portrait, :id => champion.id, :size => '40x40', :style => 'margin-bottom:3px', :class => 'right')%>
+		<% lanearray = champion.lane.split('/') %>
+		<% lanes = "" %>
+			<% lanearray.each do |lane| %>
+				<% lanes = lanes + " " + lane %>
+			<% end %>
+		<%= image_tag(champion.portrait, :id => champion.id, :size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'right '+ lanes)%>
 	<% end %>
 </div>

@@ -12,16 +12,18 @@ ready = function(){
 
 
 	var id;
-	var tmpid;
+	var tmpidL;
+	var tmpidR;
 	var side;
 	var clickedLeft = false;
 	var clickedRight = false;
+
 	//Funktion Hover welche zwei Funktionen enthält (mouseenter, mouseleave)
 	$('#row > img').hover(
 		//Mousenter function
 		function(){
 		//Speichert die klasse vom mouse enter event in die variabe Seite (left or right)
-		side = $(this).attr("class");
+		side = $(this).attr("class").split(' ')[0];
 		//Speichert die id vom mouse entered in diese variable
 		id = $(this).attr("id");
 			//Wenn links noch nicht geklickt wurde und man auf der linken seite ist
@@ -43,7 +45,7 @@ ready = function(){
 		//Mouseleave Funktion
 		function(){
 		//Speichert die klasse vom mouse leave event in die variabe Seite (left or right)	
-		side = $(this).attr("class");
+		side = $(this).attr("class").split(' ')[0];
 			//Wenn links noch nicht geklickt wurde und man auf der linken seite ist
 			if(!clickedLeft && side =="left"){
 					//Entferne Das Bild auf der linken seite mit der richtigen ID an
@@ -69,12 +71,12 @@ ready = function(){
 					//Klickt man nochmal wird diese Variable wieder auf false gesetzt (noch nicht geklickt)
 					clickedLeft = false;
 					//Der Name und das Bild welches vorhin angezeigt wurden werden wieder nicht mehr angezeigt (daru tmpid)
-					$('#you > div#' + tmpid).css("display","none");
-					$('div#'+"left"+'.'+tmpid).css("display","none");
+					$('#you > div#' + tmpidL).css("display","none");
+					$('div#'+"left"+'.'+tmpidL).css("display","none");
 					//Wenn die tmpid und die id nicht gleich sind so hat man auf ein neues bild geklickt
-					if(tmpid != id){
+					if(tmpidL != id){
 						//Die tmpid wird wieder gleich wie die id gesetzt
-						tmpid = id;
+						tmpidL = id;
 						//Wird wieder true gesetzt da man sozusagen wieder einen ersten klick gemacht hat
 						clickedLeft = true;
 						//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -84,9 +86,9 @@ ready = function(){
 				//Und man noch nicht auf der linken seite geklickt hat
 				}else{
 					//Ist ein Bild auf der linken seite drin wird es ausgeblendet
-					$('div#'+"left"+'.'+tmpid).css("display","none");
+					$('div#'+"left"+'.'+tmpidL).css("display","none");
 					//Die temporäre ID wird auf das gehoverte gesetzt					
-					tmpid = id;
+					tmpidL = id;
 					//Man hat nun zum ersten mal links geklickt darum wird diese var true gesetzt
 					clickedLeft = true;
 					//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -100,12 +102,12 @@ ready = function(){
 					//Klickt man nochmal wird diese Variable wieder auf false gesetzt (noch nicht geklickt)
 					clickedRight = false;
 					//Der Name und das Bild welches vorhin angezeigt wurden werden wieder nicht mehr angezeigt (daru tmpid)
-					$('#opponent > div#' + tmpid).css("display","none");
-					$('div#'+"right"+'.'+tmpid).css("display","none");
+					$('#opponent > div#' + tmpidR).css("display","none");
+					$('div#'+"right"+'.'+tmpidR).css("display","none");
 					//Wenn die tmpid und die id nicht gleich sind so hat man auf ein neues bild geklickt
-					if(tmpid != id){
+					if(tmpidR != id){
 						//Die tmpid wird wieder gleich wie die id gesetzt
-						tmpid = id;
+						tmpidR = id;
 						//Wird wieder true gesetzt da man sozusagen wieder einen ersten klick gemacht hat
 						clickedRight = true;
 						//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -115,9 +117,9 @@ ready = function(){
 				//Und man noch nicht auf der rechten seite geklickt hat
 				}else{
 					//Ist ein Bild auf der rechten seite drin wird es ausgeblendet
-					$('div#'+"right"+'.'+tmpid).css("display","none");
+					$('div#'+"right"+'.'+tmpidR).css("display","none");
 					//Die temporäre ID wird auf das gehoverte gesetzt
-					tmpid = id;
+					tmpidR = id;
 					//Man hat nun zum ersten mal rechts geklickt darum wird diese var true gesetzt
 					clickedRight = true;
 					//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -125,6 +127,52 @@ ready = function(){
 					$('div#'+"right"+'.'+id).css("display","block");					
 				}
 			}
+		});
+		//Funktion welche die Bilder je nach ausgewähltem button sortiert.
+		//Button click funktion zeigt alle mid laner an
+		$('#mid').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die midlaner
+			$('.left').not(".mid").hide();
+			$('.right').not(".mid").hide();
+		});
+		//Button click funktion zeigt alle top laner an
+		$('#top').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die toplaner
+			$('.left').not(".top").hide();
+			$('.right').not(".top").hide();
+		});
+		//Button click funktion zeigt alle adc laner an
+		$('#adc').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die adc
+			$('.left').not(".adc").hide();
+			$('.right').not(".adc").hide();
+		});
+		//Button click funktion zeigt alle support laner an
+		$('#sup').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die supports
+			$('.left').not(".support").hide();
+			$('.right').not(".support").hide();
+		});
+		//Button click funktion zeigt alle jungler an
+		$('#jungle').click(function(){
+			//Alle portrait anzeigen
+			$('.left').show();
+			$('.right').show();
+			//Alle verstecken ausser die jungler
+			$('.left').not(".jungle").hide();
+			$('.right').not(".jungle").hide();
 		});
 
 };
