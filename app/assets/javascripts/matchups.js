@@ -1,4 +1,16 @@
-$(document).ready(function(){
+var ready; 
+ready = function(){
+	var itemid;
+	var itemimg;
+	$('.imgAdd').click(function(){
+		itemid = $(this).attr("id");
+	});
+	$('img').click(function(){
+		itemimg = $(this).attr("src");
+		$(".imgAdd#"+itemid).html("<img src='" +itemimg +"'>");
+	});	
+
+
 	var id;
 	var tmpid;
 	var side;
@@ -115,6 +127,8 @@ $(document).ready(function(){
 			}
 		});
 
-});
+};
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
 

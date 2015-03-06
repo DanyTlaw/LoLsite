@@ -6,7 +6,7 @@
 
     <% @champions.each do |champion| %>
         <div class="portrait">
-          <%= link_to image_tag(champion.portrait, :size => '80x80'), champion%>        
+          <%= link_to image_tag($apiurl + champion.name + ".png", :size => '80x80'), champion%>        
         </div>
     <% end %>
 

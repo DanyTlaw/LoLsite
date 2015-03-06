@@ -15,6 +15,17 @@ class MatchupsController < ApplicationController
   # GET /matchups/new
   def new
     @matchup = Matchup.new
+    @item_desc = Array.new
+
+    #item description array schön:
+    $items.each do |img|
+      @item_desc.push(img.description)
+    end
+
+    respond_to do |format|
+      format.html
+        format.js
+    end
   end
 
   def selectmatchup

@@ -15,10 +15,8 @@ Rails.application.routes.draw do
 
   get '/selectmatchup' => 'matchups#selectmatchup'
 
-  #route für api tests
-  get '/champs' => 'api#champs'
 
   devise_for :users
-                              
+                                
 
 end
