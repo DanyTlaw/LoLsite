@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
 	var id;
-	var tmpid;
+	var tmpidL;
+	var tmpidR;
 	var side;
 	var clickedLeft = false;
 	var clickedRight = false;
@@ -59,12 +60,12 @@ $(document).ready(function(){
 					//Klickt man nochmal wird diese Variable wieder auf false gesetzt (noch nicht geklickt)
 					clickedLeft = false;
 					//Der Name und das Bild welches vorhin angezeigt wurden werden wieder nicht mehr angezeigt (daru tmpid)
-					$('#you > div#' + tmpid).css("display","none");
-					$('div#'+"left"+'.'+tmpid).css("display","none");
+					$('#you > div#' + tmpidL).css("display","none");
+					$('div#'+"left"+'.'+tmpidL).css("display","none");
 					//Wenn die tmpid und die id nicht gleich sind so hat man auf ein neues bild geklickt
-					if(tmpid != id){
+					if(tmpidL != id){
 						//Die tmpid wird wieder gleich wie die id gesetzt
-						tmpid = id;
+						tmpidL = id;
 						//Wird wieder true gesetzt da man sozusagen wieder einen ersten klick gemacht hat
 						clickedLeft = true;
 						//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -74,9 +75,9 @@ $(document).ready(function(){
 				//Und man noch nicht auf der linken seite geklickt hat
 				}else{
 					//Ist ein Bild auf der linken seite drin wird es ausgeblendet
-					$('div#'+"left"+'.'+tmpid).css("display","none");
+					$('div#'+"left"+'.'+tmpidL).css("display","none");
 					//Die temporäre ID wird auf das gehoverte gesetzt					
-					tmpid = id;
+					tmpidL = id;
 					//Man hat nun zum ersten mal links geklickt darum wird diese var true gesetzt
 					clickedLeft = true;
 					//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -90,12 +91,12 @@ $(document).ready(function(){
 					//Klickt man nochmal wird diese Variable wieder auf false gesetzt (noch nicht geklickt)
 					clickedRight = false;
 					//Der Name und das Bild welches vorhin angezeigt wurden werden wieder nicht mehr angezeigt (daru tmpid)
-					$('#opponent > div#' + tmpid).css("display","none");
-					$('div#'+"right"+'.'+tmpid).css("display","none");
+					$('#opponent > div#' + tmpidR).css("display","none");
+					$('div#'+"right"+'.'+tmpidR).css("display","none");
 					//Wenn die tmpid und die id nicht gleich sind so hat man auf ein neues bild geklickt
-					if(tmpid != id){
+					if(tmpidR != id){
 						//Die tmpid wird wieder gleich wie die id gesetzt
-						tmpid = id;
+						tmpidR = id;
 						//Wird wieder true gesetzt da man sozusagen wieder einen ersten klick gemacht hat
 						clickedRight = true;
 						//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -105,9 +106,9 @@ $(document).ready(function(){
 				//Und man noch nicht auf der rechten seite geklickt hat
 				}else{
 					//Ist ein Bild auf der rechten seite drin wird es ausgeblendet
-					$('div#'+"right"+'.'+tmpid).css("display","none");
+					$('div#'+"right"+'.'+tmpidR).css("display","none");
 					//Die temporäre ID wird auf das gehoverte gesetzt
-					tmpid = id;
+					tmpidR = id;
 					//Man hat nun zum ersten mal rechts geklickt darum wird diese var true gesetzt
 					clickedRight = true;
 					//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
@@ -150,8 +151,8 @@ $(document).ready(function(){
 			$('.left').show();
 			$('.right').show();
 			//Alle verstecken ausser die supports
-			$('.left').not(".sup").hide();
-			$('.right').not(".sup").hide();
+			$('.left').not(".support").hide();
+			$('.right').not(".support").hide();
 		});
 		//Button click funktion zeigt alle jungler an
 		$('#jungle').click(function(){
