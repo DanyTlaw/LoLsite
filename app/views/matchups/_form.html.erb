@@ -1,25 +1,246 @@
-<div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_css" ></div>
-<div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_css" ></div>
+<div class="col-md-12">
+    <%= form_for(@matchup) do |f| %>
+      <div class="panel panel-warning">
+        <div class="panel-heading">Create your Matchup</div>
+          <div class="panel-body">
+
+            <!--Top Section for choose : Titel, Lane, Champ1 und Champ 2-->
+            <div class="panel panel-default">
+                 <div class="panel-body">
+                  <div class="matchup-info", style ="width: 60%;margin-left:20%;margin-right:20%">
+                  <div class="col-md-3">
+                      <div class="champAdd" id="left" data-toggle="modal" data-target="#modal_champ">
+                          <%= f.hidden_field :champ_eins, id: "champLinks" %>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                      <div class="vs">
+                      VS
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="champAdd" id="right" data-toggle="modal" data-target="#modal_champ">
+                          <%= f.hidden_field :champ_zwei, id: "champRechts" %>
+                      </div>
+                  </div>                  
+                  </div>               
+              </div>
+            </div>
+
+            <!-- Rune Section-->
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">Runes</div>
+                <div class="panel-body">
+                  <div class="col-md-6">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Available Runes</div>
+                      <div class="panel-body">
+                        <!-- Button runes auswählen section-->
+                        <div class="runes-buttons">
+                          <div class="btn btn-default runeBtn" type="red">Marks</div>
+                          <div class="btn btn-default runeBtn" type="yellow">Seals</div>
+                          <div class="btn btn-default runeBtn" type="blue">Glyphs</div>
+                          <div class="btn btn-default runeBtn" type="black">Quintessences</div>
+                        </div>
+                        <!-- Rune list section-->
+                        <div class="runes">
+                          <% $runes.each do |rune| %>
+                            <% if rune.rune.tier == 3 %>
+                            <% url = $apiurl + "/rune/" + rune.image.full%>
+                              <div class="well <%= rune.rune.type%>" id="rune" side="left" type="<%= rune.rune.type%>" >
+                                <div class="rune-number">
+                                  <% if rune.rune.type == "black"%>
+                                    3
+                                  <% else %>
+                                    9
+                                  <% end %>
+                                </div> 
+                                <div class="rune-img">
+                                  <img src="<%= url %>" style="width: 40px; height:40px">
+                                </div>  
+                                <div class="rune-info">
+                                  <div class="rune-name"><%= rune.name%></div>
+                                  <div class="rune-stats"><%= rune.description%></div>    
+                                </div>
+                              </div>
+                              <% end %>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Selected Runes section -->
+                  <div class="col-md-6">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Selected Runes</div>
+                      <div class class="panel-body">
+                        <div class="runes-selected">
+                          <div class="selected-runes">
+                          <p>Total Runes: <span id="rune" type="red">0</span> Marks, <span id="rune" type="yellow">0</span> Seals, <span id="rune" type="blue">0</span> Glyphs, <span id="rune" type="black">0</span> Quints Added</p>
+                          </div>
+                          <div class="runeAdd">
+                            
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+                  </div> 
 
 
-<div class="modal fade" id="modal_css" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Choose your item</h4>
-      </div>
-      <div class="modal-body">
-        <% counter = 0 %>
-        <% $item_image_url.each do |url| %>
-          <img class="imgItem" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= @item_desc[counter]%>' >
-          <% counter+=1%>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Early Laning section-->
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Early laning</div>
+                  <div class="panel-body">
+                  </div>
+                </div> 
+            </div>
+            <div class ="col-md-4">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Items</div>
+                  <div class="panel-body">
+                  </div>
+                </div>             
+            </div>
+
+            <!--Mid Laning section-->
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Mid laning</div>
+                  <div class="panel-body">
+                  </div>
+                </div> 
+            </div>
+            <div class ="col-md-4">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Items</div>
+                  <div class="panel-body">
+                  </div>
+                </div>             
+            </div>
+
+            <!--Late Laning section-->
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                  <div class="panel-heading">late laning</div>
+                  <div class="panel-body">
+                  </div>
+                </div> 
+            </div>
+            <div class ="col-md-4">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Items</div>
+                  <div class="panel-body">
+                  </div>
+                </div>             
+            </div>
+
+            <!--Late Laning section-->
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Final Build</div>
+                  <div class="panel-body">
+                    <div class="finalbuild">
+                      <div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="imgAdd" id="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="imgAdd" id="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="imgAdd" id="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="imgAdd" id="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="imgAdd" id="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    </div>
+                  </div>
+                </div> 
+            </div>
+
+
+         </div>
+
+
+          <%= f.hidden_field :final_build, id: "final_build"%>
+       
+        <%= f.submit %>
         <% end %>
-      </div>
+</div>
+    <div class="imgAdd" id="sum1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
+    <div class="imgAdd" id="sum2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
+  </div>
 
-      <div class="modal-footer">
 
+
+<!-- Modal Section -->
+<div class="modal fade" id="modal_item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Choose your item</h4>
+        </div>
+        <div class="modal-body">
+          <% counter = 0 %>
+          <% $item_image_url.each do |url| %>
+            <img class="imgItem" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= @item_desc[counter]%>' >
+            <% counter+=1%>
+          <% end %>
+        </div>
+
+        <div class="modal-footer">
+
+        </div>
       </div>
     </div>
   </div>
+
+</div>
+
+<div class="modal fade" id="modal_sum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Choose your Summoner</h4>
+        </div>
+        <div class="modal-body">
+          <% counter = 0 %>
+          <% $summoner_url.each do |url| %>
+            <img class="imgSum" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= @sum_desc[counter]%>' >
+            <% counter+=1%>
+          <% end %>
+        </div>
+
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="modal_champ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Choose your Summoner</h4>
+        </div>
+        <div class="modal-body">
+          <% $champ_image_url.each do |url| %>
+            <img class="imgChamp" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' >
+          <% end %>
+        </div>
+
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

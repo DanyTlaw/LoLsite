@@ -16,11 +16,16 @@ class MatchupsController < ApplicationController
   def new
     @matchup = Matchup.new
     @item_desc = Array.new
-
+    @sum_desc = Array.new
     #item description array schön:
     $items.each do |img|
       @item_desc.push(img.description)
     end
+    #sum description array
+    $summoners.each do |sum|
+      @sum_desc.push(sum.description)
+    end
+
 
     respond_to do |format|
       format.html
@@ -85,6 +90,7 @@ class MatchupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def matchup_params
-      params[:matchup]
+      params.require(:matchup).permit(:final_build)
+
     end
 end

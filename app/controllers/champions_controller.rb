@@ -16,7 +16,9 @@ class ChampionsController < ApplicationController
   def show 
     @champion = Champion.find(params[:id])
     @counter = @champion.counters.build
-
+ 
+    
+    
   end
 
   # GET /champions/new
