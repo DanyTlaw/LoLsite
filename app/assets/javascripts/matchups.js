@@ -3,15 +3,26 @@ ready = function(){
 	/*######################################################################################
 	Rune section
 	########################################################################################*/
+	/*	
+		quints = black
+		marks = red	
+		seals = yellow
+		gyphs = blue
+	*/	
 	//Funktion welche die runen auf Knopfdruck ändert
 	$('.runeBtn').click(function(){
-
+		//Speichert den typ der geklickten Button in eine variable
 		runetype = $(this).attr('type');
+		//Für jeder well (Rune) auf der linken seite wird gelooped
 		$('.well#rune').each(function(){
+			//Wenn die rune auch wirklic link ist
 			if($(this).attr("side")=="left"){
+				//Wenn sie den typ des geklickten button
 				if($(this).attr('type')== runetype){
+					//Dann zeige diesen Typ
 					$(this).show();
 				}else{
+					//Die anderen werden versteckt
 					$(this).hide();			
 				}				
 			}
@@ -83,7 +94,29 @@ ready = function(){
 				well.children(".rune-number").text(1);
 				//Die side muss auf right abgeändert werden
 				well.attr('side',"right");
-				$('.runeAdd').append(well);
+
+				//Wenn schon 9 runen bzw 3 von einem Typ vorhanden sind so darf keine weitere hinzugefgt werden
+				//Speichert den typ in eine variable
+				runetype = well.attr("type");
+				//Sucht die anzahl runen im Total von diesem typ
+				$('span#rune').each(function(){
+					//Schleift durch alle runen total durch
+					if($(this).attr("type")==runetype){
+						//Speichert die vom gleichen Typ in eine variable
+						anzahlTotal = $(this).text();
+					}
+				});
+				//Added nur falls noch nicht 9 bzw 3 von diesem Typ existieren
+				//Wenn es eine quint ist dann mit 3 schauen sonst 9
+				if(runetype=="black"){
+					if(parseInt(anzahlTotal)<3){
+						$('.runeAdd').append(well);						
+					}
+				}else{
+					if(parseInt(anzahlTotal)<9){
+						$('.runeAdd').append(well);						
+					}			
+				}
 			}
 			//Runen Total muss an der richtigen stelle angeepasst werden
 			//Uebrprufen um welche art von Rune es sich handelt
