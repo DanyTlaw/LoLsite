@@ -1,14 +1,14 @@
-var ready; 
+var ready;
 ready = function(){
 	/*######################################################################################
 	Rune section
 	########################################################################################*/
-	/*	
+	/*
 		quints = black
-		marks = red	
+		marks = red
 		seals = yellow
 		gyphs = blue
-	*/	
+	*/
 	//Funktion welche die runen auf Knopfdruck ändert
 	$('.runeBtn').click(function(){
 		//Speichert den typ der geklickten Button in eine variable
@@ -23,13 +23,75 @@ ready = function(){
 					$(this).show();
 				}else{
 					//Die anderen werden versteckt
-					$(this).hide();			
-				}				
+					$(this).hide();
+				}
 			}
 		});
 	});
+	//Arrays welche für das Backend gebruacht werden
+	var arrMarks = [];
+	var arrSeals = [];
+	var arrGlyphs = [];
+	var arrQuints = [];
+	//String welcher aus den Array zussammen gesetzt wird
+	var strRunen;
+	//Strings welche das Array umwandeln
+	var strMarks;
+	var strSeals;
+	var strGlyphs;
+	var strQuints;
+	//Variable welche die gesamtzahl runen festhaltet
+	var runeTotal = 0;
+	//Javascropt Function zum erstellen des Strings
 
-	//Funktion welche eine rune der runeAdd klasse hinzufügt und auch die Nummern managed
+	//Diese Funktion gibt alle Werte die vom übergebenen Array sind nur einmal pro wert in einem neuen Array zurück
+	function arrayFilter(inputArray){
+		var outputArray = [];
+		for(var i =0 ; i < inputArray.length;i++){
+			if((jQuery.inArray(inputArray[i], outputArray)) == -1){
+				outputArray.push(inputArray[i]);
+			}
+		}
+		return outputArray;		
+	}
+	//Funktion welche die anzahl arrays mit dem eigentlichen array vergleicht
+	function arrayCountElement(inputArray){
+		var origArray = inputArray;
+		var filtArray = arrayFilter(origArray);
+		var count = 0;
+		var strSpecRune= "";
+		//Für jedes element in filt Array muss durch das origArray gelooped werden und den richten wert speichern
+		for(var i=0; i<filtArray.length;i++){
+			count=0;
+			for(var j=0;j<origArray.length;j++){
+				//Wenn das filtArray element im origArray vorkommt
+				if(filtArray[i] == origArray[j]){
+					//der Counter wird um eins erhöht
+					count++;
+				}		
+			}
+			//Das filter Array element mit dem Counter dem string adden = count x element
+			strSpecRune += count + "x" + filtArray[i] +',';
+		}
+		strSpecRune = strSpecRune.replace(/,\s*$/, "");
+		return strSpecRune;
+	}
+
+	function finalRuneString(){
+		var finalString ="";
+		var strMark = arrayCountElement(arrMarks);
+		var strSeal = arrayCountElement(arrSeals);
+		var strGlyph = arrayCountElement(arrGlyphs);
+		var strQuint = arrayCountElement(arrQuints);
+		//String zusammensetzen
+		finalString = strMark + "|" + strSeal + "|" + strGlyph + "|" + strQuint;
+		
+		return finalString;
+	}
+
+
+
+	//Paar variablen die oft gebraucht werden für das frontend
 	var stats;
 	var exist;
 	var existwell;
@@ -37,130 +99,181 @@ ready = function(){
 	var existnr;
 	var nr;
 	var copy;
+	//Funktion welche das klicken auf der linken seite bzw die Runen welche man beabsichtigt zu adden behandelt
 	$('.well').click(function(){
-
 			stats = "";
 			//klont die geklickte rune
 			var well = $(this).clone();
-			//das well(rune) richtig modifizieren
-			//Anzahl runen auf der Auswahl seite
-			nr = well.children(".rune-number").html();
-			//Die nummer wird auf der Auswahl seite um eines kleiner sofern die nr nicht 0 ist
-			if(nr>0){
-				var newnr = nr -1;
-			}
-			//Dies muss angepasst werden
-			$(this).children(".rune-number").text(newnr);
-			//Das geklonnt muss ebenfalls angepasst werden
-			//Wenn schon so eine rune geaddet wurde erhöhre um eins sont füge hinzu mit wert eins
-			stats = $(this).children(".rune-info").children(".rune-stats").html();
-			//vergleichs schleife
-			$(".runeAdd").children(".well").each(function(){
-				if(stats == $(this).children(".rune-info").children(".rune-stats").html()){
-					//Speichert die nummer die rechts im well schon existiert in eine variable
-					existnr = $(this).children(".rune-number").html();
-					//Speichert das existierende well in eine variable ab
-					existwell = $(this);
-					//Exist wird demnach auf true gesetzt
-					exist = true;
-					//breaked die schleife wenn es das richtige gefunden hat
-					return false;
-				}else{
-					exist = false;
+
+			//Ueberprufng ob das total der jeweiligen rune schon ereicht wude
+			//Dazu muss man den runetype mit dem Total des types vergleichen
+			var runetype = $(this).attr("type");
+			var compareInt = 9;
+			$('span#rune').each(function(){
+				if($(this).attr("type") == runetype){
+					totalNr = $(this).html();
 				}
 			});
-			//Added oder erhöht auf der select seite
-			//wenn es schon exitiert wird nur erhöht
-			if(exist){
-				//Die nummer wird eins erhöht sofern sie nicht schon 9 hat oder es sich um eine Quint handelt dann = 3
-				if(existwell.attr("type") =="black"){
-					if(existnr<3){
-						existnewnr = parseInt(existnr) + 1;	
-					}
-				}else{
-					if(existnr<9){
-						existnewnr = parseInt(existnr) + 1;				
-					}			
-				}
-				//Wenn das well existiert aber auf null ist wieder anzeigen
-				if(existwell.children("rune-number").text()==0){
-					existwell.show();
-				}
-				//Am ende ird die nummer richtig erhöht
-				existwell.children(".rune-number").text(existnewnr);
-			//Wenn das well noch nicht existiert wird sie angefügt
-			}else if(!exist){
-				//Die anzahl runen wird auf eins gesetzt
-				well.children(".rune-number").text(1);
-				//Die side muss auf right abgeändert werden
-				well.attr('side',"right");
+			if(runetype=="black"){
+				compareInt =3;
+			}
 
-				//Wenn schon 9 runen bzw 3 von einem Typ vorhanden sind so darf keine weitere hinzugefgt werden
-				//Speichert den typ in eine variable
-				runetype = well.attr("type");
-				//Sucht die anzahl runen im Total von diesem typ
-				$('span#rune').each(function(){
-					//Schleift durch alle runen total durch
-					if($(this).attr("type")==runetype){
-						//Speichert die vom gleichen Typ in eine variable
-						anzahlTotal = $(this).text();
+			//Man kann nur adden wenn noch nicht das maximum erreicht wurde
+			if(totalNr<compareInt){			
+				//das well(rune) richtig modifizieren
+				//Anzahl runen auf der Auswahl seite
+				nr = well.children(".rune-number").html();
+				//Die nummer wird auf der Auswahl seite um eines kleiner sofern die nr nicht 0 ist
+				if(nr>0){
+					var newnr = nr -1;
+				}
+				//Dies muss angepasst werden
+				$(this).children(".rune-number").text(newnr);
+				//Das geklonnt muss ebenfalls angepasst werden
+				//Wenn schon so eine rune geaddet wurde erhöhre um eins sont füge hinzu mit wert eins
+				stats = $(this).children(".rune-info").children(".rune-stats").html();
+				//vergleichs schleife
+				$(".runeAdd").children(".well").each(function(){
+					if(stats == $(this).children(".rune-info").children(".rune-stats").html()){
+						//Speichert die nummer die rechts im well schon existiert in eine variable
+						existnr = $(this).children(".rune-number").html();
+						//Speichert das existierende well in eine variable ab
+						existwell = $(this);
+						//Exist wird demnach auf true gesetzt
+						exist = true;
+						//breaked die schleife wenn es das richtige gefunden hat
+						return false;
+					}else{
+						exist = false;
 					}
 				});
-				//Added nur falls noch nicht 9 bzw 3 von diesem Typ existieren
-				//Wenn es eine quint ist dann mit 3 schauen sonst 9
-				if(runetype=="black"){
-					if(parseInt(anzahlTotal)<3){
-						$('.runeAdd').append(well);						
-					}
-				}else{
-					if(parseInt(anzahlTotal)<9){
-						$('.runeAdd').append(well);						
-					}			
-				}
-			}
-			//Runen Total muss an der richtigen stelle angeepasst werden
-			//Uebrprufen um welche art von Rune es sich handelt
-			runetype = $(this).attr("type");
-			$('span#rune').each(function(){
-				if($(this).attr("type")== runetype){
-					//Wenn der runen typ eine quints ist so darf es max nur 3 haben
-					if(runetype=="black"){
-						if($(this).text()<3){
-							//speichert die momentane anzahl in eine variable
-							anzahlNr = $(this).text();
-							//erhöht diese variable und erstetzt die vorherige
-							newAnzahlNr = parseInt(anzahlNr) + 1;
-							$(this).text(newAnzahlNr);							
-						}	
+				//Added oder erhöht auf der select seite
+				//wenn es schon exitiert wird nur erhöht
+				if(exist){
+					//Die nummer wird eins erhöht sofern sie nicht schon 9 hat oder es sich um eine Quint handelt dann = 3
+					if(existwell.attr("type") =="black"){
+						if(existnr<3){
+							existnewnr = parseInt(existnr) + 1;
+						}
 					}else{
-						//wenn die zahl im total bei der richtigen rune kleiner ist als 9
-						if($(this).text()<9){
-							//speichert die momentane anzahl in eine variable
-							anzahlNr = $(this).text();
-							//erhöht diese variable und erstetzt die vorherige
-							newAnzahlNr = parseInt(anzahlNr) + 1;
-							$(this).text(newAnzahlNr);							
-						}						
+						if(existnr<9){
+							existnewnr = parseInt(existnr) + 1;
+						}
+					}
+					//Wenn das well existiert aber auf null ist wieder anzeigen
+					if(existwell.children("rune-number").text()==0){
+						existwell.show();
+					}
+					//Am ende ird die nummer richtig erhöht
+					existwell.children(".rune-number").text(existnewnr);
+					runeTotal++;
+				//Wenn das well noch nicht existiert wird sie angefügt
+				}else if(!exist){
+					//Der Name der Rune wird in eine Variable gespeichert
+					name = well.children(".rune-info").children(".rune-name").text();
+					//Die anzahl runen wird auf eins gesetzt
+					well.children(".rune-number").text(1);
+					//Die side muss auf right abgeändert werden
+					well.attr('side',"right");
+					//Wenn schon 9 runen bzw 3 von einem Typ vorhanden sind so darf keine weitere hinzugefgt werden
+					//Speichert den typ in eine variable
+					runetype = well.attr("type");
+					//Sucht die anzahl runen im Total von diesem typ
+					$('span#rune').each(function(){
+						//Schleift durch alle runen total durch
+						if($(this).attr("type")==runetype){
+							//Speichert die vom gleichen Typ in eine variable
+							anzahlTotal = $(this).text();
+						}
+					});
+					//Added nur falls noch nicht 9 bzw 3 von diesem Typ existieren
+					//Wenn es eine quint ist dann mit 3 schauen sonst 9
+					if(runetype=="black"){
+						if(parseInt(anzahlTotal)<3){
+							$('.runeAdd').append(well);
+							runeTotal++;
+						}
+					}else{
+						if(parseInt(anzahlTotal)<9){
+							$('.runeAdd').append(well);
+							runeTotal++;
+						}
+					}	
+				}
+				//Wenn max Runen hinzugefügt wurden schreibe den String in das hiddenfield
+				if(runeTotal==30){
+					$("#runesHidden").val(finalRuneString());
+				}
+				//Hier wird die Rune dem richtigen Array geaddet
+
+				//Die Rune wird dem entsprechenden Array hinzugefügt		
+				if(runetype=="red"){
+					if(arrMarks.length<9){
+						arrMarks.push(name);
+					}
+				}else if(runetype=="yellow"){
+					if(arrSeals.length<9){
+						arrSeals.push(name);
+					}						
+				}else if(runetype=="blue"){
+					if(arrGlyphs.length<9){
+						arrGlyphs.push(name);
+					}
+				}else if(runetype=="black"){
+					if(arrQuints.length<3){
+						arrQuints.push(name);
 					}
 				}
-			});
+				//Array test
+
+				//Runen Total muss an der richtigen stelle angeepasst werden
+				//Uebrprufen um welche art von Rune es sich handelt
+				runetype = $(this).attr("type");
+				$('span#rune').each(function(){
+					if($(this).attr("type")== runetype){
+						//Wenn der runen typ eine quints ist so darf es max nur 3 haben
+						if(runetype=="black"){
+							if($(this).text()<3){
+								//speichert die momentane anzahl in eine variable
+								anzahlNr = $(this).text();
+								//erhöht diese variable und erstetzt die vorherige
+								newAnzahlNr = parseInt(anzahlNr) + 1;
+								$(this).text(newAnzahlNr);
+							}
+						}else{
+							//wenn die zahl im total bei der richtigen rune kleiner ist als 9
+							if($(this).text()<9){
+								//speichert die momentane anzahl in eine variable
+								anzahlNr = $(this).text();
+								//erhöht diese variable und erstetzt die vorherige
+								newAnzahlNr = parseInt(anzahlNr) + 1;
+								$(this).text(newAnzahlNr);
+							}
+						}
+					}
+				});
+			}
 		});
 		//Wenn man auf eines rechts klickt
 		$('.runeAdd').on('click', '.well', function() {
 			copy = $(this);
 			//Speichert die Anzahl runen in eine variable
 			nr = copy.children(".rune-number").html();
+			//Der Name der Rune wird in eine Variable gespeichert
+			name = copy.children(".rune-info").children(".rune-name").text();
 			//Speihert die stats der rune in eine variable
 			stats = $(this).children(".rune-info").children(".rune-stats").html();
 			//Wenn die nummer nicht eins ist, so wird sie nur um eins vermindert
 			if(nr>1){
-				newnr = nr -1;	
+				newnr = nr -1;
 				$(this).children(".rune-number").text(newnr);
+				runeTotal--;
 			}else{
 				//das well wird gehided da remove nicht geht wegen event problemen
-				newnr = nr -1;	
+				newnr = nr -1;
 				copy.children(".rune-number").text(newnr);
 				copy.hide();
+				runeTotal--;
 			}
 			$('.runes').children(".well").each(function(){
 				//Ueberprüfen ob es die gleiche rune ist mit hilfe von den status
@@ -171,22 +284,35 @@ ready = function(){
 					existnewnr = parseInt(existnr) + 1;
 					$(this).children(".rune-number").text(existnewnr);
 				}
-		});
-		//Wenn man die runen wegnimmt müssen sie auch im Total weggehen
-		runetype = $(this).attr("type");
-		$('span#rune').each(function(){
-			if($(this).attr("type")== runetype){
-				//wenn die zahl bei der richtigen rune im total grösser ist als 0
-				if($(this).text()>0){
-					//speichert die momentane anzahl in eine variable
-					anzahlNr = $(this).text();
-					//erhöht diese variable und erstetzt die vorherige
-					newAnzahlNr = parseInt(anzahlNr) - 1;
-					$(this).text(newAnzahlNr);							
+			});
+			//Wenn man die runen wegnimmt müssen sie auch im Total weggehen
+			runetype = $(this).attr("type");
+			$('span#rune').each(function(){
+				if($(this).attr("type")== runetype){
+					//wenn die zahl bei der richtigen rune im total grösser ist als 0
+					if($(this).text()>0){
+						//speichert die momentane anzahl in eine variable
+						anzahlNr = $(this).text();
+						//erhöht diese variable und erstetzt die vorherige
+						newAnzahlNr = parseInt(anzahlNr) - 1;
+						$(this).text(newAnzahlNr);
+					}
 				}
+			});
+			//Hier wird die Rune vom richtigen String wieder weggenohmen
+			alert(name);
+			//Man muss überprüfen um welche art von Rune es sicht handelt
+			if(runetype=="red"){
+				arrMarks.splice( $.inArray(name, arrMarks), 1 );
+			}else if(runetype=="yellow"){
+				arrSeals.splice( $.inArray(name, arrSeals), 1 );
+			}else if(runetype=="blue"){
+				arrGylphs.splice( $.inArray(name, arrGlyphs), 1 );
+			}else if(runetype=="black"){
+				arrQuints.splice( $.inArray(name, arrQuints), 1 );
 			}
-		});			
-	});
+			console.log(runeTotal);
+		});
 
 
 	/*######################################################################################
@@ -216,13 +342,14 @@ ready = function(){
 		if(champid == "left"){
 
 			strChamp = champSplit[0];
-		
+
 			$("#champLinks").val(strChamp);
 
 		}else if(champid == "right"){
 			strChamp = champSplit[0];
-		
+
 			$("#champRechts").val(strChamp);
+			console.log(strChamp);
 		}
 	});
 
@@ -241,7 +368,7 @@ ready = function(){
 		itemid = $(this).attr("id");
 			//Wenn die id nicht die erste ist
 	});
-                                                                                                                                                                                                                                                                                       
+
 	$('img.imgItem').click(function(){
 		strFinalBuild = "";
 		//Speicher das Bild bei klick auf ein item in eine variable
@@ -252,17 +379,17 @@ ready = function(){
 		finalBuild[itemid-1] = itemimg;
 		//Erhöhe itemd id um 1
 		if(itemid <6){
-			itemid++;			
+			itemid++;
 		}
-		//Macht aus dem Array einen String 
+		//Macht aus dem Array einen String
 		for(var i = 0; i < finalBuild.length;i++){
 			strFinalBuild = strFinalBuild + finalBuild[i] + "|";
 		}
 
 		//Adde den string dem hidden textfield zu
-		$("#final_build").val(strFinalBuild);		
+		$("#final_build").val(strFinalBuild);
 
-	});	
+	});
 
 	/*######################################################################################
 	Select Matchup section
@@ -289,8 +416,8 @@ ready = function(){
 				$('#you > div#' + id).css("display","block");
 				$('#you > div#default').css("display","none");
 				//Zeige Das Bild auf der linken seite mit der richtigen ID an
-				$('div#'+"left"+'.'+id).css("display","block");		
-			//Wenn rechts noch nicht geklickt wurde und man auf der rechten seite ist		
+				$('div#'+"left"+'.'+id).css("display","block");
+			//Wenn rechts noch nicht geklickt wurde und man auf der rechten seite ist
 			}else if(!clickedRight && side =="right"){
 				//OPPONENT wird nicht mehr angezeigt sondern der Name des Champions bei dem man drüber ist
 				$('#opponent > div#' +id).css("display","block");
@@ -301,7 +428,7 @@ ready = function(){
 		},
 		//Mouseleave Funktion
 		function(){
-		//Speichert die klasse vom mouse leave event in die variabe Seite (left or right)	
+		//Speichert die klasse vom mouse leave event in die variabe Seite (left or right)
 		side = $(this).attr("class").split(' ')[0];
 			//Wenn links noch nicht geklickt wurde und man auf der linken seite ist
 			if(!clickedLeft && side =="left"){
@@ -309,15 +436,15 @@ ready = function(){
 					$('div#'+"left"+'.'+id).css("display","none");
 					//YOU wird angezeigt und der Name des Champions nicht mehr
 					$('#you > div#' + id).css("display","none");
-					$('#you > div#default').css("display","block");		
+					$('#you > div#default').css("display","block");
 			//Wenn rechts noch nicht geklickt wurde und man auf der rechten seite ist
 			}else if(!clickedRight  && side =="right"){
 					//Entferne Das Bild auf der rechten seite mit der richtigen ID an
 					$('div#'+"right"+'.'+id).css("display","none");
 					//OPPONENT wird angezeigt und der Name des Champions nicht mehr
 					$('#opponent > div#' +id).css("display","none");
-					$('#opponent > div#default').css("display","block");				
-			}	
+					$('#opponent > div#default').css("display","block");
+			}
 
 	//Funktion welche beim klicken ausgelöst wird
 	}).click(function(){
@@ -344,13 +471,13 @@ ready = function(){
 				}else{
 					//Ist ein Bild auf der linken seite drin wird es ausgeblendet
 					$('div#'+"left"+'.'+tmpidL).css("display","none");
-					//Die temporäre ID wird auf das gehoverte gesetzt					
+					//Die temporäre ID wird auf das gehoverte gesetzt
 					tmpidL = id;
 					//Man hat nun zum ersten mal links geklickt darum wird diese var true gesetzt
 					clickedLeft = true;
 					//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
 					$('#you > div#' + id).css("display","block");
-					$('div#'+"left"+'.'+id).css("display","block");					
+					$('div#'+"left"+'.'+id).css("display","block");
 				}
 			//Wenn das gehoverte rechts ist
 			}else if (side == "right"){
@@ -381,7 +508,7 @@ ready = function(){
 					clickedRight = true;
 					//Der name der id vom gehoverten champ wird angezeigt sowie auch das bild
 					$('#opponent > div#' +id).css("display","block");
-					$('div#'+"right"+'.'+id).css("display","block");					
+					$('div#'+"right"+'.'+id).css("display","block");
 				}
 			}
 		});
@@ -435,5 +562,3 @@ ready = function(){
 };
 $(document).ready(ready);
 $(document).on('page:load', ready);
-
-

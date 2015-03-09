@@ -3,14 +3,15 @@
       <div class="panel panel-warning">
         <div class="panel-heading">Create your Matchup</div>
           <div class="panel-body">
-
+            <%= f.hidden_field :champ_eins, id: "champLinks" %>
+            <%= f.hidden_field :champ_zwei, id: "champRechts" %>
             <!--Top Section for choose : Titel, Lane, Champ1 und Champ 2-->
             <div class="panel panel-default">
                  <div class="panel-body">
                   <div class="matchup-info", style ="width: 60%;margin-left:20%;margin-right:20%">
                   <div class="col-md-3">
                       <div class="champAdd" id="left" data-toggle="modal" data-target="#modal_champ">
-                          <%= f.hidden_field :champ_eins, id: "champLinks" %>
+
                       </div>
                   </div>
                   
@@ -21,13 +22,13 @@
                   </div>
                   <div class="col-md-3">
                       <div class="champAdd" id="right" data-toggle="modal" data-target="#modal_champ">
-                          <%= f.hidden_field :champ_zwei, id: "champRechts" %>
+
                       </div>
                   </div>                  
                   </div>               
               </div>
             </div>
-
+            <%= f.hidden_field :runes, id: "runesHidden"%>
             <!-- Rune Section-->
             <div class="col-md-12">
               <div class="panel panel-default">
@@ -164,8 +165,7 @@
 
 
           <%= f.hidden_field :final_build, id: "final_build"%>
-       
-        <%= f.submit %>
+          <%= f.submit%>          
         <% end %>
 </div>
     <div class="imgAdd" id="sum1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
