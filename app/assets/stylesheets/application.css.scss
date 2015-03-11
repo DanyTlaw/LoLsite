@@ -68,6 +68,41 @@
 	}
 }
 
+.caret li a {
+			color: #FFFFFF;
+			font-size: 15px;
+			font-weight: 400;
+			font-family: bariol, sans-serif;
+		}
+
+.caret li a:hover {
+			color: #ffa500;
+		}
+
+.dropdown {
+
+	background-color: #101b27;
+	
+}
+
+.dropdown-menu {
+
+	background-color: #101b27;
+	
+}
+
+.dropdown-menu li a:hover {
+
+	background-color: #101b27;
+	
+}
+
+.dropdown-toggle:active, .open .dropdown-toggle {
+
+	background:#101b27 !important;
+	color:#ffa500 !important;
+}
+
 .footer{
 
     width: 100%;

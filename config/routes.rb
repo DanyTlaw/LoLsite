@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :profiles
+
   resources :matchups
 
   resources :champions do
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   get '/selectmatchup' => 'matchups#selectmatchup'
 
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
                                 
 
 end
