@@ -13,6 +13,7 @@ ready = function(){
 	var arrOff = [0,0,0,0,0,0];
 	var arrDef = [0,0,0,0,0,0];
 	var arrUtil = [0,0,0,0,0,0];
+
 	//Variablen welche gebraucht werden um zu zählen wie viele variablen es pro tree gibt
 	var offenseCount= 0;
 	var defenseCount= 0;
@@ -63,7 +64,7 @@ ready = function(){
 		    		}
 		    		
 		    	}else if(tree == "def"){	    		
-		    		if(actNum <= maxNum){
+		    		if(actNum < maxNum){
 			    		defenseCount++;
 			    		arrDef[trId]++;
 			    		array = arrDef;
@@ -72,7 +73,7 @@ ready = function(){
 			    		treeCount.text(strTreeCount);
 			    	}
 		    	}else if(tree == "util"){
-		    		if(actNum <= maxNum){
+		    		if(actNum < maxNum){
 		    			arrUtil[trId]++;
 		    			array = arrUtil;
 			    		utilityCount++;
@@ -204,7 +205,7 @@ ready = function(){
 	function abhDone(abh, tdNow){
 		var ok = false;
 		var arrTdPrev = tdNow;	
-
+		
 		//Man muss überprüfen
 
 				var pos = abh.parent().children().index(abh);

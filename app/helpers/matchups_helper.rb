@@ -7,6 +7,8 @@ module MatchupsHelper
 				@thismast = mast
 			end
 		end
+	
+		
 		imgMast = @thismast.image.full
 		#http://ddragon.leagueoflegends.com/cdn/5.2.1/img/mastery/4111.png
 
