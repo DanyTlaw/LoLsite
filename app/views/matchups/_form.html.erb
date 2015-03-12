@@ -88,85 +88,357 @@
                       </div>                      
                     </div>
                   </div> 
-
+                </div>
 
 
                   </div>
                 </div>
+              
+          <!-- Masteries -->
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">Masteries</div>
+              <div class="panel-body">
+                <div id="off" class="offmasteries pos-rel">
+                  <table class="masTable">
+                    <tr id="1" class="rowMas">
+                      <td class="pos-rel">
+                        <img src="<%= urlImgMasteries("Double-Edged Sword") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Fury") %> "class="imgMas">
+                        <span class="masNumb">0/4</span>
+                      </td>
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Sorcery") %> "class="imgMas">
+                      <span class="masNumb">0/4</span>
+                      </td>
+                      <td id="pre" class="pos-rel"></div>
+                        <img src="<%= urlImgMasteries("Butcher") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/1</span>                       
+                      </td>
+                    </tr>
+                    <tr id="2" class="rowMas">
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Expose Weakness") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Brute Force") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Mental Force") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Feast") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                    </tr>
+                    <tr id="3" class="rowMas">
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Spell Weaving") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Martial Mastery") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Arcane Mastery") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Executioner") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                    </tr>
+                    <tr id="4" class="rowMas">
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Blade Weaving") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Warlord") %> "class="imgMas">
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Archmage") %> "class="imgMas">
+                       <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Dangerous Game") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                    </tr>
+                    <tr id="5" class="rowMas">
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Frenzy") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Devastating Strikes") %> "class="imgMas"></img>
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td></td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Arcane Blade") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                    </tr>
+                     <tr id="6" class="rowMas">
+                      <td></td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Havoc") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>  
+                    <div class="mastCounter">0 Offense</div>                  
+                  </table>
+                </div>
+                <div id="def" class="defmasteries pos-rel">
+                  <table class="masTable">
+                    <tr id="1" class="rowMas">
+                      <td id="pre" class="pos-rel"></div>
+                        <img src="<%= urlImgMasteries("Bloack") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/2</span>
+                      </td>
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Recovery") %> "class="imgMas">
+                        <span class="masNumb">0/2</span>
+                      </td>
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Enchanted Armor") %> "class="imgMas">
+                        <span class="masNumb">0/2</span>
+                      </td>
+                      <td id="pre" class="pos-rel"></div>
+                        <img src="<%= urlImgMasteries("Tough Skin") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/2</span>
+                      </td>
+                    </tr>
+                    <tr id="2" class="rowMas">
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Unyielding") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Veteran's Scars") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td></td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Bladed Armor") %> "class="imgMas">
+                         <span class="masNumb">0/1</span>  
+                      </td>
+                    </tr> 
+                    <tr id="3" class="rowMas">
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Oppression") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Juggernaut") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Hardiness") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Resistance") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                    </tr> 
+                    <tr id="4" class="rowMas">
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Perseverance") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Swiftness") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Reinforced Armor") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Evasive") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                    </tr> 
+                    <tr id="5" class="rowMas">
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Second Wind") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Tenacious") %> "class="imgMas">
+                      <span class="masNumb">0/4</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Runic Blessing") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td></td>
+                    </tr> 
+                    <tr id="6" class="rowMas">
+                      <td></td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Legendary Guardian") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>    
+                    <div class="mastCounter">0 Defense</div>
+                  </table>
+
+                </div>
+                <div id="util" class="utilmasteries pos-rel">
+                  <table class="masTable">
+                    <tr id="1" class="rowMas">
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Phasewalker") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>  
+                      </td>
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Fleet of Foot") %> "class="imgMas">
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="pre" class="pos-rel"></div>
+                        <img src="<%= urlImgMasteries("Meditation") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td class="pos-rel"></div><img src="<%= urlImgMasteries("Scout") %> "class="imgMas">
+                      <span class="masNumb">0/1</span>
+                      </td>
+                    </tr>
+                    <tr id="2" class="rowMas">
+                      <td></td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Summoner's Insight") %> "class="imgMas">
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Strength of Spirit") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Alchemist") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/1</span>
+                      </td>
+                    </tr>
+                    <tr id="3" class="rowMas">
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Greed") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/3</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Runic Affinity") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Vampirism") %> "class="imgMas">
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Culinary Master") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                    </tr>
+                    <tr id="4" class="rowMas">
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Scavenger") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td id="pre" class="pos-rel"><div class="overlay"></div>
+                        <img src="<%= urlImgMasteries("Wealth") %> "class="imgMas">
+                        <span class="depend"></span>
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Expanded Mind") %> "class="imgMas">
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Inspiration") %> "class="imgMas">
+                      <span class="masNumb">0/2</span>
+                      </td>
+                    </tr>
+                    <tr id="5" class="rowMas">
+                      <td></td>
+                      <td id="after" class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Bandit") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Intelligence") %> "class="imgMas">
+                      <span class="masNumb">0/3</span>
+                      </td>
+                      <td></td>
+                    </tr>                    
+                    <tr id="6" class="rowMas">
+                      <td></td>
+                      <td class="pos-rel"><div class="overlay"></div><img src="<%= urlImgMasteries("Wanderer") %> "class="imgMas">
+                        <span class="masNumb">0/1</span>
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <div class="mastCounter">0 Utility</div>                
+                  </table>
+                </div>
               </div>
             </div>
-            <!--Early Laning section-->
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Early laning</div>
-                  <div class="panel-body">
-                  </div>
-                </div> 
-            </div>
-            <div class ="col-md-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Items</div>
-                  <div class="panel-body">
-                  </div>
-                </div>             
-            </div>
+          </div>
+          <!--Early Laning section-->
+          <div class="col-md-8">
+              <div class="panel panel-default">
+                <div class="panel-heading">Early laning</div>
+                <div class="panel-body">
+                </div>
+              </div> 
+          </div>
+          <div class ="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">Items</div>
+                <div class="panel-body">
+                </div>
+              </div>             
+          </div>
 
-            <!--Mid Laning section-->
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Mid laning</div>
-                  <div class="panel-body">
+          <!--Mid Laning section-->
+          <div class="col-md-8">
+              <div class="panel panel-default">
+                <div class="panel-heading">Mid laning</div>
+                <div class="panel-body">
+                </div>
+              </div> 
+          </div>
+          <div class ="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">Items</div>
+                <div class="panel-body">
+                </div>
+              </div>             
+          </div>
+
+          <!--Late Laning section-->
+          <div class="col-md-8">
+              <div class="panel panel-default">
+                <div class="panel-heading">late laning</div>
+                <div class="panel-body">
+                </div>
+              </div> 
+          </div>
+          <div class ="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">Items</div>
+                <div class="panel-body">
+                </div>
+              </div>             
+          </div>
+
+          <!--Late Laning section-->
+          <div class="col-md-8">
+              <div class="panel panel-default">
+                <div class="panel-heading">Final Build</div>
+                <div class="panel-body">
+                  <div class="finalbuild">
+                    <div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" id="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" id="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" id="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" id="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" id="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
                   </div>
-                </div> 
-            </div>
-            <div class ="col-md-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Items</div>
-                  <div class="panel-body">
-                  </div>
-                </div>             
-            </div>
-
-            <!--Late Laning section-->
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">late laning</div>
-                  <div class="panel-body">
-                  </div>
-                </div> 
-            </div>
-            <div class ="col-md-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Items</div>
-                  <div class="panel-body">
-                  </div>
-                </div>             
-            </div>
-
-            <!--Late Laning section-->
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Final Build</div>
-                  <div class="panel-body">
-                    <div class="finalbuild">
-                      <div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                      <div class="imgAdd" id="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                      <div class="imgAdd" id="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                      <div class="imgAdd" id="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                      <div class="imgAdd" id="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                      <div class="imgAdd" id="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    </div>
-                  </div>
-                </div> 
-            </div>
-
-
-         </div>
-
-
+                </div>
+              </div> 
+          </div>
+       </div>
           <%= f.hidden_field :final_build, id: "final_build"%>
           <%= f.submit%>          
-        <% end %>
+    <% end %>
 </div>
     <div class="imgAdd" id="sum1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
     <div class="imgAdd" id="sum2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>

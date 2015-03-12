@@ -1,5 +1,321 @@
 var ready;
 ready = function(){
+
+	/*######################################################################################
+	Masteries section
+	########################################################################################*/
+
+	//Entfernt das standard browser rechtsklick menu auf der Klasse imgMas
+	$('.imgMas').contextmenu( function() {
+    	return false;
+	});
+
+	var arrOff = [0,0,0,0,0,0];
+	var arrDef = [0,0,0,0,0,0];
+	var arrUtil = [0,0,0,0,0,0];
+	//Variablen welche gebraucht werden um zu zählen wie viele variablen es pro tree gibt
+	var offenseCount= 0;
+	var defenseCount= 0;
+	var utilityCount= 0;
+	//Hier werden die links und rechts klick überprüfungen abgedeckt	
+	$(".imgMas")
+		//Deckt den links klick ab
+	    .click(function(){
+	    	//Der Links klickt kann man nur ausführen wenn man überhaupt noch masteries verteilen kann
+	    	if(offenseCount + defenseCount + utilityCount < 30){
+		    	//Speichert das geklickte img in einer variable ab
+		    	var imageMasteries = $(this);
+		    	//Zieht den string aus der span wo die angagben über act/max anzahl drin ist
+		    	var strNumb = imageMasteries.siblings("span.masNumb").text();
+		    	//Splitet die variable in zwei variablen ab und speichert diese in actNum und maxNum
+		    	var numbers = strNumb.split("/");
+		    	var actNum = parseInt(numbers[0]);
+		    	var maxNum = parseInt(numbers[1]);
+
+		    	//Speichert das tr element in dem geklick wurde in eine Variable
+		    	var trClick = imageMasteries.parent("td").parent("tr");
+
+
+				//In diese variable kommt das entsprechnde div des trees wo man den neuen conter im text anhängt
+		    	var treeCount = trClick.parent().parent().siblings(".mastCounter");
+		    	//In diese variable kommt die entsprechende ids des trees
+				var tree = trClick.parent().parent().parent().attr("id");
+		    	//Der Counter wird für den jeweiligen Tree erhöht und neu reingeschrieben
+		    	//Wenn die Zahl des angeklickten Masteries grösser als 0 ist so kann man eine abziehen und auch so anzeigen
+		    	//variable für tbody
+		        var tbody = trClick.parent();
+		        var arrTNow = tbody.children("tr");
+		        var arrTbody = tbody.children("tr").next();
+		  		var tdNow = "";
+		        var tdNext = trClick.next().children("td");
+		        //Speichert die jewilige Reihe ab
+		        var trId = parseInt(trClick.attr("id")-1);
+		        var array = [];
+		        var count = 0;
+		    	if(tree =="off"){	    		
+		    		if(actNum <  maxNum){
+						offenseCount++;
+						arrOff[trId]++;
+						array = arrOff;
+						count = offenseCount;
+			    		strTreeCount = offenseCount + " Offense";
+			    		treeCount.text(strTreeCount);    			
+		    		}
+		    		
+		    	}else if(tree == "def"){	    		
+		    		if(actNum <= maxNum){
+			    		defenseCount++;
+			    		arrDef[trId]++;
+			    		array = arrDef;
+		    			count = defenseCount;			    		
+			    		strTreeCount = defenseCount + " Defense";
+			    		treeCount.text(strTreeCount);
+			    	}
+		    	}else if(tree == "util"){
+		    		if(actNum <= maxNum){
+		    			arrUtil[trId]++;
+		    			array = arrUtil;
+			    		utilityCount++;
+		    			count = utilityCount;			    		
+			    		strTreeCount = utilityCount + " Utility";
+			    		treeCount.text(strTreeCount);
+			    	}
+	    		}
+	    		console.log(arrOff);
+
+		    	//Wenn die anzahl kleiner ist als die maximale Anzahle so wir die anzahl um eins erhöht
+		    	if(actNum < maxNum){
+		    		actNum = actNum + 1;
+		    	}
+		    	//Der neue Text der angegeben wird
+		    	imageMasteries.siblings("span.masNumb").text(actNum+"/"+maxNum);
+
+	    		//Für jeden 4 masteries wird die entsprechende Riehe angezeigt
+			    for(var i = 0; i < Math.floor(count/4);i++){
+		          	//speichert die nächste td reihe in einen variable
+		            tdNext = arrTbody.eq(i).children("td");
+		            //Speichert diese td reihe ab
+		            tdNow = arrTNow.eq(i).children("td");
+		            arrTbody.eq(i).children("td").each(function(){
+						//Wenn this eine abh hat ein after beziehung hat
+						if($(this).attr("id")=="after"){
+							if(abhDone($(this), tdNow)){
+								$(this).children(".overlay").hide();	
+							}else{
+
+								$(this).children(".overlay").show();
+							}
+						}else{
+								$(this).children(".overlay").hide();					
+						}					
+		            });
+		         }
+    		}
+	    })
+	    //Deckt den rechts klick ab
+	    .mousedown(function(e){
+	        if(e.which == 3) {
+	    	//Speichert das geklickte img in einer variable ab
+		    	var imageMasteries = $(this);
+		    	//Zieht den string aus der span wo die angagben über act/max anzahl drin ist
+		    	var strNumb = imageMasteries.siblings("span.masNumb").text();
+		    	//Splitet die variable in zwei variablen ab und speichert diese in actNum und maxNum
+		    	var numbers = strNumb.split("/");
+		    	var actNum = parseInt(numbers[0]);
+		    	var maxNum = parseInt(numbers[1]);
+
+		    	//Speichert das tr element in dem geklick wurde in eine Variable
+		    	var trClick = imageMasteries.parent("td").parent("tr");
+		    	var tdClick = imageMasteries.parent("td");                      
+
+	    		//In diese variable kommt das entsprechnde div des trees wo man den neuen conter im text anhängt
+		    	var treeCount = trClick.parent().parent().siblings(".mastCounter");
+		    	//In diese variable kommt die entsprechende ids des trees
+				var tree = trClick.parent().parent().parent().attr("id");
+		        var tbody = trClick.parent();
+		        var trAll = tbody.children();
+		        var arrTbody = tbody.children("tr").next();
+		        //Speichert die jewilige Reihe ab
+		        var trId = parseInt(trClick.attr("id")-1);
+		        var array = [];
+
+				if(wegClickOk(tdClick, trId)){
+					if(abhIstOk(tdClick)){
+						if(tree =="off"){
+				    		if(actNum>0){
+					    		offenseCount--;
+					    		arrOff[trId]--;
+								array = arrOff;
+					    		strTreeCount = offenseCount + " Offense";
+					    		treeCount.text(strTreeCount);
+				    		}
+
+				    	}else if(tree == "def"){
+				    		if(actNum>0){
+					    		defenseCount--;
+					    		arrDef[trId]--;
+					    		array = arrDef;
+					    		strTreeCount = defenseCount + " Defense";
+					    		treeCount.text(strTreeCount);
+					    	}
+				    	}else if(tree == "util"){
+				    		if(actNum>0){
+				    			arrUtil[trId]--;
+					    		utilityCount--;
+				    			array = arrUtil;					    		
+					    		strTreeCount = utilityCount + " Utility";
+					    		treeCount.text(strTreeCount);
+			    			}
+				    	}
+		
+				    	//Wenn die anzahl kleiner ist als die maximale Anzahle so wir die anzahl um eins erhöht
+				    	if(actNum > 0){
+				    		actNum = actNum - 1;
+				    	}
+
+				    	//Der neue Text der angegeben wird
+			    		imageMasteries.siblings("span.masNumb").text(actNum+"/"+maxNum);
+				    	//Funktion welche eine Reihe immer dann wegmacht wenn in der oberen Reihe * 4 -1 < reihe * 4 ist 
+				    	//Berchnet an der wievilten stelle man im array ist
+				    	var pos = 0;
+				    	var gesamt = 0;
+						for(var i = 0; i<array.length;i++){
+							if(array[i]>0){
+								pos = i + 1;
+							}
+						}
+						for(var i = 0;i<pos;i++){
+							//erster durchlauf gesetze zwischen erster und zweiter linie
+							gesamt += array[i];			
+						}
+						//Wenn das gesamte kleiner ist wie die anzahl reihen mal 4 dann overlaye alle an der richtigen position
+						if(gesamt-1 < pos*4){
+							console.log("ist kleiner");
+							trAll.eq(pos).children("td").each(function(){
+								$(this).children(".overlay").show();
+							});
+						}
+
+					}
+				}		    	
+        	}
+    });
+	 //Funktion welche true zurück gibt für jede abhängikeit
+	function abhDone(abh, tdNow){
+		var ok = false;
+		var arrTdPrev = tdNow;	
+
+		//Man muss überprüfen
+
+				var pos = abh.parent().children().index(abh);
+				numbers = arrTdPrev.eq(pos).children(".masNumb").text();
+				arrNumbers = numbers.split("/");
+				if(parseInt(arrNumbers[0])==parseInt(arrNumbers[1])){
+					console.log("true weil voll");
+					ok = true;
+					
+				}
+
+		
+		return ok;
+	}
+	//Funktion welche überprüft ob der wegklick gültig ist
+	//Ein klick ist nur dann gültig wenn die Regeln über jede Row gewährlistet ist
+	function wegClickOk(click, id){
+		trId = parseInt(id);
+		var ok = true;
+		var clickTd = click;
+		var clickTr = clickTd.parent();
+	    var tbody = clickTr.parent();
+	    var nrTrRow = clickTr.attr("id");
+	    var nextTr = clickTr.next();
+	    var gesamt = 0;
+	    var pos = 0;
+	    var array = [];
+	    var tree = tbody.parent().parent().attr("id");
+	    //Schauen in welchem Tree man ist
+	    if(tree=="off"){
+	    	array = arrOff;
+	    }else if(tree=="def"){
+	    	array = arrDef;
+	    }else if(tree == "util"){
+	    	array = arrUtil;
+	    }
+		//Wenn in der reihe wo ich wegklicke das gesetzt von den reihen immer noch stimmt
+
+			//Berchnet an der wievilten stelle man im array ist
+			for(var i = 0; i<array.length;i++){
+				if(array[i]>0){
+					pos = i + 1;
+				}
+
+			}
+			if(trId+1 == pos){
+				return true;
+			}
+		
+			//Wenn ich eins weglicken will, muss man schauen ob die gesetze oberhalb des klickes noch stimmen
+			for(var i = 0;i<pos-1;i++){
+				//erster durchlauf gesetze zwischen erster und zweiter linie
+				gesamt += array[i];
+
+				
+			}
+			var berechnung = gesamt/(pos-1)
+			//wenn der gesamte wert höher ist wie der der zeileid * 4 dann ist es ok -> ok > 2*4
+			if(!(berechnung > 4)){
+				return false;
+			}
+		return ok;
+	}
+
+
+	//Funktion welche true zurückgibt wenn bei einer abhnigkeit die obere variable nicht 0 werden kann sofern im der id after bei der anzahl runen keine 0 drin ist
+	function abhIstOk(click){
+		var ok = true;
+		var clickTd = click;
+		var clickTr = clickTd.parent();
+		var nextTr = clickTr.next();
+		var nextTds = nextTr.children();
+		//wenn man auf das feld klickt und es hat eine abhängigkeit
+		if(clickTd.attr("id")=="pre"){
+			//dann überprüfe ob im id after auch die anzahl geklikter 0 ist
+			for(var i = 0;i<4;i++){
+				if (nextTds.eq(i).attr("id") == "after"){
+					numbers = nextTds.eq(i).children("span.masNumb").text();
+					arrNumbers = numbers.split("/");
+					anzNum = arrNumbers[0];
+					if(anzNum==0){
+						ok = true;
+					}else{
+						ok = false;
+					}
+				}
+			}
+		}
+		return ok;
+	}
+
+	//Funktion welche die anzahl ausgewählten in einer Reihe zählt und returned
+	function countRowMasteries(masImg){
+		
+		var count = 0;
+		//Speichert die reihe auf der aktuell geklickt wurde in eine Variable
+		var tr = masImg.parent("td").parent("tr");
+		var arrTd = tr.children();
+		var spanArr = arrTd.children("span.masNumb");
+		//Loop für jedes td in der tr durch
+		for(var i = 0; i<spanArr.length;i++){
+			//Hier wird gezählt wievielmal ein mastery im gesamten pro Reihe angeklickt wird
+			var strGesamtCount = spanArr[i].innerHTML;	
+			var arrCount = strGesamtCount.split("/");
+			intCount = parseInt(arrCount[0]);
+			count = count + intCount;
+
+		}
+		return count;
+	} 
+
 	/*######################################################################################
 	Rune section
 	########################################################################################*/
@@ -161,7 +477,7 @@ ready = function(){
 						}
 					}
 					//Wenn das well existiert aber auf null ist wieder anzeigen
-					if(existwell.children("rune-number").text()==0){
+					if(existwell.children(".rune-number").text()==0){
 						existwell.show();
 					}
 					//Am ende ird die nummer richtig erhöht
@@ -210,18 +526,22 @@ ready = function(){
 				if(runetype=="red"){
 					if(arrMarks.length<9){
 						arrMarks.push(name);
+						console.log(arrMarks);
 					}
 				}else if(runetype=="yellow"){
 					if(arrSeals.length<9){
 						arrSeals.push(name);
+						console.log(arrSeals);
 					}						
 				}else if(runetype=="blue"){
 					if(arrGlyphs.length<9){
 						arrGlyphs.push(name);
+						console.log(arrGlyphs);
 					}
 				}else if(runetype=="black"){
 					if(arrQuints.length<3){
 						arrQuints.push(name);
+						console.log(arrQuints);
 					}
 				}
 				//Array test
@@ -300,18 +620,21 @@ ready = function(){
 				}
 			});
 			//Hier wird die Rune vom richtigen String wieder weggenohmen
-			alert(name);
+
 			//Man muss überprüfen um welche art von Rune es sicht handelt
 			if(runetype=="red"){
 				arrMarks.splice( $.inArray(name, arrMarks), 1 );
+				console.log(arrMarks);
 			}else if(runetype=="yellow"){
 				arrSeals.splice( $.inArray(name, arrSeals), 1 );
+				console.log(arrSeals);
 			}else if(runetype=="blue"){
 				arrGylphs.splice( $.inArray(name, arrGlyphs), 1 );
+				console.log(arrGlyphs);
 			}else if(runetype=="black"){
 				arrQuints.splice( $.inArray(name, arrQuints), 1 );
+				console.log(arrQuints);
 			}
-			console.log(runeTotal);
 		});
 
 

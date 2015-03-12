@@ -7,12 +7,33 @@
     $champs = $client.static_data.champion_all
 
     $runes_list = $client.static_data.rune_all
-    #Runen (url, images, daten)
+   
+   	$mastery_list = $client.static_data.mastery_all
 
+   	#Mastery hash -> mastery
+   	$mastery = Array.new
+
+    $mastery_list.data.each do |name, mastery|
+		$mastery.push(mastery)			
+	end
+
+	$mastery_desc = Array.new
+	$mastery.each do |desc|
+		$mastery_desc.push(desc.description)
+
+	end
+
+	$mastery_name = Array.new
+	$mastery.each do |mast|
+		puts mast.name
+		$mastery_name.push(mast.name)
+	end
+
+    #Runen (url, images, daten)
     $runes = Array.new
 
     $runes_list.data.each do |name, rune|
-		puts "#{name} => #{rune}"
+
 		$runes.push(rune)			
 	end
 
