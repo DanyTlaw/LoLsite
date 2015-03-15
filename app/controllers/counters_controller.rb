@@ -1,6 +1,6 @@
 class CountersController < ApplicationController
   before_action :set_counter, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_filter :load_parent
+  before_filter :load_parent, :authenticate_user!
   # GET /counters
   # GET /counters.json
   def index

@@ -16,6 +16,7 @@
 				Weak <span class="badge"><%= scounter['downvotes'] %></span>
 			</button>
 		<% end %>
+			<%= commontator_thread(actualCounter(@champion.name, scounter['name'])) %>
 	</div>
 <% end %>
 
@@ -34,5 +35,6 @@
 				Weak <span class="badge"><%= wcounter['downvotes'] %></span>
 			</button>
 		<% end %>
+			<%= commontator_thread(actualCounter(@champion.name, wcounter['name'])) %>
 	</div>
 <% end %>

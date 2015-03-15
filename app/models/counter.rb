@@ -3,6 +3,7 @@ class Counter < ActiveRecord::Base
 	after_rollback :voteCounter
 	belongs_to :champion
 	acts_as_votable
+	acts_as_commontable
 
 	protected
 
