@@ -1,6 +1,58 @@
 var ready;
 ready = function(){
+	/*######################################################################################
+	Skill Order Section
+	########################################################################################*/
 
+	//Array welche das geklickte beinhaltet
+	var arrAb =[];
+	var countSP = 0;
+	var strSP ="";
+	//Wenn man auf ein td innerhalb der Skillorderklickt
+   $("#skillOrder").on("click", "td", function() {
+   	//Und der klick nicht in der ersten reihe ist
+   		countSP = 0;
+   		var strSP ="";
+	   	if($(this).attr("name")!="info"){
+	   		//Variable welche alle tr beinhaltet
+	   		var allTr = $(this).parent().parent().children("tr");
+	   		//Zuerst überprüfe alle td in der gleichen reihe
+	   		var pos = $(this).parent().children().index($(this));
+	   		//Variable welche weiss auf welche ability reihe geklickt wurde
+	   		var ab = $(this).parent().attr("id");
+	   		//Setze alle td an gleicher position leer
+	   		for(var i = 0; i<4;i++){
+	   			var allTd = allTr.eq(i).children("td");
+	   			allTd.eq(pos).text(" ");
+	   		}
+	   		//An der geklickten position wird ein zeichen gesetzt
+	   		$(this).text("\u2022");
+	   		//Im array wird an der richtigen stelle das entsprechende hinzugefügt
+	   		arrAb[pos-1] = pos + ab;
+	   		console.log(arrAb);
+	   		//Schleife welche durch jedes einzelne td einmal druchgeht
+	   		for(var i = 0;i<4;i++){
+	   			//Variable welcke alle Tds in einer reihe speichert
+	   			var rowTd = allTr.eq(i).children("td");
+	   			rowTd.each(function(){
+	   				//Wenn die das geschlaufte den inhalt vom klicken enthalten so increment countSp
+	   				if($(this).text()=="\u2022"){
+	   					countSP++;
+	   					console.log(countSP);
+	   				}
+	   			});
+	   		}
+	   		//Wenn 18 gedrückt wurden verwandle den Array in ein String und adde im dem richtigen hiddenfield
+	   		if(countSP==18){
+	   			for(var i = 0;i<arrAb.length;i++){
+	   				strSP += arrAb[i] +",";
+	   			}
+	   			console.log(strSP);
+	   			$("#skill_order").val(strSP);
+	   		}
+	   	}
+   });
+ 	
 	/*######################################################################################
 	Masteries section
 	########################################################################################*/

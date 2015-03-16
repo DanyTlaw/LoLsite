@@ -306,7 +306,7 @@
 	width:40px;
 	background-color: black;
 	position: relative;
-
+	cursor: pointer;
 }
 .overlay{
 	opacity: .8;
@@ -362,4 +362,24 @@
 	width: 90%;
 	position: absolute;
 	font-weight: bold;
+}
+
+#skillOrder td{
+	cursor: pointer;
+	text-align: center;
+	color: orange;
+	font-size: 20px;
+	padding: 0px;
+
+	height:30px;
+	}
+.lvlnumber{
+	width: 30px;
+	height:30px;
+}
+.noCss{
+	color: black !important;
+	font-size: 14px !important;
+	text-align: left !important;
+	padding: 5px !important;
 }
