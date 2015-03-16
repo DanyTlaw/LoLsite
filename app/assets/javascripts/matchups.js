@@ -176,6 +176,8 @@ ready = function(){
 
 				    	//Der neue Text der angegeben wird
 			    		imageMasteries.siblings("span.masNumb").text(actNum+"/"+maxNum);
+
+			    		
 				    	//Funktion welche eine Reihe immer dann wegmacht wenn in der oberen Reihe * 4 -1 < reihe * 4 ist 
 				    	//Berchnet an der wievilten stelle man im array ist
 				    	var pos = 0;
@@ -190,7 +192,7 @@ ready = function(){
 							gesamt += array[i];			
 						}
 						//Wenn das gesamte kleiner ist wie die anzahl reihen mal 4 dann overlaye alle an der richtigen position
-						if(gesamt-1 < pos*4){
+						if(gesamt < pos*4){
 							console.log("ist kleiner");
 							trAll.eq(pos).children("td").each(function(){
 								$(this).children(".overlay").show();
