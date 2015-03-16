@@ -10,9 +10,15 @@ ready = function(){
     	return false;
 	});
 
+	//Arrays welche zählen wieviele mas pro tree benutzt wurden
 	var arrOff = [0,0,0,0,0,0];
 	var arrDef = [0,0,0,0,0,0];
 	var arrUtil = [0,0,0,0,0,0];
+
+	//Arrays welche die Namen der Masterys in ihren jeweiligen array speichern
+	var arrNameOff = [];
+	var arrNameDef = [];
+	var arrNameUtil = [];
 
 	//Variablen welche gebraucht werden um zu zählen wie viele variablen es pro tree gibt
 	var offenseCount= 0;
@@ -35,8 +41,8 @@ ready = function(){
 
 		    	//Speichert das tr element in dem geklick wurde in eine Variable
 		    	var trClick = imageMasteries.parent("td").parent("tr");
-
-
+		    	//Speichert das td element in dem geklict wurde in eine Variable
+		    	var tdClick = imageMasteries.parent("td");
 				//In diese variable kommt das entsprechnde div des trees wo man den neuen conter im text anhängt
 		    	var treeCount = trClick.parent().parent().siblings(".mastCounter");
 		    	//In diese variable kommt die entsprechende ids des trees
@@ -59,6 +65,8 @@ ready = function(){
 						arrOff[trId]++;
 						array = arrOff;
 						count = offenseCount;
+						arrNameOff.push(tdClick.attr("name"));
+						console.log(arrNameOff);
 			    		strTreeCount = offenseCount + " Offense";
 			    		treeCount.text(strTreeCount);    			
 		    		}
@@ -68,22 +76,25 @@ ready = function(){
 			    		defenseCount++;
 			    		arrDef[trId]++;
 			    		array = arrDef;
-		    			count = defenseCount;			    		
+		    			count = defenseCount;
+		    			arrNameDef.push(tdClick.attr("name"));
+		    			console.log(arrNameDef);			    		
 			    		strTreeCount = defenseCount + " Defense";
 			    		treeCount.text(strTreeCount);
 			    	}
 		    	}else if(tree == "util"){
 		    		if(actNum < maxNum){
+		    			utilityCount++;
 		    			arrUtil[trId]++;
 		    			array = arrUtil;
-			    		utilityCount++;
-		    			count = utilityCount;			    		
+		    			count = utilityCount;
+		    			arrNameUtil.push(tdClick.attr("name"));
+		    			console.log(arrNameUtil);			    		
 			    		strTreeCount = utilityCount + " Utility";
 			    		treeCount.text(strTreeCount);
 			    	}
 	    		}
-	    		console.log(arrOff);
-
+	 
 		    	//Wenn die anzahl kleiner ist als die maximale Anzahle so wir die anzahl um eins erhöht
 		    	if(actNum < maxNum){
 		    		actNum = actNum + 1;
@@ -110,6 +121,12 @@ ready = function(){
 								$(this).children(".overlay").hide();					
 						}					
 		            });
+		         }
+		         //Wenn es nun im gesamtem 30 Masteries sind so speichere die Masteries in ein String und adde die dem hidden field
+		         if(offenseCount + defenseCount + utilityCount == 30){
+		         	console.log(finalMasString());
+		         	$("#masteriesHidden").val(finalMasString());
+
 		         }
     		}
 	    })
@@ -139,7 +156,7 @@ ready = function(){
 		        //Speichert die jewilige Reihe ab
 		        var trId = parseInt(trClick.attr("id")-1);
 		        var array = [];
-
+		        var name = tdClick.attr("name");
 				if(wegClickOk(tdClick, trId)){
 					if(abhIstOk(tdClick)){
 						if(tree =="off"){
@@ -147,6 +164,8 @@ ready = function(){
 					    		offenseCount--;
 					    		arrOff[trId]--;
 								array = arrOff;
+								arrNameOff.splice( $.inArray(name, arrNameOff), 1 );
+								console.log(arrNameOff);
 					    		strTreeCount = offenseCount + " Offense";
 					    		treeCount.text(strTreeCount);
 				    		}
@@ -156,6 +175,8 @@ ready = function(){
 					    		defenseCount--;
 					    		arrDef[trId]--;
 					    		array = arrDef;
+					    		arrNameDef.splice( $.inArray(name, arrNameDef), 1 );
+								console.log(arrNameDef);
 					    		strTreeCount = defenseCount + " Defense";
 					    		treeCount.text(strTreeCount);
 					    	}
@@ -163,7 +184,9 @@ ready = function(){
 				    		if(actNum>0){
 				    			arrUtil[trId]--;
 					    		utilityCount--;
-				    			array = arrUtil;					    		
+				    			array = arrUtil;
+				    			arrNameUtil.splice( $.inArray(name, arrNameUtil), 1 );
+								console.log(arrNameUtil);					    		
 					    		strTreeCount = utilityCount + " Utility";
 					    		treeCount.text(strTreeCount);
 			    			}
@@ -318,7 +341,16 @@ ready = function(){
 		}
 		return count;
 	} 
-
+	function finalMasString(){
+		var finalString ="";
+		var strOff = arrayCountElement(arrNameOff);
+		var strDef = arrayCountElement(arrNameDef);
+		var strUtil = arrayCountElement(arrNameUtil);
+		//String zusammensetzen
+		finalString = strOff + "|" + strDef + "|" + strUtil;
+		
+		return finalString;
+	}
 	/*######################################################################################
 	Rune section
 	########################################################################################*/
@@ -378,7 +410,7 @@ ready = function(){
 		var origArray = inputArray;
 		var filtArray = arrayFilter(origArray);
 		var count = 0;
-		var strSpecRune= "";
+		var string= "";
 		//Für jedes element in filt Array muss durch das origArray gelooped werden und den richten wert speichern
 		for(var i=0; i<filtArray.length;i++){
 			count=0;
@@ -390,10 +422,10 @@ ready = function(){
 				}		
 			}
 			//Das filter Array element mit dem Counter dem string adden = count x element
-			strSpecRune += count + "x" + filtArray[i] +',';
+			string += count + "x" + filtArray[i] +',';
 		}
-		strSpecRune = strSpecRune.replace(/,\s*$/, "");
-		return strSpecRune;
+		string = string.replace(/,\s*$/, "");
+		return string;
 	}
 
 	function finalRuneString(){
