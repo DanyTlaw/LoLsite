@@ -1,8 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   
-  # def after_sign_up_path_for(resource)
-  #   '/profiles/edit'
-  # end
+  def after_sign_up_path_for(resource)
+   profile_path(current_user)
+  end
 
   def new
     build_resource({})

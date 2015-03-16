@@ -1,5 +1,18 @@
 module ApplicationHelper
 
+	#Make Devise variables accessible from other controllers
+	def resource_name
+		:user
+	end
+
+	def resource
+		@resource ||= User.new
+	end
+
+	def devise_mapping
+	 	@devise_mapping ||= Devise.mappings[:user]
+	end
+
 	# Get strongest Counters
 	def getTopStrong(name)
 		# Get all champions

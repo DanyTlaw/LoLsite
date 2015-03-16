@@ -9,33 +9,29 @@
   		  </li>
       </ul>
       <div class="navbar-right">
-        <ul class="nav navbar-nav navbar-left">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <ul class="nav navbar-nav navbar-left" >
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Signed in as: <%= current_user.email %><span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+            <li>
               <% if user_signed_in? %>
-                Signed in as: <%= current_user.email %>              
-              <% else %>
-                <%= link_to new_user_session_path do %>
-                <li><button type="button" class="btn btn-warning">Log In</button></li>
-                <% end %>
-              <% end %>            
-          <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <% if user_signed_in? %>
-              <%= link_to destroy_user_session_path, method: :delete do %>
+                <%= link_to destroy_user_session_path, method: :delete do %>
                 Log Out
+                <% end %>
               <% end %>
-            <% end %>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <% if user_signed_in? %>
-              <%= link_to 'View profile', profile_path(current_user) %>
-            <% end %>
-          </li>
-          <li class="divider"></li>
-          <li><%= link_to 'Select Matchup', '/selectmatchup' %></li>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <% if user_signed_in? %>
+                <%= link_to 'View profile', profile_path(current_user) %>
+              <% end %>
+            </li>
+            <li class="divider"></li>
+            <li><%= link_to 'Select Matchup', '/selectmatchup' %></li>              
+          <% else %>
+            <div><button type="button" href="#loginModal" data-toggle="modal" data-target="#loginModal" class="btn btn-warning">Login</button></div>
+          <% end %>     
         </ul>
       </li>
     </ul>
@@ -43,3 +39,53 @@
 
 </nav>
 
+<div class="modal fade" id="loginModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Log or register a new account</h4>
+        </div>
+        <div class="modal-body">
+          <div class="tabbable">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tabLogin" data-toggle="tab">Login</a></li>
+              <li><a href="#tabRegister" data-toggle="tab">Register</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tabLogin">
+                <%= form_for(:user, :url => session_path(:user)) do |f| %>
+                <%= devise_error_messages! %>
+
+                    <div><%= f.label :email %><br />
+                    <%= f.email_field :email, autofocus: true %></div>
+
+                    <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+                      <%= f.password_field :password, autocomplete: "off" %></div>
+                    <div><%= link_to "Forgot your password?", new_password_path(:user) %><br /></div>
+                    <div><%= f.submit "Sign in", class: 'btn btn-default' %></div>
+                <% end %>
+              </div>
+              <div class="tab-pane" id="tabRegister">
+                <%= form_for(:user, :url => registration_path(:user)) do |f| %>
+                <%= devise_error_messages! %>
+                    <div><%= f.label :email %><br />
+                    <%= f.email_field :email, autofocus: true %></div>
+
+                    <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+                      <%= f.password_field :password, autocomplete: "off" %></div>
+                      
+                    <div><%= f.label :password_confirmation %><br />
+                      <%= f.password_field :password_confirmation, autocomplete: "off" %><br /></div>
+                    <div><%= f.submit "Sign up", class: 'btn btn-default'  %></div>
+                <% end %>
+              </div>
+            </div>
+          </div>         
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn btn-default">Close</a> 
+        </div>
+      </div>
+    </div>
+</div>
