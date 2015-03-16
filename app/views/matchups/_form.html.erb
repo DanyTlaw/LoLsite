@@ -373,7 +373,7 @@
             </div>
           </div>
           <!-- Skill Order Section -->
-          <%= f.text_field :skill_order, id: "skill_order" %>
+          <%= f.hidden_field :skill_order, id: "skill_order" %>
           <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">Skill Order</div>
@@ -489,12 +489,39 @@
                 </table>
               </div>
             </div>
-          </div>  
+          </div> 
+          <!-- summoners-->
+          <div class ="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">Summoners</div>
+                <div class="panel-body">
+                  <div class="imgAdd" id="sum1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
+                  <div class="imgAdd" id="sum2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>                
+                </div>
+              </div>             
+          </div>
+          <!-- starting items-->
+            <div class="col-md-8">
+              <div class="panel panel-default">
+                <div class="panel-heading">Starting Items</div>
+                <div class="panel-body">
+                  <div class="startingbuild">
+                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                  </div>
+                </div>
+              </div> 
+          </div>
           <!--Early Laning section-->
           <div class="col-md-8">
               <div class="panel panel-default">
                 <div class="panel-heading">Early laning</div>
                 <div class="panel-body">
+                <%= f.text_area :early_laning, class: "matchupText"%>
                 </div>
               </div> 
           </div>
@@ -511,6 +538,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Mid laning</div>
                 <div class="panel-body">
+                 <%= f.text_area :mid_laning, class: "matchupText" %>
                 </div>
               </div> 
           </div>
@@ -518,6 +546,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Items</div>
                 <div class="panel-body">
+
                 </div>
               </div>             
           </div>
@@ -527,6 +556,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">late laning</div>
                 <div class="panel-body">
+                  <%= f.text_area :late_laning, class: "matchupText" %>
                 </div>
               </div> 
           </div>
@@ -543,14 +573,14 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Final Build</div>
                 <div class="panel-body">
-                  <div class="finalbuild">
-                    <div class="imgAdd" id="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" id="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" id="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" id="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" id="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" id="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                  </div>
+                  <div class="final_build">
+                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    </div>
                 </div>
               </div> 
           </div>
@@ -559,10 +589,8 @@
           <%= f.submit%>          
     <% end %>
 </div>
-    <div class="imgAdd" id="sum1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
-    <div class="imgAdd" id="sum2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
-  </div>
 
+  </div>
 
 
 <!-- Modal Section -->

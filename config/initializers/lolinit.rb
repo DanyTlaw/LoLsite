@@ -58,7 +58,7 @@
 
     #so sollte es gemacht werden jedoch ist das gem nch in einer alten version
     # -> dd_version = realm.dd -> 4.17.1
-    dd_version = "5.4.1"
+    dd_version = "5.5.2"
 
 	#Für jedes Image wird der url im array hinzugefügt
 	itemImages.each do |img|

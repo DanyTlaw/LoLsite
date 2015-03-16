@@ -773,9 +773,12 @@ ready = function(){
 	var finalBuild = new Array(6);
 
 	var strFinalBuild = "";
+	var build = "";
 	//Ueberprüft wo geklickt wurde und speichert die id in itemid
 	$('.imgAdd').click(function(){
-		itemid = $(this).attr("id");
+		itemid = $(this).attr("pos");
+		build = $(this).parent().attr("class");
+		alert(build);
 			//Wenn die id nicht die erste ist
 	});
 
@@ -784,9 +787,13 @@ ready = function(){
 		//Speicher das Bild bei klick auf ein item in eine variable
 		itemimg = $(this).attr("src");
 		//fügt dem geklickten dieses Bild hinzu
-		$(".imgAdd#"+itemid).html("<img id ='" + itemid + "' src='" +itemimg +"'>");
-				//Erstelle eintrag im Array und wandle in ein String um und setze in an den richtigen ort
-		finalBuild[itemid-1] = itemimg;
+		$("."+build+"> .imgAdd[pos='" +itemid +"']").html("<img id ='" + itemid + "' src='" +itemimg +"'>");
+		//Erstelle eintrag im Array und wandle in ein String um und setze in an den richtigen ort
+		
+		if(build == "finalbuild"){
+			finalBuild[itemid-1] = itemimg;
+		}
+
 		//Erhöhe itemd id um 1
 		if(itemid <6){
 			itemid++;
