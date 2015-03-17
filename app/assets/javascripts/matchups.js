@@ -771,8 +771,14 @@ ready = function(){
 	var srcDrinId;
 	//Array mit einem item/url pro slot
 	var finalBuild = new Array(6);
+	var startBuild = [];
+	var coreEarly = [];
+	var coreMid = [];
 
 	var strFinalBuild = "";
+	var strStartBuild = "";
+	var strCoreEarly = "";
+	var strCoreMid= "";
 	var build = "";
 	//Ueberprüft wo geklickt wurde und speichert die id in itemid
 	$('.imgAdd').click(function(){
@@ -789,23 +795,43 @@ ready = function(){
 		//fügt dem geklickten dieses Bild hinzu
 		$("."+build+"> .imgAdd[pos='" +itemid +"']").html("<img id ='" + itemid + "' src='" +itemimg +"'>");
 		//Erstelle eintrag im Array und wandle in ein String um und setze in an den richtigen ort
-		
+		//Wenn es sich um den Finalbuild handelt
 		if(build == "finalbuild"){
 			finalBuild[itemid-1] = itemimg;
+		//Wenn es sicht um den startbuild handelt	
+		}else if(build == "startbuild"){
+			startBuild[itemid-1] = itemimg;
+		}else if(build == "coreEarly"){
+			strCoreEarly[itemid-1] = itemimg;
+		}else if(build == "coreMid"){
+			strCoreMid[itemid-1] = itemimg;
 		}
 
 		//Erhöhe itemd id um 1
 		if(itemid <6){
 			itemid++;
 		}
-		//Macht aus dem Array einen String
+		//Macht aus dem Array einen String für dem Finalbuild
 		for(var i = 0; i < finalBuild.length;i++){
 			strFinalBuild = strFinalBuild + finalBuild[i] + "|";
 		}
-
-		//Adde den string dem hidden textfield zu
+		//Macht aus dem Array einen String für den Startbuild
+		for(var i = 0; i < startBuild.length;i++){
+			strStartBuild = strStartBuild + startBuild[i] + "|";
+		}		
+		//Macht aus dem Array einen String für den earlyCore
+		for(var i = 0; i < coreEarly.length;i++){
+			strCoreEarly = strCoreEarly + coreEarly[i] + "|";
+		}	
+		//Macht aus dem Array einen String für den midCore
+		for(var i = 0; i < coreMid.length;i++){
+			strCoreMid = strCoreMid + coreMid[i] + "|";
+		}	
+		//Adde den string den hidden textfielder zu
 		$("#final_build").val(strFinalBuild);
-
+		$("#start_build").val(strStartBuild);
+		$("#early_build").val(strCoreEarly);
+		$("#mid_build").val(strCoreMid);
 	});
 
 	/*######################################################################################

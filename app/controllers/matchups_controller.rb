@@ -90,7 +90,7 @@ class MatchupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def matchup_params
-      params.require(:matchup).permit(:final_build, :runes, :champ_eins, :champ_zwei, :masteries, :skill_order)
+      params.require(:matchup).permit(:final_build, :runes, :champ_eins, :champ_zwei, :masteries, :skill_order, :start_items, :early_laning, :mid_laning, :late_laning, :general_role, :early_core_items, :mid_core_items)
 
     end
 end

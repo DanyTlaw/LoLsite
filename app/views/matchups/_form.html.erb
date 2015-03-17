@@ -527,8 +527,13 @@
           </div>
           <div class ="col-md-4">
               <div class="panel panel-default">
-                <div class="panel-heading">Items</div>
+                <div class="panel-heading">Core Items</div>
                 <div class="panel-body">
+                  <div class="coreEarly">
+                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                  </div>
                 </div>
               </div>             
           </div>
@@ -544,9 +549,13 @@
           </div>
           <div class ="col-md-4">
               <div class="panel panel-default">
-                <div class="panel-heading">Items</div>
+                <div class="panel-heading">Core Items</div>
                 <div class="panel-body">
-
+                  <div class="coreMid">
+                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                  </div>
                 </div>
               </div>             
           </div>
@@ -562,13 +571,22 @@
           </div>
           <div class ="col-md-4">
               <div class="panel panel-default">
-                <div class="panel-heading">Items</div>
+                <div class="panel-heading">Core Items</div>
                 <div class="panel-body">
                 </div>
               </div>             
           </div>
+          <!--General Role -->
+          <div class="col-md-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">General Role</div>
+              <div class="panel-body">
+                <%= f.text_area :general_role, class: "matchupText" %>
+              </div>
+            </div>
+          </div>
 
-          <!--Late Laning section-->
+          <!--Final build-->
           <div class="col-md-8">
               <div class="panel panel-default">
                 <div class="panel-heading">Final Build</div>
@@ -586,6 +604,9 @@
           </div>
        </div>
           <%= f.hidden_field :final_build, id: "final_build"%>
+          <%= f.hidden_field :start_items, id: "start_build"%>
+          <%= f.hidden_field :early_core_items, id: "early_build"%>
+          <%= f.hidden_field :mid_core_items, id: "mid_build"%>
           <%= f.submit%>          
     <% end %>
 </div>
