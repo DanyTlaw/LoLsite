@@ -54,5 +54,5 @@
 		$champ_image_url.push(url + '/' + dd_version + '/img/' + 'champion' + '/' + img )
 	end
 
-	$apiurl = (url + '/' + dd_version + '/img/' + 'champion' + '/')
+	$apiurl = (url + '/' + dd_version + '/img/')
 
