@@ -68,10 +68,11 @@
 	#champion und champion bilder url werden gemacht
 	#Ein Array welche die image speichert
 	champ_images = Array.new
-
+	$champAll = Array.new
 	#Es wird durch den Hash alles champ iteriert und das bild jedes einzelne Champs wird im Array images 
 	#hinzugefügt
 	$champs.data.each do |name, champ|
+		$champAll.push(champ);
 		champ_images.push(champ.image.full)
 		
 	end

@@ -383,17 +383,41 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">Skill Description</div>
                   <div class="panel-body">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9"></div>
+                    <div class="col-md-3">
+                      <div class="skill" pos="q">
+                        <img id="q" src="">
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <%= f.text_area :early_laning, class: "spellText"%>
+                    </div>
 
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9"></div>
+                    <div class="col-md-3">
+                      <div class="skill" pos="w">
+                        <img id="w" src="">
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <%= f.text_area :early_laning, class: "spellText"%>
+                    </div>
 
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9"></div>
+                    <div class="col-md-3">
+                      <div class="skill" pos="e">
+                        <img id="e" src="">
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <%= f.text_area :early_laning, class: "spellText"%>
+                    </div>
                     
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9"></div>
+                    <div class="col-md-3">
+                      <div class="skill" pos="r">
+                        <img id="r" src="">
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <%= f.text_area :early_laning, class: "spellText"%>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -701,8 +725,8 @@
           <h4 class="modal-title" id="myModalLabel">Choose your Summoner</h4>
         </div>
         <div class="modal-body">
-          <% $champ_image_url.each do |url| %>
-            <img class="imgChamp" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' >
+          <% $champAll.each do |champ| %>
+            <img class="imgChamp" src="<%= urlImgChamps(champ.name)%>" name="<%= champ.name%>" data-toggle='tooltip' data-html="true" data-placement='bottom' >
           <% end %>
         </div>
 

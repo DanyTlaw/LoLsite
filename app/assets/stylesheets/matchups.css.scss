@@ -148,6 +148,10 @@
 
 }
 
+.skill img[src=""]{
+	display: none;
+}
+
 .champAdd{
 	width: 100px;
 	height: 100px;
@@ -408,4 +412,11 @@
 	height: 200px;
 	overflow: auto;
 }
+
+.spellText{
+	width:100%;
+	height: 100px;
+	overflow: auto;
+}
+
 textarea { resize: none; }

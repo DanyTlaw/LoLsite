@@ -25,12 +25,9 @@ class MatchupsController < ApplicationController
     $summoners.each do |sum|
       @sum_desc.push(sum.description)
     end
-
-
-    respond_to do |format|
-      format.html
-        format.js
-    end
+    #Variable welche von der view gebraucht wird
+    gon.champs = $champAll
+    gon.url = $apiurl
   end
 
   def selectmatchup

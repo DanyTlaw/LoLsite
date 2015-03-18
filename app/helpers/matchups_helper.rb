@@ -16,4 +16,15 @@ module MatchupsHelper
 		return url
 	end
 
+	def urlImgChamps(champname)
+		$champAll.each do |champ|
+			if champ["name"] == champname
+				@thischamp = champ
+			end
+		end
+		imgChamp = @thischamp.image.full
+		url = $apiurl + "champion/" + imgChamp
+		return url
+	end
+
 end

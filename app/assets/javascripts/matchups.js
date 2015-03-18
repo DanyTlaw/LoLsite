@@ -732,7 +732,7 @@ ready = function(){
 	var champid;
 	var champimg;
 	var strChamp;
-
+	var spellurl = gon.url 
 	//Funktion um herauszufinden welches Champ bild gedrückt wurde
 	$('.champAdd').click(function(){
 		champid = $(this).attr("id");
@@ -743,23 +743,46 @@ ready = function(){
 		strChamp ="";
 
 		champimg = $(this).attr('src');
+		champname = $(this).attr("name");
 
-		urlSplit = champimg.split('/');
-		champUrlLast = urlSplit[urlSplit.length-1];
-		champSplit = champUrlLast.split('.');
-
-		$(".champAdd#"+champid).html("<img id ='" + champid + "' src='" +champimg +"' style='max-width: 100%;max-height: 100%;'>");
+		//hier wird das bild links oder recchts je nach id mit name und bild in ddie jeweilge anzeige gespeichert
+		$(".champAdd#"+champid).html("<img id ='" + champid + "' src='" +champimg +"' style='max-width: 100%;max-height: 100%;' name='"+champname+"'>");
+		//Wenn es der Linke champ ist
 		if(champid == "left"){
 
-			strChamp = champSplit[0];
-
-			$("#champLinks").val(strChamp);
+			$("#champLinks").val(champname);
+			//Da der Matchup sich um den links handelt müssen noch alle fähigkeiten richtig angepasst werden
+			//Zugriff auf die Gon variable
+			for(var i = 0; i< gon.champs.length;i++){
+				
+				if(gon.champs[i].name == champname){
+					console.log(gon.champs[i].name);
+					//Speichert einen Array von Spells in diese variable, welches schon nach q w e r sotiert ist
+					champspells = gon.champs[i].spells;
+					//Für jeden spell wir das entsprechende bild geladen
+					for(var j = 0; j< champspells.length;j++){
+						console.log(champspells[j].name);
+						//Setzt den richtigen url zusammen
+						url = spellurl + "spell/" + champspells[j].image.full;
+						console.log(url);
+						//Beim ersten durchgang geht es um den q spell
+						if(j==0){
+							$(".skill > #q").attr("src", url);
+						}else if(j==1){
+							$(".skill > #w").attr("src", url);
+						}else if(j==2){
+							$(".skill > #e").attr("src", url);
+						}else if(j==3){
+							$(".skill > #r").attr("src", url);
+						}
+					}
+				}
+			}
 
 		}else if(champid == "right"){
-			strChamp = champSplit[0];
 
-			$("#champRechts").val(strChamp);
-			console.log(strChamp);
+			$("#champRechts").val(champname);
+
 		}
 	});
 	/*######################################################################################
