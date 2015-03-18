@@ -19,8 +19,12 @@ Rails.application.routes.draw do
 
   get '/selectmatchup' => 'matchups#selectmatchup'
 
+<<<<<<< HEAD
 
   devise_for :users, controllers: { registrations: "users/registrations" }
                                 
+=======
+  devise_for :users
+>>>>>>> master
 
 end

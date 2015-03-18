@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<div class="table table-bordered">
+	<div class="row">
+	  <div class="col-md-8">
+		<p>
+		  <strong>User:</strong>
+		  <%= @profile.user_id %>
+		</p>
+
+		<p>
+		  <strong>About:</strong>
+		  <%= @profile.about %>
+		</p>
+
+		<p>
+		  <strong>Summoner:</strong>
+		  <%= @profile.summoner %>
+		</p>
+	  </div>
+	  <div class="col-md-4">
+	  	
+	  </div>
+	</div>
+</div>
+
+
+<%= link_to 'Edit', edit_profile_path(@profile) %> |
+<%= link_to 'Back', profiles_path %>
