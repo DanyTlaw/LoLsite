@@ -1,38 +1,44 @@
 <% @tops = getTopStrong(@champion.name) %>
 <% @topw = getTopWeak(@champion.name) %>
 
-<h3>5 Best Counters</h3>
-<% @tops.each do |scounter| %>
-	<div class="counter">
-		<p style="float:left; margin-right: 5px;"><%= image_tag(scounter['portrait'],:size => "50x50") %></p>
-		<h5><%= scounter['name'] %></h5>
-		<%= link_to like_champion_counter_path(scounter['champion_id'], scounter['id']), method: :put do %>
-			<button class="btn btn-success btn-xs" type="button">
-				Strong <span class="badge"><%= scounter['upvotes'] %></span>
-			</button>
-		<% end %>
-		<%= link_to unlike_champion_counter_path(scounter['champion_id'], scounter['id']), method: :put do %>
-			<button class="btn btn-danger btn-xs" type="button">
-				Weak <span class="badge"><%= scounter['downvotes'] %></span>
-			</button>
-		<% end %>
-	</div>
+<% if !@tops.empty? %>
+	<h3>5 Best Counters</h3>
+	<% @tops.each do |scounter| %>
+		<div class="counter">
+			<p style="float:left; margin-right: 5px;"><%= image_tag(scounter['portrait'],:size => "50x50") %></p>
+			<h5><%= scounter['name'] %></h5>
+			<%= link_to like_champion_counter_path(scounter['champion_id'], scounter['id']), method: :put do %>
+				<button class="btn btn-success btn-xs" type="button">
+					Strong <span class="badge"><%= scounter['upvotes'] %></span>
+				</button>
+			<% end %>
+			<%= link_to unlike_champion_counter_path(scounter['champion_id'], scounter['id']), method: :put do %>
+				<button class="btn btn-danger btn-xs" type="button">
+					Weak <span class="badge"><%= scounter['downvotes'] %></span>
+				</button>
+			<% end %>
+				<%= commontator_thread(actualCounter(@champion.name, scounter['name'])) %>
+		</div>
+	<% end %>
 <% end %>
 
-<h3>5 Worst Counters</h3>
-<% @topw.each do |wcounter| %>
-	<div class="counter">
-		<p style="float:left; margin-right: 5px;"><%= image_tag(wcounter['portrait'],:size => "50x50") %></p>
-		<h5><%= wcounter['name'] %></h5>
-		<%= link_to like_champion_counter_path(wcounter['champion_id'], wcounter['id']), method: :put do %>
-			<button class="btn btn-success btn-xs" type="button">
-				Strong <span class="badge"><%= wcounter['upvotes'] %></span>
-			</button>
-		<% end %>
-		<%= link_to unlike_champion_counter_path(wcounter['champion_id'], wcounter['id']), method: :put do %>
-			<button class="btn btn-danger btn-xs" type="button">
-				Weak <span class="badge"><%= wcounter['downvotes'] %></span>
-			</button>
-		<% end %>
-	</div>
+<% if !@topw.empty? %>
+	<h3>5 Worst Counters</h3>
+	<% @topw.each do |wcounter| %>
+		<div class="counter">
+			<p style="float:left; margin-right: 5px;"><%= image_tag(wcounter['portrait'],:size => "50x50") %></p>
+			<h5><%= wcounter['name'] %></h5>
+			<%= link_to like_champion_counter_path(wcounter['champion_id'], wcounter['id']), method: :put do %>
+				<button class="btn btn-success btn-xs" type="button">
+					Strong <span class="badge"><%= wcounter['upvotes'] %></span>
+				</button>
+			<% end %>
+			<%= link_to unlike_champion_counter_path(wcounter['champion_id'], wcounter['id']), method: :put do %>
+				<button class="btn btn-danger btn-xs" type="button">
+					Weak <span class="badge"><%= wcounter['downvotes'] %></span>
+				</button>
+			<% end %>
+				<%= commontator_thread(actualCounter(@champion.name, wcounter['name'])) %>
+		</div>
+	<% end %>
 <% end %>

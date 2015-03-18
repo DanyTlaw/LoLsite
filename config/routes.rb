@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  mount Commontator::Engine => '/commontator'
+
   root 'champions#index'
 
   get '/selectmatchup' => 'matchups#selectmatchup'

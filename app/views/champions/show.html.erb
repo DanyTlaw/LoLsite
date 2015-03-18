@@ -15,8 +15,121 @@
 	  <strong>Quickinfo:</strong>
 	  <%= @champion.quickinfo %>
 	</p>
+
+
+
+	<p>
+	  <table>
+	    <% i = 0 %>
+	    <% bedinung = false %>
+	    <% calcVar = 0 %>
+	    <% costString = "" %>
+	    <% cdString = "" %>
+	    <% rangeString = "" %>
+
+	    <tr>
+	    	<td rowspan="2"><%= image_tag(@passive)  %></td>
+	    	<td> <%= @champ.passive.name %>
+	    	<tr> 
+	    		<td><%= @champ.passive.description%></td>
+	    	</tr>
+	    </tr>
+
+	    <% @spellsurl.each do |spell| %>
+	    	<tr>
+	    		<td rowspan="4"> <%= image_tag(spell)%> </td> 
+	    		<td > <%= @spells[i].name %> </td>
+
+	        	<% @spellscost[i].each_with_index do |cost, index| %>
+
+					<% if index == 0 %>	
+	        			<% calcVar = cost %>
+	        		<% else %>
+	        			<% if calcVar - cost == 0 %>
+	        				<% bedinung = true %>
+	        			<%else%>
+	        				<% bedinung = false %>
+	        			<%end%>
+	        		<% end %>
+
+	        		<% if index == @spellscost[i].size - 1 %>
+						<%costString += cost.to_s%>
+
+						<% if bedinung == true %>
+							<%costString = cost.to_s%>
+						<%end%>
+
+					<%else%>
+	        			<%costString += cost.to_s + " / " %>
+
+	        		<%end%>
+	        	<% end %>
+	        	
+	        	<% @spellsCD[i].each_with_index do |cd, index| %>
+
+	        		<% if index == 0 %>	
+	        			<% calcVar = cd %>
+	        		<% else %>
+	        			<% if calcVar - cd == 0 %>
+	        				<% bedinung = true %>
+	        			<%else%>
+	        				<% bedinung = false %>
+	        			<%end%>
+	        		<% end %>
+
+	        		<% if index == @spellsCD[i].size - 1 %>
+
+						<%cdString += cd.to_s%>
+
+						<% if bedinung == true %>
+							<%cdString = cd.to_s%>
+						<%end%>
+
+					<%else%>
+	        			<%cdString += cd.to_s + " / " %>
+
+	        		<%end%>
+	        	<% end %>
+
+	        	<% @spellsRange[i].each_with_index do |range, index| %>
+
+	        		<% if index == 0 %>	
+	        			<% calcVar = range %>
+	        		<% else %>
+	        			<% if calcVar - range == 0 %>
+	        				<% bedinung = true %>
+	        			<%else%>
+	        				<% bedinung = false %>
+	        			<%end%>
+	        		<% end %>
+
+	        		<% if index == @spellsRange[i].size - 1 %>
+						<%rangeString += range.to_s%>
+
+						<% if bedinung == true %>
+							<%rangeString = range.to_s%>
+						<%end%>
+
+					<%else%>
+	        			<%rangeString += range.to_s + " / " %>
+	        		<%end%>
+	        	<% end %>
+
+	        	<tr><td> <strong>Cost:</strong> <%= costString %> <%=@spells[i].cost_type%> <strong>Cooldown:</strong> <%= cdString %> sec <strong>Range:</strong>	<%= rangeString %> </td> </tr>
+	        	<tr><td> <%= @spells[i].sanitized_description.html_safe %> </td></tr>
+	        	<tr><td> <%= @spells[i].sanitized_tooltip.html_safe %> </td></tr>
+	        	<% calcVar = 0 %>
+	        	<% rangeString = "" %>
+	        	<% costString = "" %>
+	        	<% cdString = "" %>
+	     	</tr>
+	    	<% i += 1 %>
+	    <% end %>
+	  </table>
+
+
 </div>
-<div class="col-md-4">
+<div class="col-md-4">	65 
 	<%= render 'counters/weakStrong' %><br>
 	<%= render 'counters/addCounter' %><br>
 
