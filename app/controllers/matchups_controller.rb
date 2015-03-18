@@ -32,7 +32,8 @@ class MatchupsController < ApplicationController
 
   def selectmatchup
     @champions = Champion.all
-    
+    gon.champs = $champAll
+    gon.url = $apiurl
   end
   
   # GET /matchups/1/edit
