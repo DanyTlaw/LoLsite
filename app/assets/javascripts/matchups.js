@@ -762,6 +762,32 @@ ready = function(){
 			console.log(strChamp);
 		}
 	});
+	/*######################################################################################
+	Summ pick up function section
+	########################################################################################*/
+	var strSum ="";
+	var arrSum = [2];
+	//Ueberprüft wo geklickt wurde und speichert die id in itemid
+	$('.sumAdd').click(function(){
+		sumid = $(this).attr("pos");
+	});
+
+	$("img.imgSum").click(function(){
+		sumimg = $(this).attr("src");
+		$("."+"summoners"+"> .sumAdd[pos='" +sumid +"']").html("<img id ='" + sumid + "' src='" +sumimg +"'>");
+		//Erhöhe itemd id um 1
+		if(sumid <2){
+			sumid++;
+		}
+		arrSum[sumid-1] = sumimg;
+
+		//Macht aus dem Array einen String für die Summoners
+		for(var i = 0; i < arrSum.length;i++){
+			strSum = strSum + arrSum[i] + "|";
+		}	
+		//Diesen String dem hiddenfeld für summoners hinzufügen
+		$("#sum").val(strSum);
+	})
 
 	/*######################################################################################
 	Item pick up function section
@@ -770,7 +796,7 @@ ready = function(){
 	var itemimg;
 	var srcDrinId;
 	//Array mit einem item/url pro slot
-	var finalBuild = new Array(6);
+	var finalBuild = [];
 	var startBuild = [];
 	var coreEarly = [];
 	var coreMid = [];
@@ -784,8 +810,9 @@ ready = function(){
 	$('.imgAdd').click(function(){
 		itemid = $(this).attr("pos");
 		build = $(this).parent().attr("class");
-		alert(build);
-			//Wenn die id nicht die erste ist
+		console.log(itemid);	
+
+	//Wenn die id nicht die erste ist
 	});
 
 	$('img.imgItem').click(function(){
@@ -798,19 +825,31 @@ ready = function(){
 		//Wenn es sich um den Finalbuild handelt
 		if(build == "finalbuild"){
 			finalBuild[itemid-1] = itemimg;
+			console.log(finalBuild);
+			if(itemid <6){
+				itemid++;
+			}
 		//Wenn es sicht um den startbuild handelt	
 		}else if(build == "startbuild"){
 			startBuild[itemid-1] = itemimg;
+			console.log(startBuild);
+			if(itemid <6){
+				itemid++;
+			}
 		}else if(build == "coreEarly"){
-			strCoreEarly[itemid-1] = itemimg;
+			coreEarly[itemid-1] = itemimg;
+			console.log(coreEarly);
+			if(itemid <3){
+				itemid++;
+			}
 		}else if(build == "coreMid"){
-			strCoreMid[itemid-1] = itemimg;
+			coreMid[itemid-1] = itemimg;
+			console.log(coreMid);
+			if(itemid <3){
+				itemid++;
+			}
 		}
 
-		//Erhöhe itemd id um 1
-		if(itemid <6){
-			itemid++;
-		}
 		//Macht aus dem Array einen String für dem Finalbuild
 		for(var i = 0; i < finalBuild.length;i++){
 			strFinalBuild = strFinalBuild + finalBuild[i] + "|";
