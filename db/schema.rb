@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150310212415) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,9 +83,8 @@ ActiveRecord::Schema.define(version: 20150310212415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
-    t.text     "info"
+    t.string   "info"
     t.string   "image"
-    t.string   "cost"
   end
 
   create_table "matchups", force: :cascade do |t|
