@@ -14,7 +14,6 @@
 	$items = Array.new
 
 	$item_list.data.each do |name, item|
-		puts "#{name} => #{item}"
 		$items.push(item)			
 	end
 
@@ -41,7 +40,6 @@
 	#Es wird durch den Hash alles champ iteriert und das bild jedes einzelne Champs wird im Array images 
 	#hinzugefügt
 	$champs.data.each do |name, champ|
-		puts "#{name} => #{champ}"
 		champ_images.push(champ.image.full)
 		
 	end
