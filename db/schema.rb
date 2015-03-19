@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310212415) do
-
+ActiveRecord::Schema.define(version: 20150319002130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150310212415) do
     t.text     "mid_core_items"
     t.text     "situational_items"
     t.text     "trinkets"
+    t.string   "skill_order"
   end
 
   create_table "profiles", force: :cascade do |t|

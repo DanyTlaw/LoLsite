@@ -11,7 +11,6 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @profile = Profile.find_by user_id: current_user.id
-    puts @profile.user_id
   end
 
   # GET /profiles/new

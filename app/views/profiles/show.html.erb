@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<h4>Profile Info</h4>
 <div class="table table-bordered">
 	<div class="row">
 	  <div class="col-md-8">
@@ -20,6 +20,50 @@
 	  </div>
 	  <div class="col-md-4">
 	  	
+	  </div>
+	</div>
+</div>
+<h4>Summoner Info</h4>
+<div class="table table-bordered">
+	<div class="row">
+	  <div class="col-md-4">
+	  	<strong>Summoner data</strong>
+        <% summonerdata = $clienteuw.summoner.by_name(@profile.summoner) %>
+        <% summonerid = String.new %>
+		<% summonerdata.each do |ini| %>
+			<p><%= ini.name %></p>
+			<p><%= ini.id %></p>
+			<p><%= ini.summoner_level %></p>
+			<% summonerid = ini.id %>
+		<% end %>      
+	  </div>
+	  <div class="col-md-8">
+	  	<strong>League data</strong>
+        <% begin %>
+        	<% summonertier = $clienteuw.league.get_entries(summonerid) %>
+        	<% summonertier.each do |string, league| %>
+				<% league.each do |there| %>
+					<tr>
+						<p>
+							<%= there.tier %>
+							<% leagueentries = Array.new %>
+							<% leagueentries.push(there.entries).each do |every|%>
+								<% every.each do |arr| %>
+									<%= arr.division %>
+								<% end %>
+							<% end %>
+							in <%= there.queue %>
+						</p>
+					</tr>
+				<% end %>
+			<% end %>
+        <% rescue Lol::NotFound => e %>
+			<% if e.message == '404 Not Found' %>
+				<p> No data found, summoner may be not ranked yet </p>
+			<% else %>
+				<% raise e %>
+			<% end %>
+		<% end %>   
 	  </div>
 	</div>
 </div>
