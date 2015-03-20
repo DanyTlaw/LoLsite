@@ -2,29 +2,35 @@ module MatchupsHelper
 
 	#Metode um per namen das richtige img zu kriegen und macht dazu noch den link
 	def urlImgMasteries(masteryname)
-		$mastery.each do |mast|
-			if mast["name"] == masteryname
-				@thismast = mast
+		$masteries.each do |mast|
+			if mast[:name] == masteryname
+				mast.image.each do |string, img|
+					if string == "full"
+						@thismast = img
+					end
+				end		
 			end
 		end
 	
 		
-		imgMast = @thismast.image.full
-		#http://ddragon.leagueoflegends.com/cdn/5.2.1/img/mastery/4111.png
+	#http://ddragon.leagueoflegends.com/cdn/5.2.1/img/mastery/4111.png
 
-		url = $apiurl + "mastery/" + imgMast
+		url = $apiurl + "mastery/" + @thismast
 		return url
 	end
 
 	def urlImgChamps(champname)
-		$champAll.each do |champ|
-			if champ["name"] == champname
-				@thischamp = champ
+		$allchamps.each do |champ|
+			if champ[:name] == champname
+				champ.image.each do |string, img|
+					if string == "full"
+						@imgChamp = img
+						
+					end
+				end
 			end
 		end
-		imgChamp = @thischamp.image.full
-		url = $apiurl + "champion/" + imgChamp
+		url = $apiurl + "champion/" + @imgChamp
 		return url
 	end
-
 end

@@ -29,15 +29,6 @@
 		$mastery_name.push(mast.name)
 	end
 
-    #Runen (url, images, daten)
-    $runes = Array.new
-
-    $runes_list.data.each do |name, rune|
-
-		$runes.push(rune)			
-	end
-
-
     #items und url für die items werden gemacht
 
     itemImages = Array.new

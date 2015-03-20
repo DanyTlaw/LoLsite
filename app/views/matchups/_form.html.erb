@@ -47,12 +47,17 @@
                         </div>
                         <!-- Rune list section-->
                         <div class="runes">
+                        <% rcounter = 0 %>
                           <% $runes.each do |rune| %>
-                            <% if rune.rune.tier == 3 %>
-                            <% url = $apiurl + "/rune/" + rune.image.full%>
-                              <div class="well <%= rune.rune.type%>" id="rune" side="left" type="<%= rune.rune.type%>" >
+                            
+                            <% if $runeTier[rcounter] == "3" %>
+
+                            <% url = $apiurl + "/rune/" + $imgRune[rcounter]%>
+
+                             <% puts url %>
+                              <div class="well <%= $runeType[rcounter]%>" id="rune" side="left" type="<%= $runeType[rcounter]%>" >
                                 <div class="rune-number">
-                                  <% if rune.rune.type == "black"%>
+                                  <% if $runeType[rcounter] == "black"%>
                                     3
                                   <% else %>
                                     9
@@ -67,6 +72,7 @@
                                 </div>
                               </div>
                               <% end %>
+                            <% rcounter += 1 %>
                           <% end %>
                         </div>
                       </div>
@@ -678,8 +684,8 @@
         </div>
         <div class="modal-body">
           <% counter = 0 %>
-          <% $item_image_url.each do |url| %>
-            <img class="imgItem" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= @item_desc[counter]%>' >
+          <% $imgItem.each do |item| %>
+            <img class="imgItem" src="<%= $apiurl + 'item/' + item%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= $itemDesc[counter]%>' >
             <% counter+=1%>
           <% end %>
         </div>
@@ -702,8 +708,8 @@
         </div>
         <div class="modal-body">
           <% counter = 0 %>
-          <% $summoner_url.each do |url| %>
-            <img class="imgSum" src="<%= url%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= @sum_desc[counter]%>' >
+          <% $imgSum.each do |sum| %>
+            <img class="imgSum" src="<%= $apiurl + 'spell/' + sum%>" data-toggle='tooltip' data-html="true" data-placement='bottom' title='<%= $sumDesc[counter]%>' >
             <% counter+=1%>
           <% end %>
         </div>
@@ -725,7 +731,7 @@
           <h4 class="modal-title" id="myModalLabel">Choose your Summoner</h4>
         </div>
         <div class="modal-body">
-          <% $champAll.each do |champ| %>
+          <% $allchamps.each do |champ| %>
             <img class="imgChamp" src="<%= urlImgChamps(champ.name)%>" name="<%= champ.name%>" data-toggle='tooltip' data-html="true" data-placement='bottom' >
           <% end %>
         </div>

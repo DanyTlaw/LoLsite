@@ -754,17 +754,15 @@ ready = function(){
 			//Da der Matchup sich um den links handelt müssen noch alle fähigkeiten richtig angepasst werden
 			//Zugriff auf die Gon variable
 			for(var i = 0; i< gon.champs.length;i++){
-				
-				if(gon.champs[i].name == champname){
-					console.log(gon.champs[i].name);
+
+				if(gon.champs[i].table.name == champname){
 					//Speichert einen Array von Spells in diese variable, welches schon nach q w e r sotiert ist
-					champspells = gon.champs[i].spells;
+					champspells = gon.champs[i].table.spells;
 					//Für jeden spell wir das entsprechende bild geladen
 					for(var j = 0; j< champspells.length;j++){
-						console.log(champspells[j].name);
 						//Setzt den richtigen url zusammen
 						url = spellurl + "spell/" + champspells[j].image.full;
-						console.log(url);
+
 						//Beim ersten durchgang geht es um den q spell
 						if(j==0){
 							$(".skill > #q").attr("src", url);

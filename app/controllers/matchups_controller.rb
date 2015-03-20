@@ -15,24 +15,15 @@ class MatchupsController < ApplicationController
   # GET /matchups/new
   def new
     @matchup = Matchup.new
-    @item_desc = Array.new
-    @sum_desc = Array.new
-    #item description array schön:
-    $items.each do |img|
-      @item_desc.push(img.description)
-    end
-    #sum description array
-    $summoners.each do |sum|
-      @sum_desc.push(sum.description)
-    end
     #Variable welche von der view gebraucht wird
-    gon.champs = $champAll
+
+    gon.champs = $allchamps
     gon.url = $apiurl
   end
 
   def selectmatchup
     @champions = Champion.all
-    gon.champs = $champAll
+    gon.champs = $allchamps
     gon.url = $apiurl
   end
   
