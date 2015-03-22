@@ -577,28 +577,208 @@
               </div> 
           </div>
           <!--Early Laning section-->
-          <div class="col-md-8">
+          <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">Early laning</div>
                 <div class="panel-body">
-                <%= f.text_area :early_laning, class: "matchupText"%>
+                  <div class="col-md-3">
+                    <div class="panel panel-default" lane="earlyitemdesc">
+                      <div class="panel-heading">Core Items<span class="minusAdd glyphicon glyphicon-minus" style="color: red; float:right;"></span><span class="plusAdd glyphicon glyphicon-plus" style="color: green; float:right;"></span></div>
+                      <div class="panel-body" style="padding: 5px;">
+                        <div class="coreEarly">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        </div>
+                      </div>
+                    </div>                      
+                  </div>
+                  <div class="col-md-9">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Laning Description</div>
+                      <div class="panel-body">
+                      <%= f.text_area :early_laning, class: "matchupText"%>      
+                      </div>            
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="panel panel-default" style="display:block" pos="1" id="earlyitemdesc">
+                    <div class="panel-body">
+                      <div class="col-md-3">
+                        <div class="coreEarly">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div>
+                    </div>                                    
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="2">
+                    <div class="panel-body">
+                      <div class="col-md-3">
+                        <div class="coreEarly">
+                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                   
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="3">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreEarly">
+                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="4">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreEarly">
+                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="5">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreEarly">
+                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="6">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreEarly">
+                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>                             
+                  </div>
                 </div>
               </div> 
           </div>
-          <div class ="col-md-4">
-              <div class="panel panel-default">
-                <div class="panel-heading">Core Items</div>
-                <div class="panel-body">
-                  <div class="coreEarly">
-                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                  </div>
-                </div>
-              </div>             
-          </div>
+
 
           <!--Mid Laning section-->
+          <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">Mid laning</div>
+                <div class="panel-body">
+                  <div class="col-md-3">
+                    <div class="panel panel-default" lane="miditemdesc">
+                      <div class="panel-heading">Core Items<span class="minusAdd glyphicon glyphicon-minus" style="color: red; float:right;"></span><span class="plusAdd glyphicon glyphicon-plus" style="color: green; float:right;"></span></div>
+                      <div class="panel-body" style="padding: 5px;">
+                        <div class="coreMid">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        </div>
+                      </div>
+                    </div>                      
+                  </div>
+                  <div class="col-md-9">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Laning Description</div>
+                      <div class="panel-body">
+                      <%= f.text_area :mid_laning, class: "matchupText"%>      
+                      </div>            
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="panel panel-default" style="display:block" pos="1" id="miditemdesc">
+                    <div class="panel-body">
+                      <div class="col-md-3">
+                        <div class="coreMid">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div>
+                    </div>                                    
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="2">
+                    <div class="panel-body">
+                      <div class="col-md-3">
+                        <div class="coreMid">
+                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                   
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="3">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreMid">
+                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="4">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreMid">
+                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="5">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreMid">
+                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>
+                    <div class="panel panel-default" style="display:none" pos="6">
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                         <div class="coreMid">
+                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          </div>
+                        </div>
+                      <div class="col-md-9">
+                        <input style="textarea" class="itemText">
+                      </div> 
+                    </div>                                  
+                    </div>                             
+                  </div>
+                </div>
+              </div> 
+          </div>
+
           <div class="col-md-8">
               <div class="panel panel-default">
                 <div class="panel-heading">Mid laning</div>
@@ -609,12 +789,10 @@
           </div>
           <div class ="col-md-4">
               <div class="panel panel-default">
-                <div class="panel-heading">Core Items</div>
+                <div class="panel-heading">Core Items<span id="minusAdd"class="glyphicon glyphicon-minus" style="color: red; float:right;"></span><span id="plusAdd"class="glyphicon glyphicon-plus" style="color: green; float:right;"></span></div>
                 <div class="panel-body">
                   <div class="coreMid">
                     <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
                   </div>
                 </div>
               </div>             

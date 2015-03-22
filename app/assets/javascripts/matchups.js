@@ -809,6 +809,41 @@ ready = function(){
 		//Diesen String dem hiddenfeld für summoners hinzufügen
 		$("#sum").val(strSum);
 	})
+	/*######################################################################################
+	addItem function section
+	########################################################################################*/
+	$(".plusAdd").click(function(){
+		console.log("plusAdd wurde geklickt");
+		//Beim klick muss zuerst herausgefunden werden wo genau man sich befindet
+		//Dazu brucht man eine variable bei der der parent gespeichert wird
+		var parClass = $(this).parent().siblings().children().attr("class");
+		var par = $(this).parent().siblings().children();
+		console.log(par);		
+
+		//wenn geklick wurde muss ein neues item field hinzugefügt werden
+		var lastchild = par.children(".imgAdd").last();
+		var lastPos = lastchild.attr("pos");
+		newPos = parseInt(lastPos) +1;
+
+		var laneT = $(this).parent().parent().attr("lane");
+		console.log(laneT);
+		colPar = $("#" + laneT).parent();
+		panelShow = colPar.children();
+		panelShow.eq(lastPos).css("display","block");
+	/*
+	  <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" 
+	  	data-toggle="modal" data-target="#modal_item" ></div>
+	*/
+	//Added an der richtigen stelle ein neues Feld sofern nicht schon sechs dort stehen
+		if(parseInt(lastPos)==5){
+			lastchild.after("<div class='imgAdd' pos='"+ newPos+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
+			
+		}else{
+			lastchild.after("<div class='imgAdd' pos='"+ newPos+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
+		}
+	});
+
+
 
 	/*######################################################################################
 	Item pick up function section
@@ -828,20 +863,22 @@ ready = function(){
 	var strCoreMid= "";
 	var build = "";
 	//Ueberprüft wo geklickt wurde und speichert die id in itemid
-	$('.imgAdd').click(function(){
-		itemid = $(this).attr("pos");
-		build = $(this).parent().attr("class");
-		console.log(itemid);	
 
-	//Wenn die id nicht die erste ist
+	$(document).on("click",".imgAdd", function(){
+		itemid = $(this).attr("pos");
+		build = $(this).parent().attr("class");	
+		//Speichere die anzahl siblings in eine variable
+		childs = $(this).parent().children(".imgAdd");
+		anzChilds = childs.length;
 	});
 
 	$('img.imgItem').click(function(){
 		strFinalBuild = "";
 		//Speicher das Bild bei klick auf ein item in eine variable
 		itemimg = $(this).attr("src");
+
 		//fügt dem geklickten dieses Bild hinzu
-		$("."+build+"> .imgAdd[pos='" +itemid +"']").html("<img id ='" + itemid + "' src='" +itemimg +"'>");
+		$("."+build+"> .imgAdd[pos='" +itemid +"']").html("<img pos='" + itemid + "' src='" +itemimg +"'>");
 		//Erstelle eintrag im Array und wandle in ein String um und setze in an den richtigen ort
 		//Wenn es sich um den Finalbuild handelt
 		if(build == "finalbuild"){
@@ -860,15 +897,18 @@ ready = function(){
 		}else if(build == "coreEarly"){
 			coreEarly[itemid-1] = itemimg;
 			console.log(coreEarly);
-			if(itemid <3){
-				itemid++;
+			if(itemid <6){
+				if(anzChilds<itemid){
+					itemid++;
+				}
+
 			}
 		}else if(build == "coreMid"){
 			coreMid[itemid-1] = itemimg;
 			console.log(coreMid);
-			if(itemid <3){
-				itemid++;
-			}
+				if(anzChilds<itemid){
+					itemid++;
+				}
 		}
 
 		//Macht aus dem Array einen String für dem Finalbuild

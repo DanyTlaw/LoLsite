@@ -129,8 +129,8 @@
 
 }
 .imgAdd{
-	width:65px;
-	height: 65px;
+	width:50px;
+	height: 50px;
 	border-color: black;
 	border-width: 1px;
 	border-style: solid;
@@ -138,6 +138,24 @@
 	margin-right: 5px;
 	margin-top: 5px;
 }
+.imgAdd img{
+	width:48px;
+	height: 48px;
+
+}
+.itemAdd{
+	width:50px;
+	height: 50px;
+	border-color: grey;
+	border-width: 1px;
+	border-style: solid;
+	float:left;
+	margin-right: 5px;
+	margin-top: 5px;
+	vertical-align: center;
+
+}
+
 .skill{
 	width:65px;
 	height: 65px;
@@ -409,11 +427,16 @@
 
 .matchupText{
 	width:100%;
-	height: 200px;
+	height: 120px;
 	overflow: auto;
 }
 
 .spellText{
+	width:100%;
+	height: 100px;
+	overflow: auto;
+}
+.itemText{
 	width:100%;
 	height: 100px;
 	overflow: auto;
