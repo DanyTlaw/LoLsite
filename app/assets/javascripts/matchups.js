@@ -813,20 +813,19 @@ ready = function(){
 	addItem function section
 	########################################################################################*/
 	$(".plusAdd").click(function(){
-		console.log("plusAdd wurde geklickt");
 		//Beim klick muss zuerst herausgefunden werden wo genau man sich befindet
 		//Dazu brucht man eine variable bei der der parent gespeichert wird
 		var parClass = $(this).parent().siblings().children().attr("class");
 		var par = $(this).parent().siblings().children();
-		console.log(par);		
 
-		//wenn geklick wurde muss ein neues item field hinzugefügt werden
+		//wenn geklick wurde muss die aktuelle position des letzten imgAdd gesucht werden 
 		var lastchild = par.children(".imgAdd").last();
 		var lastPos = lastchild.attr("pos");
 		newPos = parseInt(lastPos) +1;
 
+		//Die anzahl der bereits bestehenden muss in eine variabe gespeichert werden
 		var laneT = $(this).parent().parent().attr("lane");
-		console.log(laneT);
+
 		colPar = $("#" + laneT).parent();
 		panelShow = colPar.children();
 		panelShow.eq(lastPos).css("display","block");
@@ -842,8 +841,39 @@ ready = function(){
 			lastchild.after("<div class='imgAdd' pos='"+ newPos+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
 		}
 	});
+	/*######################################################################################
+	addItem function section
+	########################################################################################*/
+	$(document).on("click",".minusAdd", function(){
+		console.log("minusAdd wurde geklickt");
+		//Beim klick muss zuerst herausgefunden werden wo genau man sich befindet
+		//Dazu brucht man eine variable bei der der parent gespeichert wird
+		var parClass = $(this).parent().siblings().children().attr("class");
+		var par = $(this).parent().siblings().children();
+		console.log(par.children());
+		//wenn geklick wurde muss die aktuelle position des letzten imgAdd gesucht werden 
+		var lastchild = par.children(".imgAdd").last();
+		var lastPos = lastchild.attr("pos");
+		//Die anzahl der bereits bestehenden muss in eine variabe gespeichert werden
+		var laneT = $(this).parent().parent().attr("lane");
 
+		colPar = $("#" + laneT).parent();
+		panelShow = colPar.children();
+		console.log(panelShow);
+		//wenn es mehr als ein imgAdd in den items hat so kann das an letzter stelle entfernt werden
+		if(lastPos > 1){
 
+			par.children().eq(lastPos-1).remove();
+			//Wenn es entfernt wurde so muss auch die beschreibung entfernt werden
+			panelShow.eq(lastPos-1).css("display","none");
+			//Das bild muss entfernt werden
+			panelShow.eq(lastPos-1).children(".panel-body").children().children().children().children("img").remove();
+			//Und der text muss auch entfernt werden
+			panelShow.eq(lastPos-1).children(".panel-body").children(".col-md-9").children(".itemText").val("");
+
+		}
+
+	});
 
 	/*######################################################################################
 	Item pick up function section
