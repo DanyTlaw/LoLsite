@@ -37,6 +37,7 @@
 	$items = Array.new
 
 	$item_list.data.each do |name, item|
+		puts "#{name} => #{item}"
 		$items.push(item)			
 	end
 

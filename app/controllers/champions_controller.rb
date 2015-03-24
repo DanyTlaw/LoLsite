@@ -13,11 +13,67 @@ class ChampionsController < ApplicationController
 
   # GET /champions/1
   # GET /champions/1.json
-  def show
+  def show 
     @champion = Champion.find(params[:id])
     @counter = @champion.counters.build
 
+    name = @champion.name.downcase.to_sym
 
+    @champ = $client.static_data.champion_by_id RiotGamesApi::LOL::CHAMPIONS[name]
+
+    @passive = $apiurl + "passive" + "/" + @champ.passive.image.full
+
+    @spells = Array.new
+
+    @champ.spells.each do |spell|
+     @spells.push(spell)
+    end
+
+    @spellsurl = Array.new
+
+    @spells.each do |spell|
+      @spellsurl.push($apiurl + "spell" + "/" + spell.image.full)
+    end
+
+    @spellscost = Array.new
+
+    @spells.each do |spell|
+     @spellscost.push(spell.cost)
+    end
+
+    @spellsCD = Array.new
+
+    @spells.each do |spell|
+      @spellsCD.push(spell.cooldown)
+    end
+
+    @spellsTooltip = Array.new
+
+    @spells.each do |spell|
+      @spellsTooltip.push(spell.sanitized_tooltip)
+    end
+
+    @spellsRange = Array.new
+
+    @spells.each do |spell|
+      @spellsRange.push(spell.range)
+    end
+
+    @spellsEffect = Array.new
+
+    @spells.each do |spell|
+      @spellsEffect.push(spell.effect_burn)
+      puts spell.effect_burn
+    end
+
+
+    @spellsVars = Array.new
+
+    @spells.each do |spell|
+      @spellsVars.push(spell.vars)
+      puts "------------------VARS----------------------"
+      puts spell.vars
+    end
 
   end
 

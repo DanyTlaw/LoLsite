@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :profiles
+
   resources :matchups
 
   resources :champions do
@@ -11,12 +13,14 @@ Rails.application.routes.draw do
     end
   end
 
+  mount Commontator::Engine => '/commontator'
+
   root 'champions#index'
 
   get '/selectmatchup' => 'matchups#selectmatchup'
 
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
                                 
 
 end

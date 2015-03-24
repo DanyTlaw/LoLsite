@@ -82,8 +82,9 @@ ActiveRecord::Schema.define(version: 20150324101938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
-    t.string   "info"
+    t.text     "info"
     t.string   "image"
+    t.string   "cost"
   end
 
   create_table "matchups", force: :cascade do |t|

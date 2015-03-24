@@ -132,3 +132,7 @@ Champion.create(name: 'Ziggs', lane:'mid', quickinfo:'Long range ap mage with st
 Champion.create(name: 'Zilean', lane:'support', quickinfo:'Support with strong utility, can seepd up allies, slow/stun enemies and revive his allies with his ultimate', portrait:'Portrait/Zilean_Square_0.png', splashart:'Splashart/Zilean_0.jpg', splashartBig:'Splashart/Zilean_Splash_0.jpg')
 Champion.create(name: 'Zyra', lane:'support/mid', quickinfo:'Ap mage that summons plants to fight for her. Can root enemies in place and has an ulimate to knock up multiple enemies in an area which makes for a strong support', portrait:'Portrait/Zyra_Square_0.png', splashart:'Splashart/Zyra_0.jpg', splashartBig:'Splashart/Zyra_Splash_0.jpg' )
 
+# Users
+user = User.new(email: 'op@f.ck', password: '12345678', password_confirmation: '12345678')
+user.skip_confirmation!
+user.save!

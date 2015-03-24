@@ -12,9 +12,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150312141437) do
+ActiveRecord::Schema.define(version: 20150324101938) do
 =======
-ActiveRecord::Schema.define(version: 20150303083000) do
+ActiveRecord::Schema.define(version: 20150310212415) do
+
 >>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
@@ -111,6 +112,42 @@ ActiveRecord::Schema.define(version: 20150303083000) do
     t.text     "mid_core_items"
     t.text     "situational_items"
     t.text     "trinkets"
+    t.string   "skill_order"
+    t.text     "late_core_items"
+    t.text     "early_item_1"
+    t.text     "early_item_2"
+    t.text     "early_item_3"
+    t.text     "early_item_4"
+    t.text     "early_item_5"
+    t.text     "early_item_6"
+    t.text     "mid_item_1"
+    t.text     "mid_item_2"
+    t.text     "mid_item_3"
+    t.text     "mid_item_4"
+    t.text     "mid_item_5"
+    t.text     "mid_item_6"
+    t.text     "late_item_1"
+    t.text     "late_item_2"
+    t.text     "late_item_3"
+    t.text     "late_item_4"
+    t.text     "late_item_5"
+    t.text     "late_item_6"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "about"
+    t.string   "summoner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "about"
+    t.string   "summoner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
