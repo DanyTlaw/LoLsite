@@ -37,7 +37,6 @@
 	$items = Array.new
 
 	$item_list.data.each do |name, item|
-		puts "#{name} => #{item}"
 		$items.push(item)			
 	end
 
@@ -78,6 +77,7 @@
 	end
 
 	$apiurl = (url + '/' + dd_version + '/img/')
+<<<<<<< HEAD
 
 	$summoner_list = $client.static_data.summoner_spell_all
 	$summoners = Array.new
@@ -91,6 +91,8 @@
 	$summoners.each do |sum|
 		$summoner_images.push(sum.image.full)
 	end
+=======
+>>>>>>> master
 
 	$summoner_images.each do |img|
 		$summoner_url.push(url + '/' + dd_version + '/img/' + 'spell' + '/' + img )

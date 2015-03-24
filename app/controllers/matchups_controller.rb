@@ -15,22 +15,16 @@ class MatchupsController < ApplicationController
   # GET /matchups/new
   def new
     @matchup = Matchup.new
-    @item_desc = Array.new
+    #Variable welche von der view gebraucht wird
 
-    #item description array schön:
-    $items.each do |img|
-      @item_desc.push(img.description)
-    end
-
-    respond_to do |format|
-      format.html
-        format.js
-    end
+    gon.champs = $allchamps
+    gon.url = $apiurl
   end
 
   def selectmatchup
     @champions = Champion.all
-    
+    gon.champs = $allchamps
+    gon.url = $apiurl
   end
   
   # GET /matchups/1/edit
@@ -85,6 +79,7 @@ class MatchupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def matchup_params
-      params[:matchup]
+      params.require(:matchup).permit(:final_build, :runes, :champ_eins, :champ_zwei, :masteries, :skill_order, :start_items, :early_laning, :mid_laning, :late_laning, :general_role, :early_core_items, :mid_core_items, :summoners)
+
     end
 end
