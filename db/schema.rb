@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320162014) do
+ActiveRecord::Schema.define(version: 20150324101938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,15 +108,25 @@ ActiveRecord::Schema.define(version: 20150320162014) do
     t.text     "situational_items"
     t.text     "trinkets"
     t.string   "skill_order"
-    t.text     "earlyitem_1"
-    t.text     "earlyitem_2"
-    t.text     "earlyitem_3"
-    t.text     "miditem_1"
-    t.text     "miditem_2"
-    t.text     "miditem_3"
-    t.text     "lateitem_1"
-    t.text     "lateitem_2"
-    t.text     "lateitem_3"
+    t.text     "late_core_items"
+    t.text     "early_item_1"
+    t.text     "early_item_2"
+    t.text     "early_item_3"
+    t.text     "early_item_4"
+    t.text     "early_item_5"
+    t.text     "early_item_6"
+    t.text     "mid_item_1"
+    t.text     "mid_item_2"
+    t.text     "mid_item_3"
+    t.text     "mid_item_4"
+    t.text     "mid_item_5"
+    t.text     "mid_item_6"
+    t.text     "late_item_1"
+    t.text     "late_item_2"
+    t.text     "late_item_3"
+    t.text     "late_item_4"
+    t.text     "late_item_5"
+    t.text     "late_item_6"
   end
 
   create_table "profiles", force: :cascade do |t|

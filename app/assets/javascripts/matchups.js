@@ -870,6 +870,19 @@ ready = function(){
 			panelShow.eq(lastPos-1).children(".panel-body").children().children().children().children("img").remove();
 			//Und der text muss auch entfernt werden
 			panelShow.eq(lastPos-1).children(".panel-body").children(".col-md-9").children(".itemText").val("");
+			//Entferne Item aus dem entsprechendem array
+			switch(parClass){
+				case "coreEarly":
+					coreEarly[lastPos-1] = "";
+					break;
+				case "coreMid":
+					coreMid[lastPos-1] = "";
+					break;
+				case "coreLate":
+					coreLate[lastPos-1] = "";
+					break;
+			}
+
 
 		}
 
@@ -886,12 +899,15 @@ ready = function(){
 	var startBuild = [];
 	var coreEarly = [];
 	var coreMid = [];
+	var coreLate = [];
 
 	var strFinalBuild = "";
 	var strStartBuild = "";
 	var strCoreEarly = "";
-	var strCoreMid= "";
+	var strCoreMid = "";
+	var strCoreLate = "";
 	var build = "";
+
 	//Ueberprüft wo geklickt wurde und speichert die id in itemid
 
 	$(document).on("click",".imgAdd", function(){
@@ -904,6 +920,11 @@ ready = function(){
 
 	$('img.imgItem').click(function(){
 		strFinalBuild = "";
+		strStartBuild = "";
+		strCoreEarly = "";
+		strCoreMid = "";
+		strCoreLate= "";
+
 		//Speicher das Bild bei klick auf ein item in eine variable
 		itemimg = $(this).attr("src");
 
@@ -926,7 +947,7 @@ ready = function(){
 			}
 		}else if(build == "coreEarly"){
 			coreEarly[itemid-1] = itemimg;
-			console.log(coreEarly);
+			console.log(itemid);
 			if(itemid <6){
 				if(anzChilds<itemid){
 					itemid++;
@@ -939,7 +960,17 @@ ready = function(){
 				if(anzChilds<itemid){
 					itemid++;
 				}
+		}else if(build == "coreLate"){
+			coreLate[itemid-1] = itemimg;
+			console.log(coreLate);
+				if(anzChilds<itemid){
+					itemid++;
+				}
 		}
+		makeItemStrings();
+	});
+
+	function makeItemStrings(){
 
 		//Macht aus dem Array einen String für dem Finalbuild
 		for(var i = 0; i < finalBuild.length;i++){
@@ -956,14 +987,22 @@ ready = function(){
 		//Macht aus dem Array einen String für den midCore
 		for(var i = 0; i < coreMid.length;i++){
 			strCoreMid = strCoreMid + coreMid[i] + "|";
+		}
+		for(var i = 0; i < coreLate.length;i++){
+			strCoreLate = strCoreLate + coreLate[i] + "|";
 		}	
 		//Adde den string den hidden textfielder zu
 		$("#final_build").val(strFinalBuild);
 		$("#start_build").val(strStartBuild);
 		$("#early_build").val(strCoreEarly);
 		$("#mid_build").val(strCoreMid);
-	});
+		$("#late_build").val(strCoreLate);
+	}
 
+	function doItemsText(){
+		alert("lauft");
+		$("#earlyitem").val("TEST geklappt");
+	}	
 	/*######################################################################################
 	Select Matchup section
 	########################################################################################*/
