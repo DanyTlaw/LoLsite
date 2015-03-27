@@ -16,6 +16,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     @profile = Profile.new
+    @profile.avatar.build
   end
 
   # GET /profiles/1/edit
@@ -70,6 +71,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:user_id, :about, :summoner)
+      params.require(:profile).permit(:user_id, :about, :summoner, :avatar)
     end
 end

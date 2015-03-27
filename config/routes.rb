@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :profiles
+  resources :profiles 
 
   resources :matchups
 
