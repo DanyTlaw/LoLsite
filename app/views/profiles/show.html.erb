@@ -19,7 +19,7 @@
 		</p>
 	  </div>
 	  <div class="col-md-4">
-	  	
+		
 	  </div>
 	</div>
 </div>
@@ -31,9 +31,9 @@
         <% summonerdata = $clienteuw.summoner.by_name(@profile.summoner) %>
         <% summonerid = String.new %>
 		<% summonerdata.each do |ini| %>
-			<p><%= ini.name %></p>
-			<p><%= ini.id %></p>
-			<p><%= ini.summoner_level %></p>
+			<p>Name: <%= ini.name %></p>
+			<p>ID: <%= ini.id %></p>
+			<p>Level: <%= ini.summoner_level %></p>
 			<% summonerid = ini.id %>
 		<% end %>      
 	  </div>

@@ -1,5 +1,7 @@
 class Profile < ActiveRecord::Base
+	#attr_accessible :image
 	belongs_to :user
+	mount_uploader :avatar, AvatarUploader
 
 
   def after_initialize
