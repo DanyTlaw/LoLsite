@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324101938) do
+ActiveRecord::Schema.define(version: 20150330234615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,14 +82,13 @@ ActiveRecord::Schema.define(version: 20150324101938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
-    t.text     "info"
+    t.string   "info"
     t.string   "image"
-    t.string   "cost"
   end
 
   create_table "matchups", force: :cascade do |t|
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "champ_eins"
     t.string   "champ_zwei"
     t.integer  "champ_eins_id"
@@ -106,8 +105,6 @@ ActiveRecord::Schema.define(version: 20150324101938) do
     t.text     "final_build"
     t.text     "early_core_items"
     t.text     "mid_core_items"
-    t.text     "situational_items"
-    t.text     "trinkets"
     t.string   "skill_order"
     t.text     "late_core_items"
     t.text     "early_item_1"
@@ -128,6 +125,10 @@ ActiveRecord::Schema.define(version: 20150324101938) do
     t.text     "late_item_4"
     t.text     "late_item_5"
     t.text     "late_item_6"
+    t.text     "spell_q"
+    t.text     "spell_w"
+    t.text     "spell_e"
+    t.text     "spell_r"
   end
 
   create_table "profiles", force: :cascade do |t|

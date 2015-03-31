@@ -3,11 +3,19 @@ ready = function(){
 	/*######################################################################################
 	Skill Order Section
 	########################################################################################*/
-
+    console.log(gon.skillorder);
+    console.log(gon.summoners);
+    console.log(gon.startArray);
+    console.log(gon.finalArray);
+    console.log(gon.earlyCore);
+    console.log(gon.midCore);
+    console.log(gon.lateCore);
 	//Array welche das geklickte beinhaltet
 	var arrAb =[];
 	var countSP = 0;
 	var strSP ="";
+		//funktion welche die punktre im sillorder füllt falls diese scn geklickt wurden
+	setSkillPoints();
 	//Wenn man auf ein td innerhalb der Skillorderklickt
    $("#skillOrder").on("click", "td", function() {
    	//Und der klick nicht in der ersten reihe ist
@@ -43,39 +51,159 @@ ready = function(){
 	   			});
 	   		}
 	   		//Wenn 18 gedrückt wurden verwandle den Array in ein String und adde im dem richtigen hiddenfield
-	   		if(countSP==18){
-	   			for(var i = 0;i<arrAb.length;i++){
-	   				strSP += arrAb[i] +",";
-	   			}
-	   			console.log(strSP);
-	   			$("#skill_order").val(strSP);
+	   		if(countSP>0){
+	   			makeSkillOrderString();
 	   		}
 	   	}
    });
- 	
+	//Funktion welche bei edit oder validation die punkte richtig verteilt
+	function setSkillPoints(){
+		var trall = $("#skillOrder").find("tr");
+		console.log(trall);
+		if(gon.skillorder.length > 0){
+			console.log("nicht leer");
+			for(var i = 0;i <gon.skillorder.length;i++){
+				skill = gon.skillorder[i];
+				tr = trall.parent().children("#" + skill).children();
+				tr.eq(i+1).text("\u2022");
+				arrAb[i] = (i+1) + gon.skillorder[i];
+			}
+		}
+		makeSkillOrderString();
+	}
+
+	//Funktion welche den Skill order string erstellt
+ 	function makeSkillOrderString(){
+ 		strSP = "";
+ 		if(arrAb.length>0){
+	 	   	for(var i = 0;i<arrAb.length;i++){
+				strSP += arrAb[i] +",";
+			}
+			console.log(strSP);
+			$("#skill_order").val(strSP);			
+ 		}
+
+ 	}
 	/*######################################################################################
 	Masteries section
 	########################################################################################*/
+	//Arrays welche die Namen der Masterys in ihren jeweiligen array speichern
+	var arrNameOff = [];
+	var arrNameDef = [];
+	var arrNameUtil = [];
+	//Arrays welche zählen wieviele mas pro tree benutzt wurden
+	var arrOff = [];
+	var arrDef = [];
+	var arrUtil = [];
+	//Brauche alle drei trees
+	var offMasterieTree = $(".offmasteries");
+	var defMasterieTree = $(".defmasteries");
+	var utilMasterieTree = $(".utilmasteries");
+	//Diese Variablen beinhaltet die anzahl geklickte masteries pro zeile
+	var offcount = offMasterieTree.find(".mastCounter").text().split(" ")[0];
+	var defcount= defMasterieTree.find(".mastCounter").text().split(" ")[0];
+	var utilcount = utilMasterieTree.find(".mastCounter").text().split(" ")[0];
+	//Variablen welche alle tds pro Tree enthalten
+	var offTdTree = offMasterieTree.find(".masTable").children("tbody").children("tr");
+	var defTdTree = defMasterieTree.find(".masTable").children("tbody").children("tr");
+	var utilTdTree = utilMasterieTree.find(".masTable").children("tbody").children("tr");
+	console.log(offcount);
+	console.log(defcount);
+	console.log(utilcount);
+	var arrTree = [offTdTree,defTdTree,utilTdTree];
+	var arrCounts = [offcount,defcount,utilcount];
+	makeMasNameArray();
+	makeTreeArrays();
+	hideShow();
+	//FUnktion welche die masteries richtig hided uns show
+	function hideShow(){
+
+		//Für jeden 4 masteries wird die entsprechende Riehe angezeigt
+		for(var h = 0; h<arrTree.length;h++){
+		    for(var i = 0; i < Math.floor(arrCounts[h]/4);i++){
+	          	//speichert die nächste td reihe in einen variable
+	            tdNext = arrTree[h].next().eq(i).children("td");
+	            //Speichert diese td reihe ab
+	            tdNow = arrTree[h].eq(i).children("td");
+
+	            arrTree[h].next().eq(i).children("td").each(function(){
+					//Wenn this eine abh hat ein after beziehung hat
+					if($(this).attr("id")=="after"){
+						if(abhDone($(this), tdNow)){
+							$(this).children(".overlay").hide();	
+						}else{
+
+							$(this).children(".overlay").show();
+						}
+					}else{
+							$(this).children(".overlay").hide();					
+					}					
+	            });
+	         }
+     	}
+	}
+
+	function makeTreeArrays(){
+		for(var i =0; i<arrTree.length;i++){
+			for(var j = 0; j<arrTree[i].length;j++){
+				//Wenn man im ersten durchgang ist so handelt es sich um die Offense Array
+				if(i ==0){
+					arrOff[j] = countRowMasteries(arrTree[i].eq(j));
+				}else if(i == 1){
+					arrDef[j] = countRowMasteries(arrTree[i].eq(j));
+				}else if(i == 2){
+					arrUtil[j] = countRowMasteries(arrTree[i].eq(j));
+				}
+			}
+		}
+	}
 
 	//Entfernt das standard browser rechtsklick menu auf der Klasse imgMas
 	$('.imgMas').contextmenu( function() {
     	return false;
 	});
 
-	//Arrays welche zählen wieviele mas pro tree benutzt wurden
-	var arrOff = [0,0,0,0,0,0];
-	var arrDef = [0,0,0,0,0,0];
-	var arrUtil = [0,0,0,0,0,0];
+	function makeMasNameArray(){
+		//Forschleife welche dreimal für jeden tree einmal durchgeht
+		for(var i =0; i< arrTree.length;i++){
+			//For schleife welche für jede tr einmal durchgeht = sechsmal
+			for(var j = 0; j<arrTree[i].length;j++){
+				//Für jedes td in der reihe wirg geschaut ob etwas angeklickt wurde und wievielmal
+				arrTree[i].eq(j).children("td").each(function(){
+					//Ueberpruefen wie oft es schon geklickt wurde
+					nr = $(this).find(".masNumb").text().split("/")[0];
+					if(nr > 0){
+						//Je nach durchgang geht es um einen anderen tree und jedesmal wird für soviel mal wie
+						//der mastery geklickt wurde dieser mastery dem namen array hinzugefügt
+						switch(i){
+							case 0:
+								for(var k = 0; k<nr;k++){
+									arrNameOff.push($(this).attr("name"));
+								}
+								break;
+							case 1:
+								for(var k = 0; k<nr;k++){
+									arrNameDef.push($(this).attr("name"));
+								}
+								break;
+							case 2:
+								for(var k = 0; k<nr;k++){
+									arrNameUtil.push($(this).attr("name"));
+								}
+								break;
+						}
+					}
+				});	
+			}
+		}
+	}
 
-	//Arrays welche die Namen der Masterys in ihren jeweiligen array speichern
-	var arrNameOff = [];
-	var arrNameDef = [];
-	var arrNameUtil = [];
+
 
 	//Variablen welche gebraucht werden um zu zählen wie viele variablen es pro tree gibt
-	var offenseCount= 0;
-	var defenseCount= 0;
-	var utilityCount= 0;
+	var offenseCount= parseInt(offcount);
+	var defenseCount= parseInt(defcount);
+	var utilityCount= parseInt(utilcount);
 	//Hier werden die links und rechts klick überprüfungen abgedeckt	
 	$(".imgMas")
 		//Deckt den links klick ab
@@ -118,7 +246,6 @@ ready = function(){
 						array = arrOff;
 						count = offenseCount;
 						arrNameOff.push(tdClick.attr("name"));
-						console.log(arrNameOff);
 			    		strTreeCount = offenseCount + " Offense";
 			    		treeCount.text(strTreeCount);    			
 		    		}
@@ -129,8 +256,7 @@ ready = function(){
 			    		arrDef[trId]++;
 			    		array = arrDef;
 		    			count = defenseCount;
-		    			arrNameDef.push(tdClick.attr("name"));
-		    			console.log(arrNameDef);			    		
+		    			arrNameDef.push(tdClick.attr("name"));			    		
 			    		strTreeCount = defenseCount + " Defense";
 			    		treeCount.text(strTreeCount);
 			    	}
@@ -140,8 +266,7 @@ ready = function(){
 		    			arrUtil[trId]++;
 		    			array = arrUtil;
 		    			count = utilityCount;
-		    			arrNameUtil.push(tdClick.attr("name"));
-		    			console.log(arrNameUtil);			    		
+		    			arrNameUtil.push(tdClick.attr("name"));			    		
 			    		strTreeCount = utilityCount + " Utility";
 			    		treeCount.text(strTreeCount);
 			    	}
@@ -175,11 +300,8 @@ ready = function(){
 		            });
 		         }
 		         //Wenn es nun im gesamtem 30 Masteries sind so speichere die Masteries in ein String und adde die dem hidden field
-		         if(offenseCount + defenseCount + utilityCount == 30){
-		         	console.log(finalMasString());
+	         	
 		         	$("#masteriesHidden").val(finalMasString());
-
-		         }
     		}
 	    })
 	    //Deckt den rechts klick ab
@@ -217,7 +339,6 @@ ready = function(){
 					    		arrOff[trId]--;
 								array = arrOff;
 								arrNameOff.splice( $.inArray(name, arrNameOff), 1 );
-								console.log(arrNameOff);
 					    		strTreeCount = offenseCount + " Offense";
 					    		treeCount.text(strTreeCount);
 				    		}
@@ -228,7 +349,6 @@ ready = function(){
 					    		arrDef[trId]--;
 					    		array = arrDef;
 					    		arrNameDef.splice( $.inArray(name, arrNameDef), 1 );
-								console.log(arrNameDef);
 					    		strTreeCount = defenseCount + " Defense";
 					    		treeCount.text(strTreeCount);
 					    	}
@@ -237,8 +357,7 @@ ready = function(){
 				    			arrUtil[trId]--;
 					    		utilityCount--;
 				    			array = arrUtil;
-				    			arrNameUtil.splice( $.inArray(name, arrNameUtil), 1 );
-								console.log(arrNameUtil);					    		
+				    			arrNameUtil.splice( $.inArray(name, arrNameUtil), 1 );;					    		
 					    		strTreeCount = utilityCount + " Utility";
 					    		treeCount.text(strTreeCount);
 			    			}
@@ -268,7 +387,6 @@ ready = function(){
 						}
 						//Wenn das gesamte kleiner ist wie die anzahl reihen mal 4 dann overlaye alle an der richtigen position
 						if(gesamt < pos*4){
-							console.log("ist kleiner");
 							trAll.eq(pos).children("td").each(function(){
 								$(this).children(".overlay").show();
 							});
@@ -289,7 +407,6 @@ ready = function(){
 				numbers = arrTdPrev.eq(pos).children(".masNumb").text();
 				arrNumbers = numbers.split("/");
 				if(parseInt(arrNumbers[0])==parseInt(arrNumbers[1])){
-					console.log("true weil voll");
 					ok = true;
 					
 				}
@@ -375,11 +492,11 @@ ready = function(){
 	}
 
 	//Funktion welche die anzahl ausgewählten in einer Reihe zählt und returned
-	function countRowMasteries(masImg){
+	function countRowMasteries(trow){
 		
 		var count = 0;
 		//Speichert die reihe auf der aktuell geklickt wurde in eine Variable
-		var tr = masImg.parent("td").parent("tr");
+		var tr = trow;
 		var arrTd = tr.children();
 		var spanArr = arrTd.children("span.masNumb");
 		//Loop für jedes td in der tr durch
@@ -412,6 +529,87 @@ ready = function(){
 		seals = yellow
 		gyphs = blue
 	*/
+	//Arrays welche für das Backend gebruacht werden
+	var arrMarks = [];
+	var arrSeals = [];
+	var arrGlyphs = [];
+	var arrQuints = [];
+	//String welcher aus den Array zussammen gesetzt wird
+	var strRunen;
+	//Strings welche das Array umwandeln
+	var strMarks;
+	var strSeals;
+	var strGlyphs;
+	var strQuints;
+	var red = 0;
+	var yellow = 0;
+	var blue = 0;
+	var black = 0;
+	//Variable welche die gesamtzahl runen festhaltet
+	var runeTotal = 0;
+	//Funktion welche beim laden der page ausgefhrt werden muss
+	makeRuneArray();
+
+
+	//Funktion welche die Arrays erstellt
+	function makeRuneArray(){
+		var runeRight = $(".runeAdd");
+		var runeRightChilds = runeRight.children();
+
+		//Für jede Rune die rechts ist wird gelooped
+		runeRightChilds.each(function(){	
+			//der Runenname wird dem entsprechenden Array hinzugefügt
+			console.log($(this).attr("type"));
+			console.log($(this).find(".rune-name").text());
+			switch($(this).attr("type")){
+				//Je nach Typ der reune rechts wird sie für die Anzahl dem richtigen array hinzugefügt
+				case "red":
+					//Schlaufe die solange geht wie die Anzahl der Rune 
+					for(var i = 0; i< parseInt($(this).find(".rune-number").text());i++){
+						arrMarks.push($(this).find(".rune-name").text());
+						//Für jede existierende Rune muss das Total auch angepasst werden
+						runeTotal+=1;
+						//Die variable des jewiligen typs wird erhöht und auf der view im totalrune bereich angezeigt
+						red +=1;
+					}
+					break;
+				case "yellow":
+					for(var i = 0; i< parseInt($(this).find(".rune-number").text());i++){
+						arrSeals.push($(this).find(".rune-name").text());
+						runeTotal+=1;
+						yellow += 1;
+					}
+					break;
+				case "blue":
+					for(var i = 0; i< parseInt($(this).find(".rune-number").text());i++){
+						arrGlyphs.push($(this).find(".rune-name").text());
+						runeTotal+=1;
+						blue +=1;
+					}
+					break;
+				case "black":
+					for(var i = 0; i< parseInt($(this).find(".rune-number").text());i++){
+						arrQuints.push($(this).find(".rune-name").text());
+						runeTotal+=1;
+						black +=1;
+					}
+					break;
+			}
+		});
+		console.log(arrMarks);
+		console.log(arrSeals);
+		console.log(arrGlyphs);
+		console.log(arrQuints);
+		//Setzt die Anzahl runen des typs auf der view
+		var selectedRune = $(".selected-runes");
+		selectedRune.find("span[type='red']").text(red);
+		selectedRune.find("span[type='yellow']").text(yellow);
+		selectedRune.find("span[type='blue']").text(blue);
+		selectedRune.find("span[type='black']").text(black);
+		//Am ende wird noch der String richtig zusammengesetzt
+		$("#runesHidden").val(finalRuneString());
+		console.log(finalRuneString());
+	}
 	//Funktion welche die runen auf Knopfdruck ändert
 	$('.runeBtn').click(function(){
 		//Speichert den typ der geklickten Button in eine variable
@@ -431,20 +629,7 @@ ready = function(){
 			}
 		});
 	});
-	//Arrays welche für das Backend gebruacht werden
-	var arrMarks = [];
-	var arrSeals = [];
-	var arrGlyphs = [];
-	var arrQuints = [];
-	//String welcher aus den Array zussammen gesetzt wird
-	var strRunen;
-	//Strings welche das Array umwandeln
-	var strMarks;
-	var strSeals;
-	var strGlyphs;
-	var strQuints;
-	//Variable welche die gesamtzahl runen festhaltet
-	var runeTotal = 0;
+
 	//Javascropt Function zum erstellen des Strings
 
 	//Diese Funktion gibt alle Werte die vom übergebenen Array sind nur einmal pro wert in einem neuen Array zurück
@@ -486,9 +671,21 @@ ready = function(){
 		var strSeal = arrayCountElement(arrSeals);
 		var strGlyph = arrayCountElement(arrGlyphs);
 		var strQuint = arrayCountElement(arrQuints);
-		//String zusammensetzen
-		finalString = strMark + "|" + strSeal + "|" + strGlyph + "|" + strQuint;
-		
+
+		var allString = [];
+		allString[0] = strMark;
+		allString[1] = strSeal;
+		allString[2] = strGlyph;
+		allString[3] = strQuint;
+
+		for(var i = 0; i<allString.length;i++){
+			if(allString[i] != ""){
+				finalString = finalString + allString[i] + "|";
+			}
+		}
+
+		finalString = finalString.substring("|", finalString.length - 1);
+		console.log(finalString);
 		return finalString;
 	}
 
@@ -503,7 +700,7 @@ ready = function(){
 	var nr;
 	var copy;
 	//Funktion welche das klicken auf der linken seite bzw die Runen welche man beabsichtigt zu adden behandelt
-	$('.well').click(function(){
+	$('.runes > .well').click(function(){
 			stats = "";
 			//klont die geklickte rune
 			var well = $(this).clone();
@@ -540,6 +737,8 @@ ready = function(){
 					if(stats == $(this).children(".rune-info").children(".rune-stats").html()){
 						//Speichert die nummer die rechts im well schon existiert in eine variable
 						existnr = $(this).children(".rune-number").html();
+						console.log($(this));
+						console.log(existnr);
 						//Speichert das existierende well in eine variable ab
 						existwell = $(this);
 						//Exist wird demnach auf true gesetzt
@@ -553,6 +752,7 @@ ready = function(){
 				//Added oder erhöht auf der select seite
 				//wenn es schon exitiert wird nur erhöht
 				if(exist){
+					name = well.children(".rune-info").children(".rune-name").text();
 					//Die nummer wird eins erhöht sofern sie nicht schon 9 hat oder es sich um eine Quint handelt dann = 3
 					if(existwell.attr("type") =="black"){
 						if(existnr<3){
@@ -574,6 +774,7 @@ ready = function(){
 				}else if(!exist){
 					//Der Name der Rune wird in eine Variable gespeichert
 					name = well.children(".rune-info").children(".rune-name").text();
+
 					//Die anzahl runen wird auf eins gesetzt
 					well.children(".rune-number").text(1);
 					//Die side muss auf right abgeändert werden
@@ -603,10 +804,7 @@ ready = function(){
 						}
 					}	
 				}
-				//Wenn max Runen hinzugefügt wurden schreibe den String in das hiddenfield
-				if(runeTotal==30){
-					$("#runesHidden").val(finalRuneString());
-				}
+
 				//Hier wird die Rune dem richtigen Array geaddet
 
 				//Die Rune wird dem entsprechenden Array hinzugefügt		
@@ -631,7 +829,10 @@ ready = function(){
 						console.log(arrQuints);
 					}
 				}
-				//Array test
+				//Wenn max Runen hinzugefügt wurden schreibe den String in das hiddenfield
+				if(runeTotal>0){
+					$("#runesHidden").val(finalRuneString());
+				}
 
 				//Runen Total muss an der richtigen stelle angeepasst werden
 				//Uebrprufen um welche art von Rune es sich handelt
@@ -643,6 +844,7 @@ ready = function(){
 							if($(this).text()<3){
 								//speichert die momentane anzahl in eine variable
 								anzahlNr = $(this).text();
+
 								//erhöht diese variable und erstetzt die vorherige
 								newAnzahlNr = parseInt(anzahlNr) + 1;
 								$(this).text(newAnzahlNr);
@@ -663,6 +865,7 @@ ready = function(){
 		});
 		//Wenn man auf eines rechts klickt
 		$('.runeAdd').on('click', '.well', function() {
+
 			copy = $(this);
 			//Speichert die Anzahl runen in eine variable
 			nr = copy.children(".rune-number").html();
@@ -712,15 +915,23 @@ ready = function(){
 			if(runetype=="red"){
 				arrMarks.splice( $.inArray(name, arrMarks), 1 );
 				console.log(arrMarks);
+
 			}else if(runetype=="yellow"){
 				arrSeals.splice( $.inArray(name, arrSeals), 1 );
 				console.log(arrSeals);
+
 			}else if(runetype=="blue"){
 				arrGylphs.splice( $.inArray(name, arrGlyphs), 1 );
 				console.log(arrGlyphs);
+
 			}else if(runetype=="black"){
 				arrQuints.splice( $.inArray(name, arrQuints), 1 );
 				console.log(arrQuints);
+
+			}
+			//Wenn max Runen hinzugefügt wurden schreibe den String in das hiddenfield
+			if(runeTotal>0){
+				$("#runesHidden").val(finalRuneString());
 			}
 		});
 
@@ -732,21 +943,23 @@ ready = function(){
 	var champid;
 	var champimg;
 	var strChamp;
-	var spellurl = gon.url 
 	//Funktion um herauszufinden welches Champ bild gedrückt wurde
-	$('.champAdd').click(function(){
+	$(document).on("click",'.champAdd', function(){
 		champid = $(this).attr("id");
 	});
 
 	//Funktion
-	$('img.imgChamp').click(function(){
+	$(document).on("click",'img.imgChamp', function(){
 		strChamp ="";
 
 		champimg = $(this).attr('src');
 		champname = $(this).attr("name");
 
 		//hier wird das bild links oder recchts je nach id mit name und bild in ddie jeweilge anzeige gespeichert
-		$(".champAdd#"+champid).html("<img id ='" + champid + "' src='" +champimg +"' style='max-width: 100%;max-height: 100%;' name='"+champname+"'>");
+		$(".champAdd#"+champid).children("img").attr("src", champimg);
+		$(".champAdd#"+champid).children("img").attr("id", champid);
+		$(".champAdd#"+champid).children("img").attr("name", champname);
+		$(".champAdd#"+champid).children("img").attr("style", 'max-width: 100%;max-height: 100%;');
 		//Wenn es der Linke champ ist
 		if(champid == "left"){
 
@@ -761,7 +974,7 @@ ready = function(){
 					//Für jeden spell wir das entsprechende bild geladen
 					for(var j = 0; j< champspells.length;j++){
 						//Setzt den richtigen url zusammen
-						url = spellurl + "spell/" + champspells[j].image.full;
+						url = gon.url + "spell/" + champspells[j].image.full;
 
 						//Beim ersten durchgang geht es um den q spell
 						if(j==0){
@@ -786,33 +999,57 @@ ready = function(){
 	/*######################################################################################
 	Summ pick up function section
 	########################################################################################*/
+	
+	var sumid = ""; 
 	var strSum ="";
-	var arrSum = [2];
+	var arrSum = [];
+	loadSum();
 	//Ueberprüft wo geklickt wurde und speichert die id in itemid
-	$('.sumAdd').click(function(){
+	$(document).on("click",'.sumAdd', function(){
 		sumid = $(this).attr("pos");
 	});
 
-	$("img.imgSum").click(function(){
+	$(document).on("click","img.imgSum", function(){
 		sumimg = $(this).attr("src");
-		$("."+"summoners"+"> .sumAdd[pos='" +sumid +"']").html("<img id ='" + sumid + "' src='" +sumimg +"'>");
+		$("."+"summoners"+"> .sumAdd[pos='" +sumid +"']").children("img").attr("src", sumimg);
+		$("."+"summoners"+"> .sumAdd[pos='" +sumid +"']").children("img").attr("id", sumid);
+		arrSum[parseInt(sumid)-1] = sumimg;
 		//Erhöhe itemd id um 1
 		if(sumid <2){
 			sumid++;
 		}
-		arrSum[sumid-1] = sumimg;
 
 		//Macht aus dem Array einen String für die Summoners
+		strSum ="";
 		for(var i = 0; i < arrSum.length;i++){
-			strSum = strSum + arrSum[i] + "|";
-		}	
+			strSum  += arrSum[i] + "|";
+		}
+		strSum = strSum.substring("|", strSum.length - 1);
 		//Diesen String dem hiddenfeld für summoners hinzufügen
 		$("#sum").val(strSum);
 	})
+
+	//Funktion welche die summoners am anfang lädt bei edit und validation
+	function loadSum(){
+		if(gon.summoners.length >0){
+			console.log(gon.summoners.length);
+			for(var i = 0;i<gon.summoners.length;i++){
+				$("."+"summoners"+"> .sumAdd[pos='" +(i+1) +"']").children("img").attr("src", gon.summoners[i]);
+				$("."+"summoners"+"> .sumAdd[pos='" +(i+1) +"']").children("img").attr("id", (i));
+				arrSum.push(gon.summoners[i]);
+			}
+			strSum ="";
+			for(var i = 0; i < gon.summoners.length;i++){
+				strSum  += arrSum[i] + "|";
+			}
+				strSum = strSum.substring("|", strSum.length - 1);
+			}
+			$("#sum").val(strSum);
+	}
 	/*######################################################################################
 	addItem function section
 	########################################################################################*/
-	$(".plusAdd").click(function(){
+	$(document).on("click",".plusAdd", function(){
 		//Beim klick muss zuerst herausgefunden werden wo genau man sich befindet
 		//Dazu brucht man eine variable bei der der parent gespeichert wird
 		var parClass = $(this).parent().siblings().children().attr("class");
@@ -825,8 +1062,7 @@ ready = function(){
 
 		//Die anzahl der bereits bestehenden muss in eine variabe gespeichert werden
 		var laneT = $(this).parent().parent().attr("lane");
-
-		colPar = $("#" + laneT).parent();
+		colPar = $("#" + laneT);
 		panelShow = colPar.children();
 		panelShow.eq(lastPos).css("display","block");
 	/*
@@ -834,11 +1070,8 @@ ready = function(){
 	  	data-toggle="modal" data-target="#modal_item" ></div>
 	*/
 	//Added an der richtigen stelle ein neues Feld sofern nicht schon sechs dort stehen
-		if(parseInt(lastPos)==5){
-			lastchild.after("<div class='imgAdd' pos='"+ newPos+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
-			
-		}else{
-			lastchild.after("<div class='imgAdd' pos='"+ newPos+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
+		if(par.children(".imgAdd").size()!=6){			
+			lastchild.after("<div class='imgAdd' pos='"+ newPos+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'><img src='' ></div>");
 		}
 	});
 	/*######################################################################################
@@ -857,9 +1090,8 @@ ready = function(){
 		//Die anzahl der bereits bestehenden muss in eine variabe gespeichert werden
 		var laneT = $(this).parent().parent().attr("lane");
 
-		colPar = $("#" + laneT).parent();
+		colPar = $("#" + laneT);
 		panelShow = colPar.children();
-		console.log(panelShow);
 		//wenn es mehr als ein imgAdd in den items hat so kann das an letzter stelle entfernt werden
 		if(lastPos > 1){
 
@@ -867,7 +1099,7 @@ ready = function(){
 			//Wenn es entfernt wurde so muss auch die beschreibung entfernt werden
 			panelShow.eq(lastPos-1).css("display","none");
 			//Das bild muss entfernt werden
-			panelShow.eq(lastPos-1).children(".panel-body").children().children().children().children("img").remove();
+			panelShow.eq(lastPos-1).children(".panel-body").children().children().children().children("img").attr("src", "");
 			//Und der text muss auch entfernt werden
 			panelShow.eq(lastPos-1).children(".panel-body").children(".col-md-9").children(".itemText").val("");
 			//Entferne Item aus dem entsprechendem array
@@ -885,12 +1117,13 @@ ready = function(){
 
 
 		}
-
+		makeItemStrings();
 	});
 
 	/*######################################################################################
 	Item pick up function section
 	########################################################################################*/
+
 	var itemid;
 	var itemimg;
 	var srcDrinId;
@@ -908,6 +1141,9 @@ ready = function(){
 	var strCoreLate = "";
 	var build = "";
 
+	//funktion welche bei edit oder validation die richtien items einführt
+	loadItems();
+
 	//Ueberprüft wo geklickt wurde und speichert die id in itemid
 
 	$(document).on("click",".imgAdd", function(){
@@ -918,24 +1154,20 @@ ready = function(){
 		anzChilds = childs.length;
 	});
 
-	$('img.imgItem').click(function(){
-		strFinalBuild = "";
-		strStartBuild = "";
-		strCoreEarly = "";
-		strCoreMid = "";
-		strCoreLate= "";
+	$(document).on("click",'img.imgItem', function(){
 
 		//Speicher das Bild bei klick auf ein item in eine variable
 		itemimg = $(this).attr("src");
 
 		//fügt dem geklickten dieses Bild hinzu
-		$("."+build+"> .imgAdd[pos='" +itemid +"']").html("<img pos='" + itemid + "' src='" +itemimg +"'>");
+		$("."+build+"> .imgAdd[pos='" +itemid +"']").children("img").attr("pos", itemid);
+		$("."+build+"> .imgAdd[pos='" +itemid +"']").children("img").attr("src", itemimg);
 		//Erstelle eintrag im Array und wandle in ein String um und setze in an den richtigen ort
 		//Wenn es sich um den Finalbuild handelt
 		if(build == "finalbuild"){
 			finalBuild[itemid-1] = itemimg;
 			console.log(finalBuild);
-			if(itemid <6){
+			if(itemid <7){
 				itemid++;
 			}
 		//Wenn es sicht um den startbuild handelt	
@@ -971,7 +1203,11 @@ ready = function(){
 	});
 
 	function makeItemStrings(){
-
+		strFinalBuild = "";
+		strStartBuild = "";
+		strCoreEarly = "";
+		strCoreMid = "";
+		strCoreLate= "";
 		//Macht aus dem Array einen String für dem Finalbuild
 		for(var i = 0; i < finalBuild.length;i++){
 			strFinalBuild = strFinalBuild + finalBuild[i] + "|";
@@ -999,10 +1235,96 @@ ready = function(){
 		$("#late_build").val(strCoreLate);
 	}
 
-	function doItemsText(){
-		alert("lauft");
-		$("#earlyitem").val("TEST geklappt");
-	}	
+	//Funktion welche das ausfüllen der items bei editieren oder validieren übernimmt
+	function loadItems(){
+		//Füllt den Startbuild ein
+		//Variable welche alle imgAdd div enthält
+		if(gon.startArray.length > 0){
+			var imgAdds = $(".startbuild").children();
+			for(var i = 0; i< gon.startArray.length;i++){
+				//Das Bild wird an der richtigen position hinzugefügt
+				imgAdds.eq(i).children().attr("src",gon.startArray[i]);
+				imgAdds.eq(i).children().attr("pos",i+1);
+				//Das item wird an der richtigen stelle im array hinzugefügt
+				startBuild.push(gon.startArray[i]);
+			}
+		}
+		if(gon.finalArray.length > 0){
+			var imgAdds = $(".finalbuild").children();
+			for(var i = 0; i< gon.finalArray.length;i++){
+				//Das Bild wird an der richtigen position hinzugefügt
+				imgAdds.eq(i).children().attr("src",gon.finalArray[i]);
+				imgAdds.eq(i).children().attr("pos",i+1);
+				//Das item wird an der richtigen stelle im array hinzugefügt
+				finalBuild.push(gon.finalArray[i]);
+			}
+		}
+		if(gon.earlyCore.length>0){
+			var panelEarly = $("#earlyitems").children();
+			var addItems = $("#addEarlyItems");
+			//fügt an erster stelle bei der ausawahl und der beschreibung das bild hinzu
+			addItems.children(".imgAdd").last().children().attr("src", gon.earlyCore[0]);
+			panelEarly.eq(0).find(".imgAdd").children().attr("src",gon.earlyCore[0]);
+			//Dieses bild muss dem Array an erster Stelle hinzugefügt werden
+			coreEarly[0] = gon.earlyCore[0];
+			for(var i = 1; i< gon.earlyCore.length;i++){
+				//Ladet das bild bei der beschreibung
+				panelEarly.eq(i).find(".imgAdd").children().attr("src",gon.earlyCore[i]);
+				panelEarly.eq(i).css("display", "block");
+				lastitem = addItems.children(".imgAdd").last();
+				//Es muss ein item für jedes bidl im array hinzugefügt werden
+				lastitem.after("<div class='imgAdd' pos='"+ (i+1)+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
+				addItems.children(".imgAdd").last().html("<img src='"+ gon.earlyCore[i] +"' >");
+				coreEarly[i] = gon.earlyCore[i];
+				console.log(coreEarly);
+			}
+		}
+		if(gon.midCore.length>0){
+			var panelMid = $("#miditems").children();
+			var addItems = $("#addMidItems");
+			//fügt an erster stelle bei der ausawahl und der beschreibung das bild hinzu
+			addItems.children(".imgAdd").last().children().attr("src", gon.midCore[0]);
+			console.log(panelMid);
+			panelMid.eq(0).find(".imgAdd").children().attr("src",gon.midCore[0]);
+			//Dieses bild muss dem Array an erster Stelle hinzugefügt werden
+			coreMid[0] = gon.midCore[0];
+			for(var i = 1; i< gon.midCore.length;i++){
+				//Ladet das bild bei der beschreibung
+				panelMid.eq(i).find(".imgAdd").children().attr("src",gon.midCore[i]);
+				panelMid.eq(i).css("display", "block");
+				lastitem = addItems.children(".imgAdd").last();
+				//Es muss ein item für jedes bidl im array hinzugefügt werden
+				lastitem.after("<div class='imgAdd' pos='"+ (i+1)+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
+				addItems.children(".imgAdd").last().html("<img src='"+ gon.midCore[i] +"' >");
+				coreMid[i] = gon.midCore[i];
+				console.log(coreMid);
+			}
+		}
+		if(gon.lateCore.length>0){
+			var panelLate = $("#lateitems").children();
+			var addItems = $("#addLateItems");
+			//fügt an erster stelle bei der ausawahl und der beschreibung das bild hinzu
+			addItems.children(".imgAdd").last().children().attr("src", gon.lateCore[0]);
+			console.log(panelMid);
+			panelLate.eq(0).find(".imgAdd").children().attr("src",gon.lateCore[0]);
+			//Dieses bild muss dem Array an erster Stelle hinzugefügt werden
+			coreLate[0] = gon.lateCore[0];
+			for(var i = 1; i< gon.lateCore.length;i++){
+				//Ladet das bild bei der beschreibung
+				panelLate.eq(i).find(".imgAdd").children().attr("src",gon.lateCore[i]);
+				panelLate.eq(i).css("display", "block");
+				lastitem = addItems.children(".imgAdd").last();
+				//Es muss ein item für jedes bidl im array hinzugefügt werden
+				lastitem.after("<div class='imgAdd' pos='"+ (i+1)+"' style='border-style: solid; border-color:black;'data-toggle='modal' data-target='#modal_item'></div>");
+				addItems.children(".imgAdd").last().html("<img src='"+ gon.lateCore[i] +"' >");
+				coreLate[i] = gon.lateCore[i];
+				console.log(coreMid);
+			}
+		}
+		//Am ende wenn alles geladen wurde werden die strings gemacht und dem hiddenfield hinzugefügt
+		makeItemStrings();
+	}
+
 	/*######################################################################################
 	Select Matchup section
 	########################################################################################*/
