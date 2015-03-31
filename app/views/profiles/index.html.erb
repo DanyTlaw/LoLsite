@@ -2,7 +2,7 @@
 
 <h1>Listing Profiles</h1>
 
-<table>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>User</th>
@@ -12,15 +12,19 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class=".table-striped">
     <% @profiles.each do |profile| %>
       <tr>
         <td><%= profile.user_id %></td>
         <td><%= profile.about %></td>
         <td><%= profile.summoner %></td>
-        <td><%= link_to 'Show', profile %></td>
-        <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-        <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if user_signed_in? %>
+          <td><%= link_to 'Show', profile %></td>
+          <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
+          <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <td>Login to edit</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

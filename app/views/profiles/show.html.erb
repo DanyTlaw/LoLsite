@@ -18,7 +18,9 @@
  		<% rescue Lol::InvalidAPIResponse => e %>
 			<p> Unknown API Error </p> 
 		<% rescue SocketError => e %>
-			<p> Unknown API Error </p> 
+			<p> Unknown API Error </p>		
+		<% rescue NoMethodError => e %>
+			<p> No summoner profile entered </p>  
 		<% end %> 
 	  </div>
 	  <div class="col-md-4" align="center">

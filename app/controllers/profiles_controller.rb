@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @profile = Profile.find_by user_id: current_user.id
+    @profile = Profile.find(params[:id])
     begin
       @summonerdata = @profile.summoner_profile
       @leaguedata = @profile.summoner_league(@summonerdata)
@@ -24,6 +24,8 @@ class ProfilesController < ApplicationController
         puts "Unknown API Error or API timeout"
     rescue SocketError => e 
         puts "Connection error / API timeout"
+    rescue NoMethodError => e 
+        puts "No summoner entered"
     end 
   end
 
