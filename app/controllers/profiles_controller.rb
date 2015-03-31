@@ -11,6 +11,20 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @profile = Profile.find_by user_id: current_user.id
+    begin
+      @summonerdata = @profile.summoner_profile
+      @leaguedata = @profile.summoner_league(@summonerdata)
+    rescue Lol::NotFound => e
+        if e.message == '404 Not Found'
+          puts "Summoner does not have ranked data"
+        else
+          raise e
+        end
+    rescue Lol::InvalidAPIResponse => e
+        puts "Unknown API Error or API timeout"
+    rescue SocketError => e 
+        puts "Connection error / API timeout"
+    end 
   end
 
   # GET /profiles/new

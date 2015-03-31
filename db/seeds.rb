@@ -137,5 +137,7 @@ user = User.new(email: 'op@f.ck', password: '12345678', password_confirmation: '
 user.skip_confirmation!
 user.save!
 
+
 #Profiles
 Profile.create(user_id: 1, about: "Insert some Text about you", summoner: 'Aigaios')
+
