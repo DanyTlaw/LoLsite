@@ -170,6 +170,10 @@
 	display: none;
 }
 
+.champAdd img[src=""]{
+	display:none;
+}
+
 .champAdd{
 	width: 100px;
 	height: 100px;
@@ -189,6 +193,14 @@
 	float:left;
 	margin-right: 5px;
 	margin-top: 5px;	
+}
+
+.imgAdd img[src=""]{
+	display: none;
+}
+
+.sumAdd img[src=""]{
+	display: none;
 }
 
 .vs{

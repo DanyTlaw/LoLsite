@@ -1,4 +1,12 @@
 <div class="col-md-12">
+  <% if @matchup.errors.any? %>
+    <h2>Errors</h2>
+    <ul>
+    <% @matchup.errors.each do |attr, message|%>
+      <li><%=message%></li>
+    <% end %>
+    </ul>
+  <% end %>
     <%= form_for(@matchup) do |f| %>
       <div class="panel panel-warning">
         <div class="panel-heading">Create your Matchup</div>
@@ -11,7 +19,11 @@
                   <div class="matchup-info", style ="width: 60%;margin-left:20%;margin-right:20%">
                   <div class="col-md-3">
                       <div class="champAdd" id="left" data-toggle="modal" data-target="#modal_champ">
-
+                      <% if @matchup.champ_eins != "" %>
+                        <img src="<%= urlImgChamps(@matchup.champ_eins) %>" id="" name="<%= @matchup.champ_eins%>" style="max-width: 100%;max-height: 100%;">
+                      <% else %>
+                        <img src="" id="" name="" style="">
+                      <% end %>
                       </div>
                   </div>
                   
@@ -22,7 +34,11 @@
                   </div>
                   <div class="col-md-3">
                       <div class="champAdd" id="right" data-toggle="modal" data-target="#modal_champ">
-
+                      <% if @matchup.champ_zwei != "" %>                    
+                        <img src="<%= urlImgChamps(@matchup.champ_zwei) %>" id="" name="<%= @matchup.champ_zwei%>" style="max-width: 100%;max-height: 100%;">
+                      <% else %>
+                        <img src="" id="" name="" style="">
+                      <% end %>
                       </div>
                   </div>                  
                   </div>               
@@ -48,20 +64,47 @@
                         <!-- Rune list section-->
                         <div class="runes">
                         <% rcounter = 0 %>
-                          <% $runes.each do |rune| %>
-                            
+                          <% $runes.each do |rune| %>                      
                             <% if $runeTier[rcounter] == "3" %>
-
                             <% url = $apiurl + "/rune/" + $imgRune[rcounter]%>
-
-                             <% puts url %>
                               <div class="well <%= $runeType[rcounter]%>" id="rune" side="left" type="<%= $runeType[rcounter]%>" >
+                              <!-- Setzt die Anzahl der Runen auf der linken seite-->
                                 <div class="rune-number">
+                                <% if !@matchup.runes.blank? %>
+                                <% hit = false%>
+                                  <% arrRunes = runeStringSplit(@matchup.runes) %>
+
+                                  <% arrRunes.each do |arr|%>
+                                  <% runeBeforeSpl = Array.new%>
+                                  <% runeBeforeSpl = arr.split(",")%>
+                                  <% runeBeforeSpl.each do |splitarr| %>
+                                  <% runeSpl = Array.new %>
+                                    <% runeSpl = splitarr.split("x")%>
+                                    <% if runeSpl[1] == rune.name %>
+                                      
+                                      <% if $runeType[rcounter] == "black" %>
+                                        <%= 3-runeSpl[0].to_i %>
+                                      <% else %>
+                                        <%= 9-runeSpl[0].to_i %>
+                                      <% end %>
+                                      <% hit = true %>
+                                    <% end %>
+                                    <% end %>
+                                  <% end %>
+                                  <% if !hit %>
+                                    <%if $runeType[rcounter] == "black" %>
+                                        3
+                                    <% else %>
+                                        9
+                                    <% end %>
+                                  <% end %>
+                                <% else %>
                                   <% if $runeType[rcounter] == "black"%>
                                     3
                                   <% else %>
                                     9
                                   <% end %>
+                                <% end %>
                                 </div> 
                                 <div class="rune-img">
                                   <img src="<%= url %>" style="width: 40px; height:40px">
@@ -84,24 +127,64 @@
                       <div class="panel-heading">Selected Runes</div>
                       <div class class="panel-body">
                         <div class="runes-selected">
-                          <div class="selected-runes">
-                          <p>Total Runes: <span id="rune" type="red">0</span> Marks, <span id="rune" type="yellow">0</span> Seals, <span id="rune" type="blue">0</span> Glyphs, <span id="rune" type="black">0</span> Quints Added</p>
+                          <div class="selected-runes">                     
+                            <p>Total Runes: <span id="rune" type="red"></span> Marks, <span id="rune" type="yellow"></span> Seals, <span id="rune" type="blue"></span> Glyphs, <span id="rune" type="black"></span> Quints Added</p>   
                           </div>
                           <div class="runeAdd">
-                            
+                          <% if !@matchup.runes.blank? %>
+                            <% rcounter = 0 %>
+                            <% $runes.each do |rune| %>                 
+                              <% if $runeTier[rcounter] == "3" %>
+                                <% url = $apiurl + "/rune/" + $imgRune[rcounter]%>
+                                <% arrRunes = runeStringSplit(@matchup.runes) %>
+
+                                <% arrRunes.each do |arr|%>
+                                  <% runeBeforeSpl = arr.split(",")%>
+                                  <% runeBeforeSpl.each do |splitarr| %>
+                                  <% runeSpl = Array.new %>
+                                    <% runeSpl = splitarr.split("x")%>
+                                  <% if runeSpl[1] == rune.name %> 
+                                    <div class="well <%= $runeType[rcounter]%>" id="rune" side="left" type="<%= $runeType[rcounter]%>" >
+                                      <div class="rune-number">
+                                        <%= runeSpl[0].to_i %>                                              
+                                      </div>                    
+                                      <div class="rune-img">
+                                         <img src="<%= url %>" style="width: 40px; height:40px">
+                                      </div>  
+                                      <div class="rune-info">
+                                        <div class="rune-name"><%= rune.name%></div>
+                                        <div class="rune-stats"><%= rune.description%></div>    
+                                      </div>
+                                    </div> 
+                                    <% end %>  
+                                  <% end %>
+                                  <% end %> 
+                                <% end %>
+                              <% rcounter += 1%>
+                            <% end %>  
+                          <% end %>      
                           </div>
                         </div>
                       </div>                      
                     </div>
                   </div> 
                 </div>
-
-
                   </div>
                 </div>
               
           <!-- Masteries -->
+          <% if !@masteries.blank?%>
+            <% puts "_____________________________--- "%>
+            <% puts @masteries%>
+          <% end %>
           <%= f.hidden_field :masteries, id: "masteriesHidden"%>
+          <% masteriesHash = Hash.new%>
+          <% if !@matchup.masteries.blank?%>
+            <% masteriesHash = @masteries%>
+          <% end %>
+          <% offcount = 0 %>
+          <% defcount = 0%>
+          <% utilcount = 0 %>
           <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">Masteries</div>
@@ -111,91 +194,91 @@
                     <tr id="1" class="rowMas">
                       <td class="pos-rel" name="Double-Edged Sword">
                         <img src="<%= urlImgMasteries("Double-Edged Sword") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Double-Edged Sword")%> <%= masteriesHash["Double-Edged Sword"]%><% offcount+= masteriesHash["Double-Edged Sword"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel" name="Fury"></div><img src="<%= urlImgMasteries("Fury") %> "class="imgMas">
-                        <span class="masNumb">0/4</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Fury")%> <%= masteriesHash["Fury"]%><% offcount+= masteriesHash["Fury"].to_i%><% else %>0<% end %>/4</span>
                       </td>
                       <td class="pos-rel" name="Sorcery"></div><img src="<%= urlImgMasteries("Sorcery") %> "class="imgMas">
-                      <span class="masNumb">0/4</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Sorcery")%> <%= masteriesHash["Sorcery"]%><% offcount+= masteriesHash["Sorcery"].to_i%><% else %>0<% end %>/4</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Butcher"></div>
                         <img src="<%= urlImgMasteries("Butcher") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/1</span>                       
+                        <span class="masNumb"><% if masteriesHash.has_key?("Butcher")%> <%= masteriesHash["Butcher"]%><% offcount+= masteriesHash["Butcher"].to_i%><% else %>0<% end %>/1</span>                       
                       </td>
                     </tr>
                     <tr id="2" class="rowMas">
                       <td class="pos-rel" name="Expose Weakness"><div class="overlay"></div><img src="<%= urlImgMasteries("Expose Weakness") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Expose Weakness")%> <%= masteriesHash["Expose Weakness"]%><% offcount+= masteriesHash["Expose Weakness"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Brute Force"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Brute Force") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Brute Force")%> <%= masteriesHash["Brute Force"]%><% offcount+= masteriesHash["Brute Force"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Mental Force"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Mental Force") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Mental Force")%> <%= masteriesHash["Mental Force"]%><% offcount+= masteriesHash["Mental Force"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="after" class="pos-rel" name="Feast"><div class="overlay"></div><img src="<%= urlImgMasteries("Feast") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Feast")%> <%= masteriesHash["Feast"]%><% offcount+= masteriesHash["Feast"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr>
                     <tr id="3" class="rowMas">
                       <td id="pre" class="pos-rel" name="Spell Weaving"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Spell Weaving") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Spell Weaving")%> <%= masteriesHash["Spell Weaving"]%><% offcount+= masteriesHash["Spell Weaving"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="after" class="pos-rel" name="Martial Mastery"><div class="overlay"></div><img src="<%= urlImgMasteries("Martial Mastery") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Martial Mastery")%> <%= masteriesHash["Martial Mastery"]%><% offcount+= masteriesHash["Martial Mastery"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="after" class="pos-rel" name="Arcane Mastery"><div class="overlay"></div><img src="<%= urlImgMasteries("Arcane Mastery") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Arcane Mastery")%> <%= masteriesHash["Arcane Mastery"]%><% offcount+= masteriesHash["Arcane Mastery"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Executioner"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Executioner") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Executioner")%> <%= masteriesHash["Executioner"]%><% offcount+= masteriesHash["Executioner"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                     </tr>
                     <tr id="4" class="rowMas">
                       <td id="after" class="pos-rel" name="Blade Weaving"><div class="overlay"></div><img src="<%= urlImgMasteries("Blade Weaving") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Blade Weaving")%> <%= masteriesHash["Blade Weaving"]%><% offcount+= masteriesHash["Blade Weaving"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel" name="Warlord"><div class="overlay"></div><img src="<%= urlImgMasteries("Warlord") %> "class="imgMas">
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Warlord")%> <%= masteriesHash["Warlord"]%><% offcount+= masteriesHash["Warlord"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td class="pos-rel" name="Archmage"><div class="overlay"></div><img src="<%= urlImgMasteries("Archmage") %> "class="imgMas">
-                       <span class="masNumb">0/3</span>
+                       <span class="masNumb"><% if masteriesHash.has_key?("Archmage")%> <%= masteriesHash["Archmage"]%><% offcount+= masteriesHash["Archmage"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="after" class="pos-rel" name="Dangerous Game"><div class="overlay"></div><img src="<%= urlImgMasteries("Dangerous Game") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Dangerous Game")%> <%= masteriesHash["Dangerous Game"]%><% offcount+= masteriesHash["Dangerous Game"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr>
                     <tr id="5" class="rowMas">
                       <td class="pos-rel" name="Frenzy"><div class="overlay"></div><img src="<%= urlImgMasteries("Frenzy") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Frenzy")%> <%= masteriesHash["Frenzy"]%><% offcount+= masteriesHash["Frenzy"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel"name="Devastating Strikes"><div class="overlay"></div><img src="<%= urlImgMasteries("Devastating Strikes") %> "class="imgMas"></img>
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Devastating Strikes")%> <%= masteriesHash["Devastating Strikes"]%><% offcount+= masteriesHash["Devastating Strikes"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td></td>
                       <td class="pos-rel" name="Arcane Blade"><div class="overlay"></div><img src="<%= urlImgMasteries("Arcane Blade") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Arcane Blade")%> <%= masteriesHash["Arcane Blade"]%><% offcount+= masteriesHash["Arcane Blade"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr>
                      <tr id="6" class="rowMas">
                       <td></td>
                       <td class="pos-rel" name="Havoc"><div class="overlay"></div><img src="<%= urlImgMasteries("Havoc") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Havoc")%> <%= masteriesHash["Havoc"]%><% offcount+= masteriesHash["Havoc"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td></td>
                       <td></td>
                     </tr>  
-                    <div class="mastCounter">0 Offense</div>                  
+                    <div class="mastCounter"><%= offcount%> Offense</div>                  
                   </table>
                 </div>
                 <div id="def" class="defmasteries pos-rel">
@@ -204,89 +287,89 @@
                       <td id="pre" class="pos-rel" name="Bloack"></div>
                         <img src="<%= urlImgMasteries("Bloack") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/2</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Bloack")%> <%= masteriesHash["Bloack"]%><% defcount+= masteriesHash["Bloack"].to_i%><% else %>0<% end %>/2</span>
                       </td>
                       <td class="pos-rel" name="Recovery"></div><img src="<%= urlImgMasteries("Recovery") %> "class="imgMas">
-                        <span class="masNumb">0/2</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Recovery")%> <%= masteriesHash["Recovery"]%><% defcount+= masteriesHash["Recovery"].to_i%><% else %>0<% end %>/2</span>
                       </td>
                       <td class="pos-rel" name="Enchanted Armor"></div><img src="<%= urlImgMasteries("Enchanted Armor") %> "class="imgMas">
-                        <span class="masNumb">0/2</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Enchanted Armor")%> <%= masteriesHash["Enchanted Armor"]%><% defcount+= masteriesHash["Enchanted Armor"].to_i%><% else %>0<% end %>/2</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Tough Skin"></div>
                         <img src="<%= urlImgMasteries("Tough Skin") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/2</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Tough Skin")%> <%= masteriesHash["Tough Skin"]%><% defcount+= masteriesHash["Tough Skin"].to_i%><% else %>0<% end %>/2</span>
                       </td>
                     </tr>
                     <tr id="2" class="rowMas">
                       <td id="after" class="pos-rel" name="Unyielding"><div class="overlay"></div><img src="<%= urlImgMasteries("Unyielding") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Unyielding")%> <%= masteriesHash["Unyielding"]%><% defcount+= masteriesHash["Unyielding"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Veteran's Scars"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Veteran's Scars") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Veteran's Scars")%> <%= masteriesHash["Veteran's Scars"]%><% defcount+= masteriesHash["Veteran's Scars"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td></td>
                       <td id="after" class="pos-rel" name="Bladed Armor"><div class="overlay"></div><img src="<%= urlImgMasteries("Bladed Armor") %> "class="imgMas">
-                         <span class="masNumb">0/1</span>  
+                         <span class="masNumb"><% if masteriesHash.has_key?("Bladed Armor")%> <%= masteriesHash["Bladed Armor"]%><% defcount+= masteriesHash["Bladed Armor"].to_i%><% else %>0<% end %>/1</span>  
                       </td>
                     </tr> 
                     <tr id="3" class="rowMas">
                       <td class="pos-rel" name="Oppression"><div class="overlay"></div><img src="<%= urlImgMasteries("Oppression") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Opression")%> <%= masteriesHash["Oppression"]%><% defcount+= masteriesHash["Oppression"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="after" class="pos-rel" name="Juggernaut"><div class="overlay"></div><img src="<%= urlImgMasteries("Juggernaut") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Juggernaut")%> <%= masteriesHash["Juggernaut"]%><% defcount+= masteriesHash["Juggernaut"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Hardiness"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Hardiness") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Hardiness")%> <%= masteriesHash["Hardiness"]%><% defcount+= masteriesHash["Hardiness"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Resistance"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Resistance") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Resistance")%> <%= masteriesHash["Resistance"]%><% defcount+= masteriesHash["Resistance"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                     </tr> 
                     <tr id="4" class="rowMas">
                       <td id="pre" class="pos-rel" name="Perseverance"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Perseverance") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Perseverance")%> <%= masteriesHash["Perseverance"]%><% defcount+= masteriesHash["Perseverance"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td class="pos-rel" name="Swiftness"><div class="overlay"></div><img src="<%= urlImgMasteries("Swiftness") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Swiftness")%> <%= masteriesHash["Swiftness"]%><% defcount+= masteriesHash["Swiftness"]%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="after" class="pos-rel" name="Reinforced Armor"><div class="overlay"></div><img src="<%= urlImgMasteries("Reinforced Armor") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Reinforced Armor")%> <%= masteriesHash["Reinforced Armor"]%><% defcount+= masteriesHash["Reinforced Armor"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="after" class="pos-rel" name="Evasive"><div class="overlay"></div><img src="<%= urlImgMasteries("Evasive") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Evasive")%> <%= masteriesHash["Evasive"]%><% defcount+= masteriesHash["Evasive"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr> 
                     <tr id="5" class="rowMas">
                       <td id="after" class="pos-rel" name="Second Wind"><div class="overlay"></div><img src="<%= urlImgMasteries("Second Wind") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Second Wind")%> <%= masteriesHash["Second Wind"]%><% defcount+= masteriesHash["Second Wind"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel" name="Tenacious"><div class="overlay"></div><img src="<%= urlImgMasteries("Tenacious") %> "class="imgMas">
-                      <span class="masNumb">0/4</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Tenacious")%> <%= masteriesHash["Tenacious"]%><% defcount+= masteriesHash["Tenacious"].to_i%><% else %>0<% end %>/4</span>
                       </td>
                       <td class="pos-rel" name="Runic Blessing"><div class="overlay"></div><img src="<%= urlImgMasteries("Runic Blessing") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Runic Blessing")%> <%= masteriesHash["Runic Blessing"]%><% defcount+= masteriesHash["Runic Blessing"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td></td>
                     </tr> 
                     <tr id="6" class="rowMas">
                       <td></td>
                       <td class="pos-rel" name="Legendary Guardian"><div class="overlay"></div><img src="<%= urlImgMasteries("Legendary Guardian") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Legendary Guardian")%> <%= masteriesHash["Legendary Guardian"]%><% defcount+= masteriesHash["Legendary Guardian"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td></td>
                       <td></td>
                     </tr>    
-                    <div class="mastCounter">0 Defense</div>
+                    <div class="mastCounter"><%= defcount %> Defense</div>
                   </table>
 
                 </div>
@@ -294,85 +377,85 @@
                   <table class="masTable">
                     <tr id="1" class="rowMas">
                       <td class="pos-rel" name="Phasewalker"></div><img src="<%= urlImgMasteries("Phasewalker") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>  
+                        <span class="masNumb"><% if masteriesHash.has_key?("Phasewalker")%> <%= masteriesHash["Phasewalker"]%><% utilcount+= masteriesHash["Phasewalker"].to_i%><% else %>0<% end %>/1</span>  
                       </td>
                       <td class="pos-rel" name="Fleet of Foot"></div><img src="<%= urlImgMasteries("Fleet of Foot") %> "class="imgMas">
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Fleet of Foot")%> <%= masteriesHash["Fleet of Foot"]%><% utilcount+= masteriesHash["Fleet of Foot"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Meditation"></div>
                         <img src="<%= urlImgMasteries("Meditation") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Meditation")%> <%= masteriesHash["Meditation"]%><% utilcount+= masteriesHash["Meditation"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td class="pos-rel" name="Scout"></div><img src="<%= urlImgMasteries("Scout") %> "class="imgMas">
-                      <span class="masNumb">0/1</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Scout")%> <%= masteriesHash["Scout"]%><% utilcount+= masteriesHash["Scout"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr>
                     <tr id="2" class="rowMas">
                       <td></td>
                       <td class="pos-rel" name="Summoner's Insight"><div class="overlay"></div><img src="<%= urlImgMasteries("Summoner's Insight") %> "class="imgMas">
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Summoner's Insight")%> <%= masteriesHash["Summoner's Insight"]%><% utilcount+= masteriesHash["Summoner's Insight"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="after" class="pos-rel" name="Strength of Spirit"><div class="overlay"></div><img src="<%= urlImgMasteries("Strength of Spirit") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Strength of Spirit")%> <%= masteriesHash["Strength of Spirit"]%><% utilcount+= masteriesHash["Strength of Spirit"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Alchemist"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Alchemist") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Alchemist")%> <%= masteriesHash["Alchemist"]%><% utilcount+= masteriesHash["Alchemist"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr>
                     <tr id="3" class="rowMas">
                       <td id="pre" class="pos-rel" name="Greed"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Greed") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/3</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Greed")%> <%= masteriesHash["Greed"]%><% utilcount+= masteriesHash["Greed"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td class="pos-rel" name="Runic Affinity"><div class="overlay"></div><img src="<%= urlImgMasteries("Runic Affinity") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Runic Affinity")%> <%= masteriesHash["Runic Affinity"]%><% utilcount+= masteriesHash["Runic Affinity"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel" name="Vampirism"><div class="overlay"></div><img src="<%= urlImgMasteries("Vampirism") %> "class="imgMas">
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Vampirism")%> <%= masteriesHash["Vampirism"]%><% utilcount+= masteriesHash["Vampirism"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td id="after" class="pos-rel" name="Culinary Master"><div class="overlay"></div><img src="<%= urlImgMasteries("Culinary Master") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Culinary Master")%> <%= masteriesHash["Culinary Master"]%><% utilcount+= masteriesHash["Culinary Master"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                     </tr>
                     <tr id="4" class="rowMas">
                       <td id="after" class="pos-rel" name="Scavenger"><div class="overlay"></div><img src="<%= urlImgMasteries("Scavenger") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Scavenger")%> <%= masteriesHash["Scavenger"]%><% utilcount+= masteriesHash["Scavenger"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td id="pre" class="pos-rel" name="Wealth"><div class="overlay"></div>
                         <img src="<%= urlImgMasteries("Wealth") %> "class="imgMas">
                         <span class="depend"></span>
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Wealth")%> <%= masteriesHash["Wealth"]%><% utilcount+= masteriesHash["Wealth"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel" name="Expanded Mind"><div class="overlay"></div><img src="<%= urlImgMasteries("Expanded Mind") %> "class="imgMas">
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Expanded Mind")%> <%= masteriesHash["Expanded Mind"]%><% utilcount+= masteriesHash["Expanded Mind"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td class="pos-rel" name="Inspiration"><div class="overlay"></div><img src="<%= urlImgMasteries("Inspiration") %> "class="imgMas">
-                      <span class="masNumb">0/2</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Inspiration")%> <%= masteriesHash["Inspiration"]%><% utilcount+= masteriesHash["Inspiration"].to_i%><% else %>0<% end %>/2</span>
                       </td>
                     </tr>
                     <tr id="5" class="rowMas">
                       <td></td>
                       <td id="after" class="pos-rel" name="Bandit"><div class="overlay"></div><img src="<%= urlImgMasteries("Bandit") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Bandit")%> <%= masteriesHash["Bandit"]%><% utilcount+= masteriesHash["Bandit"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td class="pos-rel" name="Intelligence"><div class="overlay"></div><img src="<%= urlImgMasteries("Intelligence") %> "class="imgMas">
-                      <span class="masNumb">0/3</span>
+                      <span class="masNumb"><% if masteriesHash.has_key?("Intelligence")%> <%= masteriesHash["Intelligence"]%><% utilcount+= masteriesHash["Intelligence"].to_i%><% else %>0<% end %>/3</span>
                       </td>
                       <td></td>
                     </tr>                    
                     <tr id="6" class="rowMas">
                       <td></td>
                       <td class="pos-rel" name="Wanderer"><div class="overlay"></div><img src="<%= urlImgMasteries("Wanderer") %> "class="imgMas">
-                        <span class="masNumb">0/1</span>
+                        <span class="masNumb"><% if masteriesHash.has_key?("Wanderer")%> <%= masteriesHash["Wanderer"]%><% utilcount+= masteriesHash["Wanderer"].to_i%><% else %>0<% end %>/1</span>
                       </td>
                       <td></td>
                       <td></td>
                     </tr>
-                    <div class="mastCounter">0 Utility</div>                
+                    <div class="mastCounter"><%= utilcount %> Utility</div>                
                   </table>
                 </div>
               </div>
@@ -390,39 +473,40 @@
                   <div class="panel-heading">Skill Description</div>
                   <div class="panel-body">
                     <div class="col-md-3">
+
                       <div class="skill" pos="q">
-                        <img id="q" src="">
+                        <img id="q" src="<%if !@matchup.champ_eins.blank?%><%= $apiurl +'spell/'+@spellImages[0] %><% end %>">
                       </div>
                     </div>
                     <div class="col-md-9">
-                      <%= f.text_area :early_laning, class: "spellText"%>
+                      <%= f.text_area :spell_q, class: "spellText"%>
                     </div>
 
                     <div class="col-md-3">
                       <div class="skill" pos="w">
-                        <img id="w" src="">
+                        <img id="w" src="<%if !@matchup.champ_eins.blank?%><%= $apiurl +'spell/'+@spellImages[1] %><% end %>">
                       </div>
                     </div>
                     <div class="col-md-9">
-                      <%= f.text_area :early_laning, class: "spellText"%>
+                      <%= f.text_area :spell_w, class: "spellText"%>
                     </div>
 
                     <div class="col-md-3">
                       <div class="skill" pos="e">
-                        <img id="e" src="">
+                        <img id="e" src="<%if !@matchup.champ_eins.blank?%><%= $apiurl +'spell/'+@spellImages[2] %><% end %>">
                       </div>
                     </div>
                     <div class="col-md-9">
-                      <%= f.text_area :early_laning, class: "spellText"%>
+                      <%= f.text_area :spell_e, class: "spellText"%>
                     </div>
                     
                     <div class="col-md-3">
                       <div class="skill" pos="r">
-                        <img id="r" src="">
+                        <img id="r" src="<%if !@matchup.champ_eins.blank?%><%= $apiurl +'spell/'+@spellImages[3] %><% end %>">
                       </div>
                     </div>
                     <div class="col-md-9">
-                      <%= f.text_area :early_laning, class: "spellText"%>
+                      <%= f.text_area :spell_r, class: "spellText"%>
                     </div>
                   </div>
                 </div>
@@ -554,8 +638,10 @@
                 <div class="panel-heading">Summoners</div>
                 <div class="panel-body">
                   <div class="summoners">
-                    <div class="sumAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>
-                    <div class="sumAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ></div>                
+                    <div class="sumAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" >
+                      <img src="" id="" style="">
+                    </div>
+                    <div class="sumAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_sum" ><img src="" id="" style=""></div>                   
                   </div>
                 </div>
               </div>             
@@ -566,12 +652,24 @@
                 <div class="panel-heading">Starting Items</div>
                 <div class="panel-body">
                   <div class="startbuild">
-                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
                   </div>
                 </div>
               </div> 
@@ -582,11 +680,13 @@
                 <div class="panel-heading">Early laning</div>
                 <div class="panel-body">
                   <div class="col-md-3">
-                    <div class="panel panel-default" lane="earlyitemdesc">
+                    <div class="panel panel-default" lane="earlyitems">
                       <div class="panel-heading">Core Items<span class="minusAdd glyphicon glyphicon-minus" style="color: red; float:right;"></span><span class="plusAdd glyphicon glyphicon-plus" style="color: green; float:right;"></span></div>
                       <div class="panel-body" style="padding: 5px;">
-                        <div class="coreEarly">
-                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        <div class="coreEarly" id="addEarlyItems">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                     </div>                      
@@ -599,74 +699,86 @@
                       </div>            
                     </div>
                   </div>
-                  <div class="col-md-12">
-                    <div class="panel panel-default" style="display:block" pos="1" id="earlyitemdesc">
-                    <div class="panel-body">
-                      <div class="col-md-3">
-                        <div class="coreEarly">
-                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                  <div class="col-md-12" id="earlyitems">
+                    <div class="panel panel-default" style="display:block" pos="1">
+                      <div class="panel-body">
+                        <div class="col-md-3">
+                          <div class="coreEarly">
+                            <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                              <img pos="" src="">
+                            </div>
+                          </div>
                         </div>
-                      </div>
                       <div class="col-md-9">                 
                         <%= f.text_area :early_item_1, class: "itemText"%>   
                       </div>
                     </div>                                    
                     </div>
                     <div class="panel panel-default" style="display:none" pos="2">
-                    <div class="panel-body">
-                      <div class="col-md-3">
-                        <div class="coreEarly">
-                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="panel-body">
+                        <div class="col-md-3">
+                          <div class="coreEarly">
+                            <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                              <img pos="" src="">
+                            </div>
+                          </div>
                         </div>
-                      </div>
                       <div class="col-md-9">
                         <%= f.text_area :early_item_2, class: "itemText"%> 
                       </div> 
                     </div>                                   
                     </div>
                     <div class="panel panel-default" style="display:none" pos="3">
-                    <div class="panel-body">
-                        <div class="col-md-3">
-                         <div class="coreEarly">
-                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="panel-body">
+                          <div class="col-md-3">
+                           <div class="coreEarly">
+                            <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                              <img pos="" src="">
+                            </div>
+                            </div>
                           </div>
-                        </div>
                       <div class="col-md-9">
                         <%= f.text_area :early_item_3, class: "itemText"%> 
                       </div> 
                     </div>                                  
                     </div>
                     <div class="panel panel-default" style="display:none" pos="4">
-                    <div class="panel-body">
-                        <div class="col-md-3">
-                         <div class="coreEarly">
-                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="panel-body">
+                          <div class="col-md-3">
+                           <div class="coreEarly">
+                            <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                              <img pos="" src="">
+                            </div>
+                            </div>
                           </div>
-                        </div>
                       <div class="col-md-9">
                         <%= f.text_area :early_item_4, class: "itemText"%> 
                       </div> 
                     </div>                                  
                     </div>
                     <div class="panel panel-default" style="display:none" pos="5">
-                    <div class="panel-body">
-                        <div class="col-md-3">
-                         <div class="coreEarly">
-                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="panel-body">
+                          <div class="col-md-3">
+                           <div class="coreEarly">
+                            <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                              <img pos="" src="">
+                            </div>
+                            </div>
                           </div>
-                        </div>
                       <div class="col-md-9">
                         <%= f.text_area :early_item_5, class: "itemText"%> 
                       </div> 
                     </div>                                  
                     </div>
                     <div class="panel panel-default" style="display:none" pos="6">
-                    <div class="panel-body">
-                        <div class="col-md-3">
-                         <div class="coreEarly">
-                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                      <div class="panel-body">
+                          <div class="col-md-3">
+                           <div class="coreEarly">
+                            <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                              <img pos="" src="">
+                            </div>
+                            </div>
                           </div>
-                        </div>
                       <div class="col-md-9">
                         <%= f.text_area :early_item_6, class: "itemText"%>
                       </div> 
@@ -684,11 +796,13 @@
                 <div class="panel-heading">Mid laning</div>
                 <div class="panel-body">
                   <div class="col-md-3">
-                    <div class="panel panel-default" lane="miditemdesc">
+                    <div class="panel panel-default" lane="miditems">
                       <div class="panel-heading">Core Items<span class="minusAdd glyphicon glyphicon-minus" style="color: red; float:right;"></span><span class="plusAdd glyphicon glyphicon-plus" style="color: green; float:right;"></span></div>
                       <div class="panel-body" style="padding: 5px;">
-                        <div class="coreMid">
-                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        <div class="coreMid" id="addMidItems">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                     </div>                      
@@ -701,12 +815,14 @@
                       </div>            
                     </div>
                   </div>
-                  <div class="col-md-12">
-                    <div class="panel panel-default" style="display:block" pos="1" id="miditemdesc">
+                  <div class="col-md-12" id="miditems">
+                    <div class="panel panel-default" style="display:block" pos="1" >
                     <div class="panel-body">
                       <div class="col-md-3">
                         <div class="coreMid">
-                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-9">
@@ -718,7 +834,9 @@
                     <div class="panel-body">
                       <div class="col-md-3">
                         <div class="coreMid">
-                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-9">
@@ -730,7 +848,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreMid">
-                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -742,7 +862,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreMid">
-                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -754,7 +876,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreMid">
-                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -766,7 +890,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreMid">
-                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -785,11 +911,13 @@
                 <div class="panel-heading">Late laning</div>
                 <div class="panel-body">
                   <div class="col-md-3">
-                    <div class="panel panel-default" lane="lateitemdesc">
+                    <div class="panel panel-default" lane="lateitems">
                       <div class="panel-heading">Core Items<span class="minusAdd glyphicon glyphicon-minus" style="color: red; float:right;"></span><span class="plusAdd glyphicon glyphicon-plus" style="color: green; float:right;"></span></div>
                       <div class="panel-body" style="padding: 5px;">
-                        <div class="coreLate">
-                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                        <div class="coreLate" id="addLateItems">
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                     </div>                      
@@ -802,12 +930,14 @@
                       </div>            
                     </div>
                   </div>
-                  <div class="col-md-12">
-                    <div class="panel panel-default" style="display:block" pos="1" id="lateitemdesc">
+                  <div class="col-md-12" id="lateitems">
+                    <div class="panel panel-default" style="display:block" pos="1" >
                     <div class="panel-body">
                       <div class="col-md-3">
                         <div class="coreLate">
-                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-9">                 
@@ -819,7 +949,9 @@
                     <div class="panel-body">
                       <div class="col-md-3">
                         <div class="coreLate">
-                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-9">
@@ -831,7 +963,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreLate">
-                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -843,7 +977,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreLate">
-                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -855,7 +991,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreLate">
-                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -867,7 +1005,9 @@
                     <div class="panel-body">
                         <div class="col-md-3">
                          <div class="coreLate">
-                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                          <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                            <img pos="" src="">
+                          </div>
                           </div>
                         </div>
                       <div class="col-md-9">
@@ -894,12 +1034,27 @@
                 <div class="panel-heading">Final Build</div>
                 <div class="panel-body">
                   <div class="finalbuild">
-                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
-                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" ></div>
+                    <div class="imgAdd" pos="1"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="2"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="3"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="4"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="5"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
+                    <div class="imgAdd" pos="6"style="border-style: solid; border-color:black;" data-toggle="modal" data-target="#modal_item" >
+                      <img pos="" src="">
+                    </div>
                     </div>
                 </div>
               </div> 
@@ -916,6 +1071,7 @@
           <%= f.hidden_field :start_items, id: "start_build"%>
           <%= f.hidden_field :early_core_items, id: "early_build"%>
           <%= f.hidden_field :mid_core_items, id: "mid_build"%>
+          <%= f.hidden_field :late_core_items, id: "late_build"%>
          
     <% end %>
 
