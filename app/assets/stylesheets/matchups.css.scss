@@ -184,6 +184,7 @@
 	margin-right: 5px;
 	margin-top: 5px;
 }
+
 .sumAdd{
 	width:65px;
 	height: 65px;
@@ -329,8 +330,6 @@
 	background-image: image-url("Auswahl_001.png");
 	background-repeat: no-repeat;
 	background-size: 100%;
-
-
 }
 .defmasteries{
 	width: 30%;
@@ -426,6 +425,14 @@
 
 	height:30px;
 	}
+#skillOrderShow td{
+	text-align: center;
+	color: orange;
+	font-size: 20px;
+	padding: 0px;
+	height:30px;
+}
+
 .lvlnumber{
 	width: 30px;
 	height:30px;

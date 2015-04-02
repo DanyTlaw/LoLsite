@@ -11,6 +11,14 @@ class MatchupsController < ApplicationController
   # GET /matchups/1
   # GET /matchups/1.json
   def show
+    @masteries = @matchup.mastHash
+    @spellImages = @matchup.getSpellImg
+    @skillOrder = @matchup.skillOrderArray
+    @startBuild = @matchup.startBuildArray
+    @earlyCore = @matchup.earlyCoreArray
+    @midCore = @matchup.midCoreArray
+    @lateCore = @matchup.lateCoreArray
+    @finalBuild = @matchup.finalBuildArray
   end
 
   # GET /matchups/new

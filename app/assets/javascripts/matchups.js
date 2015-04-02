@@ -44,11 +44,9 @@ ready = function(){
 	   			var rowTd = allTr.eq(i).children("td");
 	   			rowTd.each(function(){
 	   				//Wenn die das geschlaufte den inhalt vom klicken enthalten so increment countSp
-	   				if($(this).text()=="\u2022"){
 	   					countSP++;
 	   					console.log(countSP);
-	   				}
-	   			});
+	   				});
 	   		}
 	   		//Wenn 18 gedrückt wurden verwandle den Array in ein String und adde im dem richtigen hiddenfield
 	   		if(countSP>0){

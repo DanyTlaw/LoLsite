@@ -238,4 +238,7 @@ class Matchup < ActiveRecord::Base
 		lateArray = self[:late_core_items].split("|")
 		return lateArray
 	end
+
+	# Methode welche für Show gebruacht wird
+
 end
