@@ -13,7 +13,7 @@
     <% @matchups.each do |matchup| %>
       <tr>
         <td><%= link_to 'Show', matchup %></td>
-        <td><%= link_to 'Edit', edit_matchup_path(matchup) %></td>
+        <td><%= link_to 'Edit', edit_matchup_path(matchup), data: { no_turbolink: true } %></td>
         <td><%= link_to 'Destroy', matchup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

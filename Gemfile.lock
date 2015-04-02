@@ -90,6 +90,11 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
+    gon (5.2.3)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     hashie (2.0.5)
     hike (1.2.3)
     httparty (0.13.3)
@@ -152,6 +157,7 @@ GEM
       hashie (~> 2.0.0)
     rdoc (4.2.0)
     redis (3.2.1)
+    request_store (1.1.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     riot_games_api (0.0.7)
@@ -219,6 +225,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   commontator
   devise (~> 3.4.0)
+  gon
   jbuilder (~> 2.0)
   jquery-rails
   mini_magick

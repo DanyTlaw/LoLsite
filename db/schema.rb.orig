@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150319210226) do
+=======
 ActiveRecord::Schema.define(version: 20150330234615) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +109,11 @@ ActiveRecord::Schema.define(version: 20150330234615) do
     t.text     "final_build"
     t.text     "early_core_items"
     t.text     "mid_core_items"
+<<<<<<< HEAD
+    t.text     "situational_items"
+    t.text     "trinkets"
+    t.string   "skill_order"
+=======
     t.string   "skill_order"
     t.text     "late_core_items"
     t.text     "early_item_1"
@@ -129,6 +138,7 @@ ActiveRecord::Schema.define(version: 20150330234615) do
     t.text     "spell_w"
     t.text     "spell_e"
     t.text     "spell_r"
+>>>>>>> master
   end
 
   create_table "profiles", force: :cascade do |t|

@@ -1,4 +1,7 @@
 $clienteuw = Lol::Client.new "755af3ee-dd19-4246-9f07-a5e442f8f2a0", {region: "euw"}
+<<<<<<< HEAD
+puts "LOL API inizialized"
+=======
 
 ############################################################## static data ########################################
 $allchamps = $clienteuw.static.champion.get(champData: 'all')
@@ -84,3 +87,4 @@ end
 puts $imgRune[0]
 puts $runeTier[0]
 puts $runeType[0]
+>>>>>>> master

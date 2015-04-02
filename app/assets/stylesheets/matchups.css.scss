@@ -107,9 +107,76 @@
 
 
 }
+.imgSum{
+
+	width: 65px;
+	height: 65px;
+	float: left;
+	margin-right: 2px;
+	margin-bottom: 2px;
+
+
+}
+
+.imgChamp{
+
+	width:40px;
+	height: 40px;
+	float: left;
+	margin-right: 2px;
+	margin-bottom: 2px;
+
+
+}
 .imgAdd{
-	width:61px;
-	height: 61px;
+	width:50px;
+	height: 50px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	float:left;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+.imgAdd img{
+	width:48px;
+	height: 48px;
+
+}
+.itemAdd{
+	width:50px;
+	height: 50px;
+	border-color: grey;
+	border-width: 1px;
+	border-style: solid;
+	float:left;
+	margin-right: 5px;
+	margin-top: 5px;
+	vertical-align: center;
+
+}
+
+.skill{
+	width:65px;
+	height: 65px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	left: 20%;
+
+}
+
+.skill img[src=""]{
+	display: none;
+}
+
+.champAdd img[src=""]{
+	display:none;
+}
+
+.champAdd{
+	width: 100px;
+	height: 100px;
 	border-color: black;
 	border-width: 1px;
 	border-style: solid;
@@ -118,7 +185,286 @@
 	margin-top: 5px;
 }
 
+.sumAdd{
+	width:65px;
+	height: 65px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	float:left;
+	margin-right: 5px;
+	margin-top: 5px;	
+}
+
+.imgAdd img[src=""]{
+	display: none;
+}
+
+.sumAdd img[src=""]{
+	display: none;
+}
+
+.vs{
+	text-align: center;
+	padding-top: 15%;
+	font-size: 30px;
+	color: orange;
+}
+
 .imgItem:hover {
   opacity: 0.5;
 }
 
+.imgChamp:hover {
+  opacity: 0.5;
+}
+
+.imgSum:hover {
+  opacity: 0.5;
+}
+
+.runes-buttons{
+	width: 100%;
+	height: 60px;
+
+}
+
+.runes{
+	height: 200px;
+	overflow: auto;
+	width:100%;
+	padding-top: 5px;
+}
+.selected-runes{
+	width: 98%;
+	height: 30px;
+	margin: 1%;
+	border-radius: 4px;
+	border: 1px solid #958B8B;
+	background-color: #F5F5F5;
+
+}
+
+.selected{
+
+}
+
+.runeAdd{
+	overflow: auto;
+	width: 100%;
+	height: 230px;
+	padding: 5px;
+}
+
+.rune-img{
+	width: 40px;
+	height:50px;
+	float: left;
+	margin-right: 5px; 
+
+}
+.rune-name{
+	font-weight: bold;
+	font-size: 11px;
+}
+.rune-info{
+	width: 90%;
+}
+.rune-stats{
+	font-size: 10px;
+}
+
+.rune-number{
+	 width: 30px;
+	 height: 30px;
+	 border-radius: 4px;
+	 border: 1px solid #958B8B;
+	 text-align: center;
+	 top: 50%;
+	 left:50%;
+	 margin-bottom: 30px;
+	 float: right;
+	 padding-top: 4px;
+	 font-weight: bold;
+	 font-size: 12px;
+	 background-color: #F5F5F5;
+
+}
+
+.well{
+	margin-bottom: 10px !important;
+	padding-top: 5px !important;
+	padding-left: 5px !important;
+}
+
+.well.blue:hover{
+
+	  background: #0b6ad6;
+	}
+.well.red:hover{
+
+	  background: #f37a4b;
+	}
+.well.yellow:hover{
+
+	  background: #ffd164;
+	}
+.well.black:hover{
+
+	  background: #cc9359;
+	}
+	
+
+.left:hover{
+		opacity: 0.5;
+	}
+.right:hover{
+		opacity: 0.5;
+	}
+
+.offmasteries{
+	width: 30%;
+	margin-right: 2%;
+	height: 400px;
+	float: left;
+	background-image: image-url("Auswahl_001.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.defmasteries{
+	width: 30%;
+	margin-right: 2%;
+	height: 400px;
+	float: left;
+	background-image: image-url("Auswahl_003.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.utilmasteries{
+	width: 30%;
+	margin-right: 2%;
+	height: 400px;
+	float: left;
+	background-image: image-url("Auswahl_004.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.masteryimg{
+	width:100%;
+	height: 100%;
+}
+.imgMas{
+	height:40px;
+	width:40px;
+	background-color: black;
+	position: relative;
+	cursor: pointer;
+}
+.overlay{
+	opacity: .8;
+    background-color: black;
+   	height:40px;
+	width:40px;
+	z-index: 2;
+	position: absolute;
+}
+.pos-rel{
+	position: relative;
+}
+.masTable{
+	margin-right: 12%;
+	margin-top: 5px;
+	margin-left: 12%;
+	border-collapse: separate;
+ 	border-spacing: 13px;
+ 	border-collapse: expression('separate', cellSpacing = '10px');
+}
+.depend{
+	background: none repeat scroll 0% 0% #FFE400;
+	width: 5px;
+	height: 40px;
+	left: 15px;
+	top: 41px;
+	z-index: 0;
+	cursor: default;
+	position: absolute;
+}
+.masNumb{
+	background: none repeat scroll 0% 0% rgba(11,11,11,0.65);
+	bottom: -5px;
+	color: #FFF;
+	left: 15px;
+	padding: 5px;
+	z-index: 5;
+	line-height: 5px;
+	height: 15px;
+	position: absolute;
+}
+
+.mastCounter{
+	display: block;
+	text-align: center;
+	background: none repeat scroll 0% 0% rgba(0,0,0,0.65);
+	border-radius: 4px;
+	padding: 5px;
+	margin-top: 350px;
+	margin-left: 5%;
+	margin-right: 5%;
+	color: #FFF;
+	width: 90%;
+	position: absolute;
+	font-weight: bold;
+}
+
+#skillOrder td{
+	cursor: pointer;
+	text-align: center;
+	color: orange;
+	font-size: 20px;
+	padding: 0px;
+
+	height:30px;
+	}
+#skillOrderShow td{
+	text-align: center;
+	color: orange;
+	font-size: 20px;
+	padding: 0px;
+	height:30px;
+}
+
+.lvlnumber{
+	width: 30px;
+	height:30px;
+}
+.noCss{
+	color: black !important;
+	font-size: 14px !important;
+	text-align: left !important;
+	padding: 5px !important;
+}
+
+.matchupText{
+	width:100%;
+	height: 120px;
+	overflow: auto;
+}
+
+.spellText{
+	width:100%;
+	height: 100px;
+	overflow: auto;
+}
+.itemText{
+	width:100%;
+	height: 100px;
+	overflow: auto;
+}
+
+.matchupButton{
+	margin-bottom: 10px;
+	margin-right: 10px;
+	float: right;
+}
+
+textarea { resize: none; }
