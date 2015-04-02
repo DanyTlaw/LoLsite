@@ -60,4 +60,25 @@ module ApplicationHelper
 
 		return topWeak
 	end
+	
+	def urlImgChamps(champname)
+	$allchamps.each do |champ|
+		if champ[:name] == champname
+			champ.image.each do |string, img|
+				if string == "full"
+					@imgChamp = img					
+				end
+			end
+		end
+	end
+	url = $apiurl + "champion/" + @imgChamp.to_s
+	return url
+ 	end
+ 	
+	def findProfileName(id)
+		user = User.find(id)
+		name = user[:email]
+		return name
+	end
+
 end

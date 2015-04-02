@@ -44,7 +44,6 @@ sumimages.each do |sum|
 	sum.each do |string, img|
 		if string == "full"
 			$imgSum.push(img)
-			puts img
 		end
 	end
 end
@@ -80,7 +79,3 @@ runeinfos.each do |rune|
 		end
 	end
 end
-
-puts $imgRune[0]
-puts $runeTier[0]
-puts $runeType[0]
