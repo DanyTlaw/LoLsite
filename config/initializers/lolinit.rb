@@ -83,15 +83,3 @@
 	$summoners = Array.new
 	$summoner_images = Array.new
 	$summoner_url = Array.new
-
-	$summoner_list.data.each do |name, summoner|
-		$summoners.push(summoner)	
-	end
-
-	$summoners.each do |sum|
-		$summoner_images.push(sum.image.full)
-	end
-
-	$summoner_images.each do |img|
-		$summoner_url.push(url + '/' + dd_version + '/img/' + 'spell' + '/' + img )
-	end		 

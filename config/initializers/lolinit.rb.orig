@@ -63,7 +63,10 @@
 	#Es wird durch den Hash alles champ iteriert und das bild jedes einzelne Champs wird im Array images 
 	#hinzugefügt
 	$champs.data.each do |name, champ|
+<<<<<<< HEAD
+=======
 		$champAll.push(champ);
+>>>>>>> master
 		champ_images.push(champ.image.full)
 		
 	end
@@ -77,7 +80,6 @@
 	end
 
 	$apiurl = (url + '/' + dd_version + '/img/')
-<<<<<<< HEAD
 
 	$summoner_list = $client.static_data.summoner_spell_all
 	$summoners = Array.new
@@ -91,8 +93,6 @@
 	$summoners.each do |sum|
 		$summoner_images.push(sum.image.full)
 	end
-=======
->>>>>>> master
 
 	$summoner_images.each do |img|
 		$summoner_url.push(url + '/' + dd_version + '/img/' + 'spell' + '/' + img )
