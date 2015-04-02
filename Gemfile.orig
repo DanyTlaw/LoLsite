@@ -32,10 +32,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'acts_as_votable'
 gem 'commontator'
 
+<<<<<<< HEAD
 # Upload files
 gem 'carrierwave'
 gem 'mini_magick'
+
+=======
 gem 'gon'
+>>>>>>> master
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

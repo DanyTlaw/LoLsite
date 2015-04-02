@@ -10,13 +10,29 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @profile = Profile.find_by user_id: current_user.id
-    puts @profile.user_id
+    @profile = Profile.find(params[:id])
+    begin
+      @summonerdata = @profile.summoner_profile
+      @leaguedata = @profile.summoner_league(@summonerdata)
+    rescue Lol::NotFound => e
+        if e.message == '404 Not Found'
+          puts "Summoner does not have ranked data"
+        else
+          raise e
+        end
+    rescue Lol::InvalidAPIResponse => e
+        puts "Unknown API Error or API timeout"
+    rescue SocketError => e 
+        puts "Connection error / API timeout"
+    rescue NoMethodError => e 
+        puts "No summoner entered"
+    end 
   end
 
   # GET /profiles/new
   def new
     @profile = Profile.new
+    @profile.avatar.build
   end
 
   # GET /profiles/1/edit
@@ -71,6 +87,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:user_id, :about, :summoner)
+      params.require(:profile).permit(:user_id, :about, :summoner, :avatar)
     end
 end

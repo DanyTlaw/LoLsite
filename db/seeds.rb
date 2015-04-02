@@ -136,3 +136,8 @@ Champion.create(name: 'Zyra', lane:'support/mid', quickinfo:'Ap mage that summon
 user = User.new(email: 'op@f.ck', password: '12345678', password_confirmation: '12345678')
 user.skip_confirmation!
 user.save!
+
+
+#Profiles
+Profile.create(user_id: 1, about: "Insert some Text about you", summoner: 'Aigaios')
+

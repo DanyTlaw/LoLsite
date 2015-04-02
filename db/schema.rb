@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150330234615) do
     t.string   "summoner"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "avatar"
   end
 
   create_table "users", force: :cascade do |t|
