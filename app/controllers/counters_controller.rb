@@ -26,7 +26,7 @@ class CountersController < ApplicationController
   # POST /counters
   # POST /counters.json
   def create
-  
+
     @counter = @champion.counters.new(counter_params)
     @counter.champ_name = @champion.name
     @counter.current_user = current_user.id

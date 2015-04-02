@@ -37,7 +37,6 @@
 	$items = Array.new
 
 	$item_list.data.each do |name, item|
-		puts "#{name} => #{item}"
 		$items.push(item)			
 	end
 
@@ -64,7 +63,10 @@
 	#Es wird durch den Hash alles champ iteriert und das bild jedes einzelne Champs wird im Array images 
 	#hinzugefügt
 	$champs.data.each do |name, champ|
+<<<<<<< HEAD
+=======
 		$champAll.push(champ);
+>>>>>>> master
 		champ_images.push(champ.image.full)
 		
 	end
@@ -83,3 +85,15 @@
 	$summoners = Array.new
 	$summoner_images = Array.new
 	$summoner_url = Array.new
+
+	$summoner_list.data.each do |name, summoner|
+		$summoners.push(summoner)	
+	end
+
+	$summoners.each do |sum|
+		$summoner_images.push(sum.image.full)
+	end
+
+	$summoner_images.each do |img|
+		$summoner_url.push(url + '/' + dd_version + '/img/' + 'spell' + '/' + img )
+	end		 
