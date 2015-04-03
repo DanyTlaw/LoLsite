@@ -6,7 +6,7 @@
 		<% lanearray.each do |lane| %>
 			<% lanes = lanes + " " + lane %>
 		<% end %>
-		<%= image_tag(champion.portrait, :id => champion.id,:size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'left ' + lanes)%>
+		<%= image_tag(champion.portraitChamps, :id => champion.id,:size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'left ' + lanes)%>
 	<% end %>
 </div>
 <div class="col-md-4">
@@ -22,7 +22,7 @@
 	<div class="versusField" id="vsFieldLeft">
 		<% @champions.each do |champion|%>
 			<div id="left" class="<%= champion.id %>", style="display:none;">
-				<%= image_tag(champion.splashart, :size => '145x245', :id => champion.id)%>
+				<%= image_tag(champion.loadingChamps, :size => '145x245', :id => champion.id)%>
 			</div>
 		<% end %>
 	</div>
@@ -30,7 +30,7 @@
 	<div class="versusField" id="vsFiedRight" >
 		<% @champions.each do |champion|%>
 			<div id="right" class="<%= champion.id %>"style="display:none;">
-					<%= image_tag(champion.splashart, :size => '145x245',:id => champion.id)%>
+					<%= image_tag(champion.loadingChamps, :size => '145x245',:id => champion.id)%>
 			</div>
 		<% end %>	
 	</div>
@@ -53,7 +53,10 @@
 	</div>
 	<!-- -->
 	<div class="vsBtnField">
-		<button class="btn-warning btn-lg" style="display:block;" >GO MATCHUP</button>
+		<%= link_to 'Go Matchup', "", class: "btn-warning btn-lg", style: "text-align: center;color:white;display:block;margin-left: 20%;margin-right:20%;margin-bottom: 10px;", id:"buttonGo" %>
+		<%= link_to 'Create Matchup', "", class: "btn-warning btn", style: "text-align: center;color:white;display:block;margin-left: 30%;margin-right:30%;", id: "buttonCreate" %>
+
+		
 	</div>
 </div>
 <!--Hier werden alle Champions rechts dargestellt wo man dann auswählen kann -->
@@ -64,6 +67,6 @@
 			<% lanearray.each do |lane| %>
 				<% lanes = lanes + " " + lane %>
 			<% end %>
-		<%= image_tag(champion.portrait, :id => champion.id, :size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'right '+ lanes)%>
+		<%= image_tag(champion.portraitChamps, :id => champion.id, :size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'right '+ lanes)%>
 	<% end %>
 </div>

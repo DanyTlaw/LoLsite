@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   root 'champions#index'
 
   get '/selectmatchup' => 'matchups#selectmatchup'
+  get '/specindex/:champ_eins/vs/:champ_zwei' => 'matchups#specindex', as: 'specindex'
 
 
   devise_for :users, controllers: { registrations: "users/registrations" }

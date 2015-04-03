@@ -374,6 +374,7 @@ ready = function(){
 				    	//Berchnet an der wievilten stelle man im array ist
 				    	var pos = 0;
 				    	var gesamt = 0;
+				    	console.log(array);
 						for(var i = 0; i<array.length;i++){
 							if(array[i]>0){
 								pos = i + 1;
@@ -383,6 +384,7 @@ ready = function(){
 							//erster durchlauf gesetze zwischen erster und zweiter linie
 							gesamt += array[i];			
 						}
+						console.log(gesamt);
 						//Wenn das gesamte kleiner ist wie die anzahl reihen mal 4 dann overlaye alle an der richtigen position
 						if(gesamt < pos*4){
 							trAll.eq(pos).children("td").each(function(){
@@ -1333,7 +1335,8 @@ ready = function(){
 	var side;
 	var clickedLeft = false;
 	var clickedRight = false;
-
+	var champ_eins;
+	var champ_zwei;
 	//Funktion Hover welche zwei Funktionen enthält (mouseenter, mouseleave)
 	$('#row > img').hover(
 		//Mousenter function
@@ -1381,8 +1384,13 @@ ready = function(){
 	//Funktion welche beim klicken ausgelöst wird
 	}).click(function(){
 			//Wenn das gehoverte left ist
+
 			if(side == "left"){
 				//Und man schon mal auf der linken seite geklickt hat
+				//Speichert den linken ausgewählten champion in eine variable
+				champ_eins = $(".vsTextField").children("#you").find("#"+id).text();
+				console.log(champ_eins);
+
 				if(clickedLeft){
 					//Klickt man nochmal wird diese Variable wieder auf false gesetzt (noch nicht geklickt)
 					clickedLeft = false;
@@ -1413,6 +1421,10 @@ ready = function(){
 				}
 			//Wenn das gehoverte rechts ist
 			}else if (side == "right"){
+				//Und man schon mal auf der linken seite geklickt hat
+				//Speichert den ausgewählten champion in eine variable ab
+				champ_zwei = $(".vsTextField").children("#opponent").find("#"+id).text();
+				console.log(champ_zwei);
 				//Und man schon mal auf der rechten seite geklickt hat
 				if(clickedRight){
 					//Klickt man nochmal wird diese Variable wieder auf false gesetzt (noch nicht geklickt)
@@ -1491,6 +1503,14 @@ ready = function(){
 			$('.right').not(".jungle").hide();
 		});
 
+	$("#buttonCreate").click(function(){
+		alert(Routes.new_matchup_path());
+		window.location.href= Routes.new_matchup_path();
+	});
+	$("#buttonGo").click(function(){
+		alert(Routes.new_matchup_path());
+		window.location.href= Routes.specindex_path(champ_eins,champ_zwei);
+	});
 };
 $(document).ready(ready);
 $(document).on('page:load', ready);

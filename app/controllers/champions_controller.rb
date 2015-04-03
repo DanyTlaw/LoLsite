@@ -16,6 +16,7 @@ class ChampionsController < ApplicationController
   def show 
     @champion = Champion.find(params[:id])
     @counter = @champion.counters.build
+    @splashArt = @champion.splashChamps
 
     name = @champion.name.downcase.to_sym
 

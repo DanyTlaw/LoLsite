@@ -8,6 +8,10 @@ class MatchupsController < ApplicationController
     @matchups = Matchup.all
   end
 
+  def specindex
+    @matchups = Matchup.where(champ_eins: params[:champ_eins],champ_zwei: params[:champ_zwei]).all
+  end
+  
   # GET /matchups/1
   # GET /matchups/1.json
   def show

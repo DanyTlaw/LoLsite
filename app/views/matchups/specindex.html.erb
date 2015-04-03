@@ -1,0 +1,29 @@
+<h1>SPECINDEX</h1>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matchups.each do |matchup| %>
+      <tr>
+        <td>
+          <%= link_to matchup do %>
+                <div class="btn btn-default">
+                <%= image_tag(urlImgChamps(matchup.champ_eins))%>
+                <%= matchup.champ_eins %>
+
+                <%= matchup.champ_zwei %>
+                <%= image_tag(urlImgChamps(matchup.champ_zwei))%>
+                <%= findProfileName(matchup.user_id) %>
+                </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

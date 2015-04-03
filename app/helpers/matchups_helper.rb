@@ -16,19 +16,7 @@ module MatchupsHelper
 		return url
 	end
 
-	def urlImgChamps(champname)
-		$allchamps.each do |champ|
-			if champ[:name] == champname
-				champ.image.each do |string, img|
-					if string == "full"
-						@imgChamp = img					
-					end
-				end
-			end
-		end
-		url = $apiurl + "champion/" + @imgChamp.to_s
-		return url
-	end
+
 
 	def runeStringSplit(runeString)
 		# Splitet den String in die einzelnen typen mit anzahl -> 3xName
