@@ -19,7 +19,8 @@ gem "js-routes"
 
 gem 'ruby-lol'
 gem 'riot_games_api'
-
+# Macht text mit ... am ende
+gem 'jquery-dotdotdot-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

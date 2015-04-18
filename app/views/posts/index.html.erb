@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+
+    <% Post.all.each do |post| %>
+      <div class="panel panel-success">
+        <div class ="panel-heading"><%= post.title %></div>
+        <div class ="panel-body">
+          <div class="col-md-6">
+            <div class="post_text">
+              <%= post.text %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <%= image_tag post.image, style:"width:300px;height:200px;"%>
+            <%= link_to 'Show more...', post , class: "btn btn-success", style: "color:white;margin-left: 60%; margin-top: 20px;"%>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+
+
+<br>
+

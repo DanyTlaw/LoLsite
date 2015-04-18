@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :posts
+
   resources :profiles 
 
   resources :matchups
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => '/commontator'
 
-  root 'champions#index'
+  root 'statics#home'
 
   get '/selectmatchup' => 'matchups#selectmatchup'
   get '/specindex/:champ_eins/vs/:champ_zwei' => 'matchups#specindex', as: 'specindex'

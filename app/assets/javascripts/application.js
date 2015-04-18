@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.dotdotdot
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require js-routes
+//= require_self
 //= require_tree .
-
-
