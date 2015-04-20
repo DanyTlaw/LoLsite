@@ -17,20 +17,40 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-#wrapper{
-	
+html, body, #wrapper {height: 100%;}
+
+body > #wrapper{
+
 	margin-top: 100px;
-	margin-right: 10%;
-	margin-left: 10%;
 	height: auto;
 	   position:relative;
 	 min-height:100%;
 }
 
+#main{
+	padding-bottom: 200px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.clearfix:after {
+    content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {display: inline-block;}
+
+/* Bereich nicht für IE-mac Anfang \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* Bereich nicht für IE-mac Ende */
+
 .navstyle {
 
 	background-color: #101b27;
-	
+
 }
 
 .navbar-default .navbar-nav li a {
@@ -38,9 +58,9 @@
 			font-size: 15px;
 			font-weight: 400;
 			font-family: bariol, sans-serif;
-		
 
-			
+
+
 }
 
 .navbar-default .navbar-nav li a:hover {
@@ -55,7 +75,7 @@
 }
 
 .navbar {
-	
+
 
 	.navbar-nav{
 		display: inline;
@@ -76,19 +96,19 @@
 .dropdown {
 
 	background-color: #101b27;
-	
+
 }
 
 .dropdown-menu {
 
 	background-color: #101b27;
-	
+
 }
 
 .dropdown-menu li a:hover {
 
 	background-color: #101b27;
-	
+
 }
 
 .dropdown-toggle:active, .open .dropdown-toggle {
@@ -100,10 +120,12 @@
 .footer{
 
     width: 100%;
-    height: 200px;
+		position: relative;
+		margin-top: -200px; /* Negativer Wert der Footer-Höhe */
+		height: 200px;
     border-top-style: solid;
     border-width: 1px;
-    background-color: #101b27;	
+    background-color: #101b27;
     position: relative;
     bottom: 0px;
     left: 0px;
@@ -116,7 +138,7 @@
   				padding-top: 20px;
   				float:left;
     		  li{
-    		  		
+
     		  		padding-top: 10px;
 
     		  		a{
@@ -140,5 +162,5 @@
 
 #loginModal .modal-dialog
 {
-    width: 300px; 
+    width: 300px;
 }
