@@ -16,13 +16,12 @@
 		<button class="btn-success btn-sm" id="top">Top</button>
 		<button class="btn-success btn-sm" id="adc">Adc</button>
 		<button class="btn-success btn-sm" id="sup">Support</button>
-		<button class="btn-success btn-sm" id="jungle">Jungle</button>
 	</div>
 	<!--Hier ist das Linke Feld der Versus anzeige, welche alle Bilder der Champions als "display:none" beinhaltet -->
 	<div class="versusField" id="vsFieldLeft">
 		<% @champions.each do |champion|%>
 			<div id="left" class="<%= champion.id %>", style="display:none;">
-				<%= image_tag(champion.loadingChamps, :size => '145x245', :id => champion.id)%>
+				<%= image_tag(champion.loadingChamps, :id => champion.id, :width => '100%', :height => '100%')%>
 			</div>
 		<% end %>
 	</div>
@@ -30,9 +29,9 @@
 	<div class="versusField" id="vsFiedRight" >
 		<% @champions.each do |champion|%>
 			<div id="right" class="<%= champion.id %>"style="display:none;">
-					<%= image_tag(champion.loadingChamps, :size => '145x245',:id => champion.id)%>
+					<%= image_tag(champion.loadingChamps, :id => champion.id, :width => '100%', :height => '100%')%>
 			</div>
-		<% end %>	
+		<% end %>
 	</div>
 	<!--Das linke Textfeld welches entweder YOU oder den ausgewählten champion beinhaltet -->
 	<div class="vsTextField">
@@ -56,7 +55,7 @@
 		<%= link_to 'Go Matchup', "", class: "btn-warning btn-lg", style: "text-align: center;color:white;display:block;margin-left: 20%;margin-right:20%;margin-bottom: 10px;", id:"buttonGo" %>
 		<%= link_to 'Create Matchup', "", class: "btn-warning btn", style: "text-align: center;color:white;display:block;margin-left: 30%;margin-right:30%;", id: "buttonCreate" %>
 
-		
+
 	</div>
 </div>
 <!--Hier werden alle Champions rechts dargestellt wo man dann auswählen kann -->

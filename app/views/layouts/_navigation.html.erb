@@ -4,6 +4,8 @@
       <ul class="nav navbar-nav navbar-left" style="margin-left:10%">
         <li><%= image_tag('Portrait/logo.png') %></li>
         <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Blog", posts_path %>
+        <li><%= link_to "Champions", champions_path %></li>
         <li><%= link_to "Matchups", selectmatchup_path %></li>
         <li>
   		  </li>
@@ -28,10 +30,10 @@
               <% end %>
             </li>
             <li class="divider"></li>
-            <li><%= link_to 'Select Matchup', '/selectmatchup' %></li>              
+            <li><%= link_to 'Select Matchup', '/selectmatchup' %></li>
           <% else %>
             <div><button type="button" href="#loginModal" data-toggle="modal" data-target="#loginModal" class="btn btn-warning">Login</button></div>
-          <% end %>     
+          <% end %>
         </ul>
       </li>
     </ul>
@@ -74,17 +76,17 @@
 
                     <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
                       <%= f.password_field :password, autocomplete: "off" %></div>
-                      
+
                     <div><%= f.label :password_confirmation %><br />
                       <%= f.password_field :password_confirmation, autocomplete: "off" %><br /></div>
                     <div><%= f.submit "Sign up", class: 'btn btn-default'  %></div>
                 <% end %>
               </div>
             </div>
-          </div>         
+          </div>
         </div>
         <div class="modal-footer">
-          <a href="#" data-dismiss="modal" class="btn btn-default">Close</a> 
+          <a href="#" data-dismiss="modal" class="btn btn-default">Close</a>
         </div>
       </div>
     </div>
