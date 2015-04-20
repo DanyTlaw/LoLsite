@@ -19,7 +19,7 @@ class PostUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   process :resize_to_limit => [200, 300]
-  
+
   # def scale(width, height)
   #   # do something
   # end
