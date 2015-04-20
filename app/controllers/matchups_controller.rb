@@ -1,7 +1,7 @@
 class MatchupsController < ApplicationController
   before_action :set_matchup, only: [:show, :edit, :update, :destroy]
   before_action :set_gon, except: [:edit]
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:new, :edit, :create ,:update, :destroy]
   # GET /matchups
   # GET /matchups.json
   def index
@@ -11,7 +11,7 @@ class MatchupsController < ApplicationController
   def specindex
     @matchups = Matchup.where(champ_eins: params[:champ_eins],champ_zwei: params[:champ_zwei]).all
   end
-  
+
   # GET /matchups/1
   # GET /matchups/1.json
   def show
@@ -36,7 +36,7 @@ class MatchupsController < ApplicationController
     @champions = Champion.all
 
   end
-  
+
   # GET /matchups/1/edit
   def edit
     @matchup = Matchup.find(params[:id])
@@ -114,16 +114,16 @@ class MatchupsController < ApplicationController
   end
 
   private
-  # Methode welche dem js file die gon vairable gibt 
+  # Methode welche dem js file die gon vairable gibt
     def set_gon
       gon.champs = $allchamps
       gon.url = $apiurl
       gon.skillorder = ""
       gon.summoners = ""
       gon.startArray = ""
-      gon.finalArray = "" 
-      gon.earlyCore = ""  
-      gon.midCore = "" 
+      gon.finalArray = ""
+      gon.earlyCore = ""
+      gon.midCore = ""
       gon.lateCore = ""
     end
     # Use callbacks to share common setup or constraints between actions.

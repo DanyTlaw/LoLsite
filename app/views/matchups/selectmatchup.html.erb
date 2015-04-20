@@ -1,4 +1,5 @@
 <!--Hier werden alle Champions links dargestellt wo man dann auswählen kann -->
+<div class="col-md-12">
 <div class="col-md-4" id="row">
 	<% @champions.each do |champion|%>
 		<% lanearray = champion.lane.split('/') %>
@@ -68,4 +69,5 @@
 			<% end %>
 		<%= image_tag(champion.portraitChamps, :id => champion.id, :size => '40x40', :style => 'margin-bottom:3px; visibility:display;', :class => 'right '+ lanes)%>
 	<% end %>
+</div>
 </div>
