@@ -1,6 +1,6 @@
 $clienteuw = Lol::Client.new "755af3ee-dd19-4246-9f07-a5e442f8f2a0", {region: "euw"}
 
-############################################################## static data ########################################
+############################################################## static data ######################################
 $allchamps = $clienteuw.static.champion.get(champData: 'all')
 
 $masteries = $clienteuw.static.mastery.get(masteryListData: 'all')
@@ -10,9 +10,14 @@ $items = $clienteuw.static.item.get(itemListData: 'all')
 $summoners = $clienteuw.static.summoner_spell.get(spellData: 'all')
 
 $runes = $clienteuw.static.rune.get(runeListData: 'all')
+############################################################## champion #########################################
+
+puts $allchamps[0]
 
 
-############################################################## item id img #########################################
+
+
+############################################################## item id img ######################################
 itemimages = Array.new
 $imgItem = Array.new
 $itemDesc = Array.new
@@ -30,7 +35,7 @@ itemimages.each do |item|
 		end
 	end
 end
-############################################################## Summoner img id und desc #########################################
+############################################################## Summoner img id und desc ##########################
 sumimages = Array.new
 $imgSum = Array.new
 $sumDesc = Array.new
@@ -47,7 +52,7 @@ sumimages.each do |sum|
 		end
 	end
 end
-############################################################## Runes all info img id und desc #########################################
+############################################################## Runes all info img id und desc ######################
 runeimages = Array.new
 runeinfos = Array.new
 $imgRune = Array.new
@@ -67,7 +72,7 @@ runeimages.each do |rune|
 			$imgRune.push(img)
 		end
 	end
-end	
+end
 
 runeinfos.each do |rune|
 	rune.each do |string, info|

@@ -7,14 +7,14 @@
     $champs = $client.static_data.champion_all
 
     $runes_list = $client.static_data.rune_all
-   
+
    	$mastery_list = $client.static_data.mastery_all
 
    	#Mastery hash -> mastery
    	$mastery = Array.new
 
     $mastery_list.data.each do |name, mastery|
-		$mastery.push(mastery)			
+		$mastery.push(mastery)
 	end
 
 	$mastery_desc = Array.new
@@ -25,7 +25,6 @@
 
 	$mastery_name = Array.new
 	$mastery.each do |mast|
-		puts mast.name
 		$mastery_name.push(mast.name)
 	end
 
@@ -37,14 +36,13 @@
 	$items = Array.new
 
 	$item_list.data.each do |name, item|
-		puts "#{name} => #{item}"
-		$items.push(item)			
+		$items.push(item)
 	end
 
 	$items.each do |item|
-		itemImages.push(item.image.full)	
+		itemImages.push(item.image.full)
 	end
-		
+
     realm = $client.static_data.realm
     url = realm.cdn
 
@@ -61,12 +59,12 @@
 	#Ein Array welche die image speichert
 	champ_images = Array.new
 	$champAll = Array.new
-	#Es wird durch den Hash alles champ iteriert und das bild jedes einzelne Champs wird im Array images 
+	#Es wird durch den Hash alles champ iteriert und das bild jedes einzelne Champs wird im Array images
 	#hinzugefügt
 	$champs.data.each do |name, champ|
 		$champAll.push(champ);
 		champ_images.push(champ.image.full)
-		
+
 	end
 
 	#Ein Array welche alle url pfade für die images angegeben werden
