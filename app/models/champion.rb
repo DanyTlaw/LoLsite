@@ -74,6 +74,23 @@ has_many :counters
 		end
 
 	end
+
+	# Methode welche einen Hash erstellt mit infos über den Champion
+	def getChampInfo
+		champInfo = Hash.new
+
+		# Schlauft durch den ganzen champ array durch bis der eigene champ gefudnen wurde
+		$allchamps.each do |champ|
+			if champ[:name] == self[:name]
+
+				champInfo["info"] = champ.info
+				champInfo["tags"] = champ.tags
+				champInfo["stats"] = champ.stats
+			end
+		end
+		return champInfo
+	end
+
 	# Methode erstellt neuen Hashes mit den wichtigen informationen
 	def getSpellHash
 		# Neue Hashes

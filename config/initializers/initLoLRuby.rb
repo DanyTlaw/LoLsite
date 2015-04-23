@@ -12,7 +12,7 @@ $summoners = $clienteuw.static.summoner_spell.get(spellData: 'all')
 $runes = $clienteuw.static.rune.get(runeListData: 'all')
 ############################################################## champion #########################################
 
-
+puts $allchamps[0]
 
 
 

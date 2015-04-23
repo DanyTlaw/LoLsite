@@ -17,6 +17,9 @@ class ChampionsController < ApplicationController
     @champion = Champion.find(params[:id])
     @counter = @champion.counters.build
     @splashArt = @champion.splashChamps
+
+    @spellHash = @champion.getSpellHash
+    @infoHash = @champion.getChampInfo
   end
 
   # GET /champions/new
